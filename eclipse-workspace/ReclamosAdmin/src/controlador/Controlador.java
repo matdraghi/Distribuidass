@@ -47,15 +47,21 @@ public class Controlador {
 
 			System.out.println (Nombre);
 			
+			String k = "";
+			
+			for (int y=0; y < Nombre.length(); y++) { //Hay que quitarle el espacio al APELLIDO, NOMBRE que copio de la BD
+				if (Nombre.charAt(y) != ' ')
+				    k += Nombre.charAt(y);
+				}
 			
 			String s = "";
 			for (int x=0; x < persona.getNombre().length(); x++) { //que recorrer el arreglo para verificar que ambas cadenas tuvieran el mismo largo
 				if (persona.getNombre().charAt(x) != ' ')
 				    s += persona.getNombre().charAt(x);
 				}
-			int H = s.length() + 1;
+			int H = s.length();
 			System.out.println(H); // Debido a que recibimos un varchar de la BD poseia mas espacio, tuvimos
-			int I = Nombre.length();
+			int I = k.length();
 			System.out.println(I);
 			if (H == I) {
 				System.out.println("Los Datos ingresados son Validos");
@@ -69,9 +75,14 @@ public class Controlador {
 	}
 	
 	// Agregado por grupo
-	public void altaReclamo(ReclamoView recibido) throws ReclamoException{			
-		int IdReclamo = (int) (Math.random() * 1000345) + 2; // aca la idea es generar un random cada vez
+	public int altaReclamo(ReclamoView recibido) throws ReclamoException{			
+		int IdReclamo = (int) (Math.random() * 10) + 2; // aca la idea es generar un random cada vez
 		// que se desee realizar un nuevo reclamo!
+		
+		System.out.println("Numero de Reclamo Generado " + IdReclamo);
+		
+		System.out.println(recibido.getDocumento() + recibido.getCodigo());
+		
 		
 		Reclamo r = new Reclamo (IdReclamo, 
 				recibido.getDocumento(),
@@ -80,8 +91,17 @@ public class Controlador {
 				recibido.getUbicacion(),
 				recibido.getIdentificador());
 		r.save();
+		
+		return IdReclamo;
 	}
 	
+	
+	public List<Reclamo> ConsultarReclamo(String documento) throws PersonaException, ReclamoException {
+		Persona p = PersonaDAO.getInstancia().findByID(documento);
+		//ReclamoView aux = ((Reclamo) ReclamosDAO.getInstancia().getReclamoByDoc(p.getDocumento())).toView();
+		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
+		return aux;		
+	}
 	
 	
 	/** OK */

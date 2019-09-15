@@ -6,7 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import entities.PersonaEntity;
+import entities.InquilinoEntity;
 import entities.ReclamoEntity;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
@@ -32,19 +32,19 @@ private ReclamosDAO() { }
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		List<ReclamoEntity> reclamo = s.createQuery("from ReclamoEntity").list();
-		for(ReclamoEntity p : reclamo)
+		List<ReclamoEntity> reclamos =  s.createQuery("from ReclamoEntity").list();
+		for(ReclamoEntity p : reclamos)
 			resultado.add(toNegocio(p));
 		s.getTransaction().commit();
 		return resultado;
 	}
 
-	public Reclamo findByID(String documento) throws ReclamoException {
+	/*public Reclamo findByID(String documento) throws ReclamoException, PersonaException {
 		Reclamo resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		ReclamoEntity reclamo = (ReclamoEntity) s.createQuery("from ReclamoEntity r where r.documento = ?").setString(0, documento).uniqueResult();
+		ReclamoEntity reclamo = (ReclamoEntity) s.createQuery("from ReclamoEntity w where w.documento = ?").setString(0, documento).uniqueResult();
 		s.getTransaction().commit();
 		if(reclamo != null) {
 			resultado = toNegocio(reclamo);
@@ -53,6 +53,25 @@ private ReclamosDAO() { }
 		else
 			throw new ReclamoException("No existe un reclamo con el documento ingresado y detallado a continuacion:" +documento);
 			
+	}*/
+	
+	public List<Reclamo> getReclamoByDoc(String Documento) throws ReclamoException {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<ReclamoEntity> r = (List<ReclamoEntity>) s.createQuery("from ReclamoEntity ie where ie.documento = ?")
+					.setString(0, Documento)
+					.list();
+		s.getTransaction().commit();
+		if(r != null) {
+			for(ReclamoEntity ie : r)
+				resultado.add(toNegocio(ie));
+			return resultado;		
+		}
+		else
+			throw new ReclamoException("No se pudo recuperar los Reclamos");
+		
 	}
 	
 	Reclamo toNegocio(ReclamoEntity r) {
