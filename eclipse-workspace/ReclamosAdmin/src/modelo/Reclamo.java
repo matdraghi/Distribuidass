@@ -4,6 +4,15 @@ import daos.ReclamosDAO;
 import views.ReclamoView;
 
 public class Reclamo {
+	
+	public Reclamo (Persona cliente) {
+		this.IdReclamo = IdReclamo;
+		this.Documento = getDocumento();
+		this.codigo = codigo;
+		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.identificador = identificador;
+	}
 
 	public Reclamo(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
 			int identificador) {

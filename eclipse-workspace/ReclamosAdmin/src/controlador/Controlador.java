@@ -95,12 +95,39 @@ public class Controlador {
 		return IdReclamo;
 	}
 	
+	public int crearReclamo(ReclamoView r) throws PersonaException{
+		Persona cliente = PersonaDAO.getInstancia().findByID(r.getDocumento());
+		Reclamo nuevoReclamo = new Reclamo(cliente);
+		nuevoReclamo.save();
+		return nuevoReclamo.getIdReclamo();
+	}
 	
-	public List<Reclamo> ConsultarReclamo(String documento) throws PersonaException, ReclamoException {
+	/** ANDA */
+	public  String ConsultarReclamo(String documento) throws PersonaException, ReclamoException {
 		Persona p = PersonaDAO.getInstancia().findByID(documento);
-		//ReclamoView aux = ((Reclamo) ReclamosDAO.getInstancia().getReclamoByDoc(p.getDocumento())).toView();
+
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		//Reclamo aux =  ReclamosDAO.getInstancia().findByID(documento);
 		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
-		return aux;		
+		//while (aux != null) {
+		/*System.out.println("IdReclamo : " + aux.getIdReclamo() + " " + "Documento: " + aux.getDocumento() + " " + "Ubicacion: " + aux.getUbicacion() 
+		+ " " + "Codigo: " +
+		aux.getCodigo() + " " + "Descripcion: " + aux.getDescripcion() + " " + "Identificador: " + aux.getIdentificador());
+		//}*/
+		for (Reclamo p1: aux) {
+			resultado.add(p1);
+		}
+		
+		for (Reclamo p2: resultado) {
+			System.out.println("IdReclamo: " + p2.getIdReclamo());
+			System.out.println("Documento: " + p2.getDocumento());
+			System.out.println("Codigo: " + p2.getCodigo());
+			System.out.println("Ubicacion: " + p2.getUbicacion());
+			System.out.println("Descripcion: " + p2.getDescripcion());
+			System.out.println("Identificador: " + p2.getIdentificador());
+			System.out.println("-------------------------------------------------");
+		}
+		return documento;
 	}
 	
 	

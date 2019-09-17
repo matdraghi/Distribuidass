@@ -7,6 +7,7 @@ import entities.DuenioEntity;
 import entities.EdificioEntity;
 import entities.InquilinoEntity;
 import entities.PersonaEntity;
+import entities.ReclamosEntity;
 import entities.UnidadEntity;
 
 public class HibernateUtil
@@ -22,6 +23,7 @@ public class HibernateUtil
         	 config.addAnnotatedClass(EdificioEntity.class);
         	 config.addAnnotatedClass(DuenioEntity.class);
         	 config.addAnnotatedClass(InquilinoEntity.class);
+        	 config.addAnnotatedClass(ReclamosEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)

@@ -31,23 +31,51 @@ public class ReclamosController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReclamosController.class);
 
 	@ResponseBody
-	@RequestMapping(value = "/AltaReclamo", method = RequestMethod.POST)
-	public ResponseEntity<String> CrearReclamo(@RequestBody ReclamosViewDTO R) throws PersonaException {
-		LOGGER.info("Creando nuevo Reclamo: {}", R.toString());
+	@RequestMapping(value = "/AltaReclamo", method = RequestMethod.GET)
+	public ResponseEntity<String> CrearReclamo(@RequestBody ReclamosViewDTO R, 
+			@RequestParam(value = "IdReclamo", required = true) int IdReclamo,
+			@RequestParam(value = "Documento", required = true) String documento,
+			@RequestParam(value = "Codigo", required = true) int codigo,
+			@RequestParam(value = "Ubicacion", required = true) String ubicacion,
+			@RequestParam(value = "Descripcion", required = true) String descripcion, 
+			@RequestParam(value = "Identificador", required = true) String identificador)
+			throws PersonaException, ReclamoException {
+		LOGGER.info("Creando nuevo Reclamo: {}", R.toView());
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
-		int numeroNuevoReclamo = 0;
+		int NuevoReclamo = 0;
 		try {
-			numeroNuevoReclamo = Controlador.getInstancia().altaReclamo(R.toView());
+			NuevoReclamo = Controlador.getInstancia().altaReclamo(R.toView());
 		} catch (ReclamoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response = new ResponseEntity<String>(mapper.toJson(numeroNuevoReclamo), HttpStatus.CREATED);
+		response = new ResponseEntity<String>(mapper.toJson(NuevoReclamo), HttpStatus.CREATED);
+		return response;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/AltaReclamo2", method = RequestMethod.GET)
+	public ResponseEntity<String> CrearReclamoo(@RequestBody ReclamosViewDTO R, 
+			//@RequestParam(value = "IdReclamo", required = false, identity_insert = on) int IdReclamo,
+			@RequestParam(value = "Documento", required = true) String documento,
+			@RequestParam(value = "Codigo", required = true) int codigo,
+			@RequestParam(value = "Ubicacion", required = true) String ubicacion,
+			@RequestParam(value = "Descripcion", required = true) String descripcion, 
+			@RequestParam(value = "Identificador", required = true) String identificador)
+			throws PersonaException, ReclamoException {
+		LOGGER.info("Creando nuevo Reclamo: {}", R.toView());
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		int NuevoReclamo = 0;
+		NuevoReclamo = Controlador.getInstancia().crearReclamo(R.toView());
+		response = new ResponseEntity<String>(mapper.toJson(NuevoReclamo), HttpStatus.CREATED);
 		return response;
 	}
 	
 	
+	
+	// Anda
 	@ResponseBody
 	@RequestMapping(value = "/ConsultarReclamo", method = RequestMethod.GET)
 	public ResponseEntity<String> crearPedidoCuit(@RequestParam(value = "Documento", required = true) String documento) throws ReclamoException {
@@ -55,7 +83,7 @@ public class ReclamosController {
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
 		try {
-			List<Reclamo> Consulta = Controlador.getInstancia().ConsultarReclamo(documento);
+			String Consulta = Controlador.getInstancia().ConsultarReclamo(documento);
 			response = new ResponseEntity<String>(mapper.toJson(Consulta), HttpStatus.CREATED);
 		} catch (PersonaException ex) {
 			LOGGER.error(ex.getMessage(), ex.getCause());
