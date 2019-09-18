@@ -73,7 +73,12 @@ private ReclamosDAO() { }
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
 		s.beginTransaction();
-		s.saveOrUpdate(pe);
+		if (r.getIdReclamo() == 0) {
+			int Id = (int) s.save(pe);
+			r.setIdReclamo(Id);
+		}else {
+				s.saveOrUpdate(pe);
+		}
 		s.getTransaction().commit();
 		r.setIdentificador(pe.getIdentificador());
 	}

@@ -3,9 +3,8 @@ package views;
 
 public class ReclamoView {
 	
-	public ReclamoView(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
+	public ReclamoView(String documento, int codigo, String ubicacion, String descripcion,
 			int identificador) {
-		IdReclamo = idReclamo;
 		Documento = documento;
 		this.codigo = codigo;
 		this.ubicacion = ubicacion;

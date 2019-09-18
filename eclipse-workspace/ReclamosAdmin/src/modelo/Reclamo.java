@@ -5,9 +5,10 @@ import views.ReclamoView;
 
 public class Reclamo {
 	
-	public Reclamo (Persona cliente) {
-		this.IdReclamo = IdReclamo;
-		this.Documento = getDocumento();
+	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
+			int identificador) {
+		super();
+		this.Documento = documento;
 		this.codigo = codigo;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
@@ -77,7 +78,7 @@ public class Reclamo {
 	}
 	
 	public ReclamoView toView(){
-		return new ReclamoView(IdReclamo, Documento, codigo, descripcion, ubicacion, identificador);
+		return new ReclamoView(Documento, codigo, descripcion, ubicacion, identificador);
 	}
 }
 

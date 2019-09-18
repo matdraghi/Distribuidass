@@ -3,11 +3,15 @@ package test;
 import java.util.List;
 
 import controlador.Controlador;
+import daos.InquilinoDAO;
 import exceptions.EdificioException;
 import exceptions.PersonaException;
+import exceptions.ReclamoException;
 import exceptions.UnidadException;
+import modelo.Reclamo;
 import views.EdificioView;
 import views.PersonaView;
+import views.ReclamoView;
 import views.UnidadView;
 
 public class Test {
@@ -37,8 +41,15 @@ public class Test {
 
 		List<PersonaView> iu = Controlador.getInstancia().inquilinosPorUnidad(1, "1", "1");
 		System.out.println("\nInquilinos por unidad " + iu.size());
-
 		
+		/** ESTA PROBADO QUE VA A LA BD */
+		ReclamoView r = new ReclamoView ("DNI30609972",2,"San Martin 421", "FALLAS", 28);
+		try {
+			Controlador.getInstancia().altaReclamo(r);
+		} catch (ReclamoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

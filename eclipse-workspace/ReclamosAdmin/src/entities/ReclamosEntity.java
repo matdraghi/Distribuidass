@@ -74,6 +74,30 @@ public class ReclamosEntity  {
 	public int getIdentificador() {
 		return identificador;
 	}
+
+	public void setIdReclamo(int idReclamo) {
+		IdReclamo = idReclamo;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 	
 	
 	

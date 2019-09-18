@@ -6,16 +6,19 @@ import java.util.Set;
 
 import daos.DuenioDAO;
 import daos.EdificioDAO;
+import daos.InquilinoDAO;
 import daos.PersonaDAO;
 import daos.ReclamosDAO;
 import daos.UnidadDAO;
 import exceptions.DocumentException;
 import exceptions.EdificioException;
+import exceptions.InquilinoException;
 import exceptions.NombreException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import modelo.Edificio;
+import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
 import modelo.Unidad;
@@ -37,12 +40,29 @@ public class Controlador {
 	}
 	
 	// agregado por grupo Ya Anda
-	public boolean ValidarRegistroPersona(String Documento, String Nombre) throws DocumentException, NombreException, PersonaException {
+	public boolean ValidarRegistroPersona(String Documento, String Nombre) throws DocumentException, NombreException, PersonaException, InquilinoException {
 		Persona persona = PersonaDAO.getInstancia().findByID(Documento);
-		//boolean B = persona.getNombre().equals(Nombre);
+		//Inquilinos i;
+		//InquilinoDAO.getInstancia().findByID(Documento);
+		/*List<Inquilinos> i;
+		List<Inquilinos> resultado = new ArrayList<Inquilinos>();
+		i = InquilinoDAO.getInstancia().getAll(Documento);
+		
+
+		for (Inquilinos p1: i) {
+			resultado.add(p1);
+		}
+		
+		for (Inquilinos p2: resultado) {
+			System.out.println("IdReclamo: " + p2.getId());
+			System.out.println("Documento: " + p2.getIdentificador());
+			System.out.println("Codigo: " + p2.getDocumento());
+			System.out.println("-------------------------------------------------");
+		}*/
+		
 		String c = persona.getNombre();
 		if(persona.getDocumento().equals(Documento)){
-			//System.out.println(B);
+		
 			System.out.println (persona.getNombre());
 
 			System.out.println (Nombre);
@@ -75,45 +95,21 @@ public class Controlador {
 	}
 	
 	// Agregado por grupo
-	public int altaReclamo(ReclamoView recibido) throws ReclamoException{			
-		int IdReclamo = (int) (Math.random() * 10) + 2; // aca la idea es generar un random cada vez
-		// que se desee realizar un nuevo reclamo!
-		
-		System.out.println("Numero de Reclamo Generado " + IdReclamo);
-		
-		System.out.println(recibido.getDocumento() + recibido.getCodigo());
-		
-		
-		Reclamo r = new Reclamo (IdReclamo, 
-				recibido.getDocumento(),
-				recibido.getCodigo(),
-				recibido.getDescripcion(),
-				recibido.getUbicacion(),
-				recibido.getIdentificador());
-		r.save();
-		
-		return IdReclamo;
+	public String altaReclamo(ReclamoView view) throws ReclamoException {
+		// TODO Auto-generated method stub
+		Reclamo R = new Reclamo (view.getDocumento(), view.getCodigo(), view.getUbicacion(), view.getDescripcion(), view.getIdentificador());
+		R.save();
+		return null;
 	}
 	
-	public int crearReclamo(ReclamoView r) throws PersonaException{
-		Persona cliente = PersonaDAO.getInstancia().findByID(r.getDocumento());
-		Reclamo nuevoReclamo = new Reclamo(cliente);
-		nuevoReclamo.save();
-		return nuevoReclamo.getIdReclamo();
-	}
 	
-	/** ANDA */
+	/** ANDA Agregado por Grupo */
 	public  String ConsultarReclamo(String documento) throws PersonaException, ReclamoException {
 		Persona p = PersonaDAO.getInstancia().findByID(documento);
 
 		List<Reclamo> resultado = new ArrayList<Reclamo>();
-		//Reclamo aux =  ReclamosDAO.getInstancia().findByID(documento);
 		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
-		//while (aux != null) {
-		/*System.out.println("IdReclamo : " + aux.getIdReclamo() + " " + "Documento: " + aux.getDocumento() + " " + "Ubicacion: " + aux.getUbicacion() 
-		+ " " + "Codigo: " +
-		aux.getCodigo() + " " + "Descripcion: " + aux.getDescripcion() + " " + "Identificador: " + aux.getIdentificador());
-		//}*/
+		
 		for (Reclamo p1: aux) {
 			resultado.add(p1);
 		}
@@ -227,4 +223,6 @@ public class Controlador {
 		int numero = (int) ((Math.random() * 10000) + 1) ;
 		return numero;
 	}
+
+	
 }

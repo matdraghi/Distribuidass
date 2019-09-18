@@ -18,9 +18,12 @@ public class ReclamosViewDTO {
 
 	
 	public ReclamoView toView() {
-		return new ReclamoView(IdReclamo, Documento, codigo, ubicacion, descripcion, identificador);
+		return new ReclamoView(Documento, codigo, ubicacion, descripcion, identificador);
 	}
 
+	public String toString(){
+		return IdReclamo + " " + Documento + " " + codigo + " " + " " + descripcion + " " + identificador;
+	}
 
 	public int getIdReclamo() {
 		return IdReclamo;

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import exceptions.DocumentException;
 import exceptions.EdificioException;
+import exceptions.InquilinoException;
 import exceptions.NombreException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
@@ -66,7 +67,13 @@ public class HomeController {
 	public ResponseEntity<String> ValidarRegistro(@RequestParam(value = "Documento", required = true) String Documento,
 			@RequestParam(value = "Nombre", required = true) String Nombre)
 			throws DocumentException, NombreException, PersonaException {
-		boolean result = Controlador.getInstancia().ValidarRegistroPersona(Documento, Nombre);
+		boolean result = false;
+		try {
+			result = Controlador.getInstancia().ValidarRegistroPersona(Documento, Nombre);
+		} catch (InquilinoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JsonMapper mapper = new JsonMapper();
 		return new ResponseEntity<String>(mapper.toJson(result), HttpStatus.OK);
 	}
