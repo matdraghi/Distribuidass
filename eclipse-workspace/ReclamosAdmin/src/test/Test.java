@@ -9,14 +9,15 @@ import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import modelo.Reclamo;
+import views.DetalleView;
 import views.EdificioView;
 import views.PersonaView;
 import views.ReclamoView;
 import views.UnidadView;
-
+import views.Estado;
 public class Test {
 
-	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException {
+	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException {
 		
 		List<EdificioView> edificios = Controlador.getInstancia().getEdificios();
 		System.out.println("Edificios " + edificios.size());
@@ -43,13 +44,16 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 		
 		/** ESTA PROBADO QUE VA A LA BD */
-		ReclamoView r = new ReclamoView ("DNI30609972",2,"San Martin 421", "FALLAS", 28);
+		ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
 		try {
 			Controlador.getInstancia().altaReclamo(r);
 		} catch (ReclamoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		DetalleView r1 = new DetalleView (32,228,822, "Floricientaaa");
+		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;
 	}
 
 }

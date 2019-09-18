@@ -1,18 +1,20 @@
 package modelo;
 
 import daos.ReclamosDAO;
+import views.Estado;
 import views.ReclamoView;
 
 public class Reclamo {
 	
 	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
-			int identificador) {
+			int identificador, Estado est) {
 		super();
 		this.Documento = documento;
 		this.codigo = codigo;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.identificador = identificador;
+		this.est = est;
 	}
 
 	public Reclamo(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
@@ -31,6 +33,7 @@ public class Reclamo {
 	private String ubicacion;
 	private String descripcion;
 	private int identificador;
+	private Estado est;
 	
 	public int getIdReclamo() {
 		return IdReclamo;
@@ -80,5 +83,14 @@ public class Reclamo {
 	public ReclamoView toView(){
 		return new ReclamoView(Documento, codigo, descripcion, ubicacion, identificador);
 	}
+
+	public Estado getEst() {
+		return est;
+	}
+
+	public void setEst(Estado est) {
+		this.est = est;
+	}
+	
 }
 

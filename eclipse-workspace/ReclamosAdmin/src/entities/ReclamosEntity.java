@@ -13,8 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
+
 @Entity
-@Table (name = "reclamos")
+@Table (name = "reclamoss")
 public class ReclamosEntity  {
 	
 
@@ -37,18 +38,20 @@ public class ReclamosEntity  {
 	private String ubicacion;
 	private String descripcion;
 	private int identificador;
-	
+	private String estado;
 	public ReclamosEntity() {
 		
 	}
 	
-	public ReclamosEntity(int idReclamo, String documento, int codigo, String ubicacion, String descripcion, int identificador) {
+	public ReclamosEntity(int idReclamo, String documento, int codigo, String ubicacion, String descripcion, int identificador,
+			String estado) {
 		this.IdReclamo = idReclamo;
 		this.documento = documento;
 		this.codigo = codigo;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.identificador = identificador;
+		this.estado= estado;
 	}
 	
 
@@ -74,6 +77,9 @@ public class ReclamosEntity  {
 	public int getIdentificador() {
 		return identificador;
 	}
+	
+	@Column (name ="estado")
+	
 
 	public void setIdReclamo(int idReclamo) {
 		IdReclamo = idReclamo;
@@ -97,6 +103,14 @@ public class ReclamosEntity  {
 
 	public void setIdentificador(int identificador) {
 		this.identificador = identificador;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	

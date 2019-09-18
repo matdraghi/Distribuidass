@@ -13,6 +13,7 @@ import exceptions.ReclamoException;
 import hibernate.HibernateUtil;
 import modelo.Persona;
 import modelo.Reclamo;
+import views.Estado;
 
 public class ReclamosDAO {
 	
@@ -65,7 +66,8 @@ private ReclamosDAO() { }
 	}
 	
 	ReclamosEntity toEntity(Reclamo r) {
-		return new ReclamosEntity(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador());
+		Estado s = Estado.nuevo;
+		return new ReclamosEntity(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), s.toString());
 	}
 	
 	public void save(Reclamo r){ 
@@ -81,5 +83,17 @@ private ReclamosDAO() { }
 		}
 		s.getTransaction().commit();
 		r.setIdentificador(pe.getIdentificador());
+	}
+	
+	
+	public List<Reclamo> findAllByEstado(Estado estado) {
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		List<ReclamosEntity> auxiliar = session.createQuery("from ReclamosEntity where estado = ?0")
+				.setParameter(0, estado.toString()).list();
+		for (ReclamosEntity ae : auxiliar)
+			resultado.add(toNegocio(ae));
+		return resultado;
 	}
 }

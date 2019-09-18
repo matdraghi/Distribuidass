@@ -1,6 +1,5 @@
 package views;
 
-
 public class ReclamoView {
 	
 	public ReclamoView(String documento, int codigo, String ubicacion, String descripcion,
@@ -18,6 +17,7 @@ public class ReclamoView {
 	private String ubicacion;
 	private String descripcion;
 	private int identificador;
+	//private Estado est;
 	
 	public ReclamoView() {}
 
@@ -68,4 +68,12 @@ public class ReclamoView {
 	public void setIdentificador(int identificador) {
 		this.identificador = identificador;
 	}
+	/*
+	public Estado getEst() {
+		return est;
+	}
+
+	public void setEst(Estado est) {
+		this.est = est;
+	}*/
 }

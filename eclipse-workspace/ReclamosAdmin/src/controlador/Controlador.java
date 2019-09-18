@@ -21,8 +21,10 @@ import modelo.Edificio;
 import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
+import modelo.DetalleReclamos;
 import modelo.Unidad;
 import views.EdificioView;
+import views.Estado;
 import views.PersonaView;
 import views.ReclamoView;
 import views.UnidadView;
@@ -105,7 +107,7 @@ public class Controlador {
 	// Agregado por grupo
 	public String altaReclamo(ReclamoView view) throws ReclamoException {
 		// TODO Auto-generated method stub
-		Reclamo R = new Reclamo (view.getDocumento(), view.getCodigo(), view.getUbicacion(), view.getDescripcion(), view.getIdentificador());
+		Reclamo R = new Reclamo (view.getDocumento(), view.getCodigo(), view.getUbicacion(), view.getDescripcion(), view.getIdentificador(), Estado.nuevo);
 		R.save();
 		return null;
 	}
@@ -123,16 +125,33 @@ public class Controlador {
 		}
 		
 		for (Reclamo p2: resultado) {
+			if (p2.getDocumento().equals(documento)) {
 			System.out.println("IdReclamo: " + p2.getIdReclamo());
 			System.out.println("Documento: " + p2.getDocumento());
 			System.out.println("Codigo: " + p2.getCodigo());
 			System.out.println("Ubicacion: " + p2.getUbicacion());
 			System.out.println("Descripcion: " + p2.getDescripcion());
 			System.out.println("Identificador: " + p2.getIdentificador());
+
+			//System.out.println("Estado: " + p2.getEst().getValue().toString());
+			
 			System.out.println("-------------------------------------------------");
+		}
 		}
 		return documento;
 	}
+	
+	
+	public String SolicitarDetalles ( int codigo, int piso, int identificador, String ubicacion) {
+		DetalleReclamos w = new DetalleReclamos (codigo, piso, identificador, ubicacion);
+		w.save();
+		return ubicacion;
+	}
+	
+	
+	
+	
+	
 	
 	
 	/** OK */

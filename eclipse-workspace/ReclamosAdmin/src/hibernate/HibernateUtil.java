@@ -3,6 +3,7 @@ package hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+import entities.DetalleEntity;
 import entities.DuenioEntity;
 import entities.EdificioEntity;
 import entities.InquilinoEntity;
@@ -24,6 +25,7 @@ public class HibernateUtil
         	 config.addAnnotatedClass(DuenioEntity.class);
         	 config.addAnnotatedClass(InquilinoEntity.class);
         	 config.addAnnotatedClass(ReclamosEntity.class);
+        	 config.addAnnotatedClass(DetalleEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)
