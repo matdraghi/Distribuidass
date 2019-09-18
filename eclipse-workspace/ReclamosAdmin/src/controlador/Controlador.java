@@ -10,19 +10,23 @@ import daos.InquilinoDAO;
 import daos.PersonaDAO;
 import daos.ReclamosDAO;
 import daos.UnidadDAO;
+import daos.UsuarioDAO;
 import exceptions.DocumentException;
 import exceptions.EdificioException;
 import exceptions.InquilinoException;
+import exceptions.LoginException;
 import exceptions.NombreException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
+import exceptions.UsuarioException;
 import modelo.Edificio;
 import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
 import modelo.DetalleReclamos;
 import modelo.Unidad;
+import modelo.Usuario;
 import views.EdificioView;
 import views.Estado;
 import views.PersonaView;
@@ -112,6 +116,36 @@ public class Controlador {
 		return null;
 	}
 	
+	
+	public boolean RegistrarUsuario (String documento, String contraseña) {
+		Usuario u = new Usuario (documento, contraseña);
+		u.save();
+		return false;
+	}
+	
+	/*public boolean Login (String documento, String contraseña) throws LoginException, UsuarioException, ReclamoException, PersonaException{
+		Usuario i = null;
+		i = UsuarioDAO.getInstancia().findByDoc(documento);
+		System.out.println(i.getDocumento());
+		if (contraseña.equals(i.getPassword())) {
+			return true;
+		}
+		else {
+			throw new LoginException("Los datos ingresado no son corrector, reingrese");
+		}
+		
+	}*/
+	
+	public boolean login(String documento, String password) throws LoginException, UsuarioException{
+		Usuario u =UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
+		if(u.getPassword().equals(password)){
+			System.out.println("ENTRE");
+			return true;
+		}
+		else{
+			throw new LoginException("Los datos ingresado no son corrector, reingrese");
+		}
+	}
 	
 	/** ANDA Agregado por Grupo */
 	public  String ConsultarReclamo(String documento) throws PersonaException, ReclamoException {

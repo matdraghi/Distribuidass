@@ -5,9 +5,11 @@ import java.util.List;
 import controlador.Controlador;
 import daos.InquilinoDAO;
 import exceptions.EdificioException;
+import exceptions.LoginException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
+import exceptions.UsuarioException;
 import modelo.Reclamo;
 import views.DetalleView;
 import views.EdificioView;
@@ -44,7 +46,7 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 		
 		/** ESTA PROBADO QUE VA A LA BD */
-		ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
+		/*ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
 		try {
 			Controlador.getInstancia().altaReclamo(r);
 		} catch (ReclamoException e) {
@@ -53,7 +55,14 @@ public class Test {
 		}
 		
 		DetalleView r1 = new DetalleView (32,228,822, "Floricientaaa");
-		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;
+		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;*/
+		
+		try {
+			Controlador.getInstancia().login("DNI3001228", "123456778");
+		} catch (LoginException | UsuarioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
