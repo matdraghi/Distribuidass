@@ -68,7 +68,7 @@ public class InquilinoDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.getCurrentSession();
 		s.beginTransaction();
-		List<InquilinoEntity> r =   s.createQuery("from InquilinoEntity i where i.persona = ?").list();
+		List<InquilinoEntity> r =   s.createQuery("from InquilinoEntity i where i.persona = ?").setString(0, documento).list();
 		for(InquilinoEntity p : r)
 			resultado.add(toNegocio(p));
 		s.getTransaction().commit();

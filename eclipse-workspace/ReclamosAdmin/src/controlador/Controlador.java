@@ -44,22 +44,30 @@ public class Controlador {
 		Persona persona = PersonaDAO.getInstancia().findByID(Documento);
 		//Inquilinos i;
 		//InquilinoDAO.getInstancia().findByID(Documento);
-		/*List<Inquilinos> i;
-		List<Inquilinos> resultado = new ArrayList<Inquilinos>();
-		i = InquilinoDAO.getInstancia().getAll(Documento);
 		
+		List<Inquilinos> i;
+		i = InquilinoDAO.getInstancia().getAll(Documento);
+		String Doc = null;
 
-		for (Inquilinos p1: i) {
-			resultado.add(p1);
+		
+		
+		for (Inquilinos p2: i) {
+			System.out.println("Id: " + p2.getId());
+			System.out.println("Identificador: " + p2.getIdentificador());
+			System.out.println("Documento: " + p2.getDocumento());
+			Doc = p2.getDocumento();
+			System.out.println("-------------------------------------------------");
 		}
 		
-		for (Inquilinos p2: resultado) {
-			System.out.println("IdReclamo: " + p2.getId());
-			System.out.println("Documento: " + p2.getIdentificador());
-			System.out.println("Codigo: " + p2.getDocumento());
-			System.out.println("-------------------------------------------------");
-		}*/
-		
+		System.out.println(Doc);
+		if(Documento.equals(Doc)) {
+			
+			System.out.println("El usario es un inquilino del edificio");
+		} 
+		else 
+		{
+		throw new InquilinoException("El usuario ingresado no es valido, vuelva a ingresar");
+		}
 		String c = persona.getNombre();
 		if(persona.getDocumento().equals(Documento)){
 		
