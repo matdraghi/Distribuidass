@@ -30,7 +30,7 @@ public class ReclamosController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReclamosController.class);
 
-	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZADA LA BD*/
+	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZA LA BD*/
 	@ResponseBody
 	@RequestMapping(value = "/alta", method = RequestMethod.POST)
 	public ResponseEntity<String> altaProducto(@RequestBody ReclamosViewDTO r) throws PersonaException, ReclamoException {
@@ -48,6 +48,25 @@ public class ReclamosController {
 		return response;
 		
 	}
+	
+	/** Probado y Anda*/
+	@ResponseBody
+	@RequestMapping(value = "/alta/SolicitarDetalles", method = RequestMethod.GET)
+	public ResponseEntity<String> SolicitarDetalles(@RequestParam(value = "codigo", required = true) int codigo,
+			@RequestParam (value="piso", required = true) int piso, 
+			@RequestParam (value="identificador", required = true) int identificador, 
+			@RequestParam (value="ubicacion", required = true) String ubicacion
+			) throws ReclamoException, PersonaException {
+		LOGGER.info("Agregando Detalles sobre reclamos: {}", codigo);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		String Consulta = Controlador.getInstancia().SolicitarDetalles(codigo, piso, identificador, ubicacion);;
+		response = new ResponseEntity<String>(mapper.toJson(Consulta), HttpStatus.CREATED);
+				
+		return response;
+	}
+	
+	
 	
 	/** Esta comprobado que anda*/
 	@ResponseBody
