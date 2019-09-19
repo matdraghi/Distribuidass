@@ -30,6 +30,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import exceptions.DocumentException;
+import exceptions.DuenioException;
 import exceptions.EdificioException;
 import exceptions.InquilinoException;
 import exceptions.LoginException;
@@ -96,9 +97,9 @@ public class HomeController {
 	@RequestMapping(value = "/Registro", method = RequestMethod.GET)
 	public ResponseEntity<String> Registro(@RequestParam(value = "Documento", required = true) String documento,
 			@RequestParam(value = "Password", required = true) String password)
-			throws DocumentException, NombreException, PersonaException, InquilinoException {
+			throws DuenioException, InquilinoException, PersonaException, ReclamoException {
 		boolean result = false;
-		result = Controlador.getInstancia().RegistrarUsuario(documento, password);;
+		result = Controlador.getInstancia().RegistrarUsuario(documento, password);
 		JsonMapper mapper = new JsonMapper();
 		return new ResponseEntity<String>(mapper.toJson(result), HttpStatus.OK);
 	}
