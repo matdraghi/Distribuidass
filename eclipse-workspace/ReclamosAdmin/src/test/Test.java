@@ -46,23 +46,22 @@ public class Test {
 		System.out.println("\nInquilinos por unidad " + iu.size());
 		
 		/** ESTA PROBADO QUE VA A LA BD */
-		/*ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
+		ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
 		try {
 			Controlador.getInstancia().altaReclamo(r);
 		} catch (ReclamoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		/*
 		DetalleView r1 = new DetalleView (32,228,822, "Floricientaaa");
-		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;*/
-		
+		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;
 		try {
 			Controlador.getInstancia().login("DNI3001228", "123456778");
 		} catch (LoginException | UsuarioException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
