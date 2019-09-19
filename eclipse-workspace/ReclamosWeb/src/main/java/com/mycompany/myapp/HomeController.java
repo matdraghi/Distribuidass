@@ -1,9 +1,16 @@
 package com.mycompany.myapp;
 
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.swing.Spring;
 
 import org.slf4j.Logger;
@@ -16,7 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import exceptions.DocumentException;
 import exceptions.EdificioException;
@@ -102,4 +113,21 @@ public class HomeController {
 		return new ResponseEntity<String>(mapper.toJson(result), HttpStatus.OK);
 	}
 	
+	
+	/*public String imageupload(@RequestPart("uploadFile") MultipartFile uploadFile) {
+
+		   String FILES_FOLDER = "C:/MyFilesDirectory/";
+		   String PHOTOS_FOLDER= "PHOTOS/";
+		   String photoName = uploadFile !=null ? uploadFile.getOriginalFileName(): null;
+		   String DIRECTORY  = FILES_FOLDER+PHOTOS_FOLDER+photoName;
+
+		   //Now we transfer the file to DIRECTORY
+		   File file = new File(DIRECTORY);
+		   //check if 'file' does not exist then create it 
+		   // finally :
+		   uploadFile.transferTo(file);
+		   //Then save 'DIRECTORY' in your db 
+		   menuDao.save(DIRECTORY); // I don't know what is inside your menuDao
+
+		}*/
 }
