@@ -1,11 +1,19 @@
-ValidarRegistroPersona?Documento=CPA3449614&Nombre=BRITEZ, BLAS   
+1- ValidarRegistroPersona?Documento=CPA3449614&Nombre=BRITEZ, BLAS   
 
-Reclamos/ConsultarReclamo?Documento=DNI30012288
+2 - Reclamos/ConsultarReclamo?Documento=DNI30012288
 
-Reclamos/alta?documento=DNI30108780&codigo=1&ubicacion=Sarmiento&descripcion=Fallas&identificador=19
+3- Reclamos/alta?documento=DNI30108780&codigo=1&ubicacion=Sarmiento&descripcion=Fallas&identificador=19
 
-Reclamos/alta/SolicitarDetalles?codigo=1&piso=43&identificador=9&ubicacion=ColonDiAmerica 584
+4- Reclamos/alta/SolicitarDetalles?codigo=1&piso=43&identificador=9&ubicacion=ColonDiAmerica 584
 
-Registro?Documento=DNI29988738&Password=1234
+5- Registro?Documento=DNI29988738&Password=1234
 
-Login?documento=DNI29988738&password=1234
+6- Login?documento=DNI29988738&password=1234
+
+Andan
+
+2
+3 (ANDA DESDE EL BACKEND EN JAVA
+4
+5
+6
