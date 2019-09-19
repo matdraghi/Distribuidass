@@ -1,23 +1,30 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table (name= "imagenes")
+@Table (name= "imageness")
 public class ImagenesEntity {
 	
-	public ImagenesEntity(int numero, String path, String tipo, int idReclamo) {
+	public ImagenesEntity(int numero, String path, String tipo) {
 		super();
 		this.numero = numero;
 		this.path = path;
 		this.tipo = tipo;
-		IdReclamo = idReclamo;
 	}
+	
+	@Id
+	@GeneratedValue
+	@Column (name= "numero")
 	private int numero;
+	@Column (name= "path")
 	private String path;
+	@Column (name= "tipo")
 	private String tipo;
-	private int IdReclamo;
 	public int getNumero() {
 		return numero;
 	}
@@ -35,12 +42,6 @@ public class ImagenesEntity {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
-	}
-	public int getIdReclamo() {
-		return IdReclamo;
-	}
-	public void setIdReclamo(int idReclamo) {
-		IdReclamo = idReclamo;
 	}
 	
 }

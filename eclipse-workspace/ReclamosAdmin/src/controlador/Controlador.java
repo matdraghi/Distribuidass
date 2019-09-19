@@ -6,6 +6,7 @@ import java.util.Set;
 
 import daos.DuenioDAO;
 import daos.EdificioDAO;
+import daos.ImagenDAO;
 import daos.InquilinoDAO;
 import daos.PersonaDAO;
 import daos.ReclamosDAO;
@@ -21,6 +22,7 @@ import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import exceptions.UsuarioException;
 import modelo.Edificio;
+import modelo.Imagen;
 import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
@@ -135,6 +137,14 @@ public class Controlador {
 		}
 		
 	}*/
+	
+	public void CargarImagen (String path, String tipo) throws ReclamoException {
+		
+		
+		Imagen e = new Imagen (path, tipo);
+		e.save();
+		
+	}
 	
 	public boolean login(String documento, String password) throws LoginException, UsuarioException{
 		Usuario u =UsuarioDAO.getInstancia().getUsuarioByDoc(documento);

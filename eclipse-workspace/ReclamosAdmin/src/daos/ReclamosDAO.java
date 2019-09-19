@@ -56,6 +56,21 @@ private ReclamosDAO() { }
 			
 	}
 	
+	public Reclamo findByIDReclamo(int IdReclamo) throws ReclamoException, PersonaException {
+		Reclamo resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		ReclamosEntity reclamo = (ReclamosEntity) s.createQuery("from ReclamosEntity r where r.IdReclamo = ?").setLong(0, IdReclamo).uniqueResult();
+		s.getTransaction().commit();
+		if(reclamo != null) {
+			resultado = toNegocio(reclamo);
+			return resultado;
+		}
+		else
+			throw new ReclamoException("No existe un reclamo con el documento ingresado y detallado a continuacion:" + IdReclamo);
+			
+	}
 	
 	
 	Reclamo toNegocio(ReclamosEntity r) {
