@@ -20,7 +20,7 @@ import views.Estado;
 public class Test {
 
 	public static void main(String[] args) throws EdificioException, UnidadException, PersonaException, ReclamoException {
-		
+		/*
 		List<EdificioView> edificios = Controlador.getInstancia().getEdificios();
 		System.out.println("Edificios " + edificios.size());
 		
@@ -44,15 +44,12 @@ public class Test {
 
 		List<PersonaView> iu = Controlador.getInstancia().inquilinosPorUnidad(1, "1", "1");
 		System.out.println("\nInquilinos por unidad " + iu.size());
-		
+		*/
 		/** ESTA PROBADO QUE VA A LA BD */
-		ReclamoView r = new ReclamoView ("DNI306043923",2,"San Martin 427", "FALLA5334S", 28);
-		try {
-			Controlador.getInstancia().altaReclamo(r);
-		} catch (ReclamoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		ReclamoView r = new ReclamoView ("CPA3992034",2,"San Martin 42547", "FALLA5334S", 28);
+		
+		Controlador.getInstancia().altaReclamo(r);
+	
 		/*
 		DetalleView r1 = new DetalleView (32,228,822, "Floricientaaa");
 		Controlador.getInstancia().SolicitarDetalles(r1.getCodigo(), r1.getPiso(), r1.getIdentificador(), r1.getUbicacion());;

@@ -13,6 +13,7 @@ import daos.ReclamosDAO;
 import daos.UnidadDAO;
 import daos.UsuarioDAO;
 import exceptions.DocumentException;
+import exceptions.DuenioException;
 import exceptions.EdificioException;
 import exceptions.InquilinoException;
 import exceptions.LoginException;
@@ -27,6 +28,7 @@ import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
 import modelo.DetalleReclamos;
+import modelo.Duenio;
 import modelo.Unidad;
 import modelo.Usuario;
 import views.EdificioView;
@@ -119,28 +121,55 @@ public class Controlador {
 	}
 	
 	
-	public boolean RegistrarUsuario (String documento, String contraseña) {
-		Usuario u = new Usuario (documento, contraseña);
-		u.save();
+	public boolean RegistrarUsuario (String documento, String contraseña) throws InquilinoException, PersonaException, DuenioException, ReclamoException {
+		Persona p;
+		p = PersonaDAO.getInstancia().findByID(documento);
+		
+		if(p != null) {
+			System.out.println("Existe dentro de la tabla personas");
+			List<Inquilinos> i;
+			i = InquilinoDAO.getInstancia().getAll(documento);
+			String Doc = null;
+			for (Inquilinos p2: i) {
+				System.out.println("Id: " + p2.getId());
+				System.out.println("Identificador: " + p2.getIdentificador());
+				System.out.println("Documento: " + p2.getDocumento());
+				Doc = p2.getDocumento();
+				System.out.println("-------------------------------------------------");
+			}
+			
+			System.out.println(Doc);
+			if(documento.equals(Doc)) {
+				
+				System.out.println("El usario es un inquilino del edificio");
+				Usuario u = new Usuario (documento, contraseña);
+				u.save();
+			} 
+			else 
+			{
+			System.out.println("El usuario ingresado no es Inquilino, vuelva a ingresar");
+			}
+			List<Duenio> d;
+			d = DuenioDAO.getInstancia().getAll(documento);
+			String Docc = null;
+			for (Inquilinos p2: i) {
+				System.out.println("Id: " + p2.getId());
+				System.out.println("Identificador: " + p2.getIdentificador());
+				System.out.println("Documento: " + p2.getDocumento());
+				Docc = p2.getDocumento();
+				System.out.println("-------------------------------------------------");
+			}
+			
+			if (Docc.equals(documento)) {
+					System.out.println("Es duenio del edificio");
+					Usuario u = new Usuario (documento, contraseña);
+					u.save();
+				}
+			}
 		return false;
 	}
 	
-	/*public boolean Login (String documento, String contraseña) throws LoginException, UsuarioException, ReclamoException, PersonaException{
-		Usuario i = null;
-		i = UsuarioDAO.getInstancia().findByDoc(documento);
-		System.out.println(i.getDocumento());
-		if (contraseña.equals(i.getPassword())) {
-			return true;
-		}
-		else {
-			throw new LoginException("Los datos ingresado no son corrector, reingrese");
-		}
-		
-	}*/
-	
 	public void CargarImagen (String path, String tipo) throws ReclamoException {
-		
-		
 		Imagen e = new Imagen (path, tipo);
 		e.save();
 		
