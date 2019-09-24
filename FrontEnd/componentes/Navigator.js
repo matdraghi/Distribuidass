@@ -8,6 +8,8 @@ import Login from './Login'
 import AltaReclamo from './AltaReclamo'
 import DetallesReclamos from './DetallesReclamos'
 import Usuario from './Usuario'
+import ConsultarReclamo from './ConsultarReclamo'
+import CamaraPage from './CamaraPage'
 
 const backgroundColor = '#d32f2f'
 const headerTextColor = '#ffffff'
@@ -78,12 +80,56 @@ UsuarioStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-contact" size={20} /> )
 }
 
+const CameraStack = createStackNavigator({
+    Usuario: {
+        screen: CamaraPage,
+        navigationOptions: {
+            headerTitle: 'Camara',
+            headerTitleStyle: {
+                textAlign: "center",
+                flex: 1
+            },
+            headerStyle: {
+                backgroundColor: backgroundColor,
+              },
+            headerTintColor: headerTextColor,
+        }
+    },
+})
 
+CameraStack.navigationOptions = {
+    tabBarLabel: "Camara",
+    tabBarIcon: ( <Icon name="md-camera" size={20} /> )
+}
+
+const ConsultarStack =  createStackNavigator({
+    Usuario: {
+        screen: ConsultarReclamo,
+        navigationOptions: {
+            headerTitle: 'Consultar Reclamos',
+            headerTitleStyle: {
+                textAlign: "center",
+                flex: 1
+            },
+            headerStyle: {
+                backgroundColor: backgroundColor,
+              },
+            headerTintColor: headerTextColor,
+        }
+    },
+})
+
+ConsultarStack.navigationOptions = {
+    tabBarLabel: "Consultar Reclamo",
+    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+}
 
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
         ProductosStack,
         DetalleStack,
+        ConsultarStack,
+        CameraStack,
         UsuarioStack,
     },
     {

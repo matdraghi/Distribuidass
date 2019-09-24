@@ -3,7 +3,7 @@ import { View, StyleSheet, Picker } from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
-import 'prop-types';
+import RNPickerSelect from 'react-native-picker-select'
 
 export class AltaProducto extends Component {
 
@@ -69,15 +69,44 @@ export class AltaProducto extends Component {
                     onChangeText={documento => this.setState({ documento })}
                     keyboardType='default'
                 />
-                <TextInput
+                
+                <RNPickerSelect
+                placeholder = {{
+                    label: 'Select a code Number...',
+                    value: null,
+                }}
+                onValueChange={(value) => console.log(value)}
+
+                items={[
+                { label: '1', value: '1' },
+                { label: '2', value: '2' },
+                { label: '3', value: '3' },
+                
+                { label: '4', value: '4' },
+                { label: '5', value: '5' },
+                { label: '6', value: '6' },
+                
+                { label: '7', value: '7' },
+                { label: '8', value: '8' },
+                { label: '9', value: '9' },
+                 ]}
+                />
+
+                 <TextInput
                     style={styles.inputs}
                     label='codigo'
                     underlineColor = '#d32f2f'
                     selectionColor = '#d32f2f'
-                    value={this.state.codigo}
+                    
+                    items={[
+                        { label: '1', value: '1' },
+                        { label: '2', value: '2' },
+                        { label: '3', value: '3' },
+                         ]}
+                    value={this.state.codigo.items}
                     onChangeText={codigo => this.setState({ codigo })}
-                    keyboardType='number-pad'
-                />
+                 />
+
                 <TextInput
                     style={styles.inputs}
                     label='ubicacion'
