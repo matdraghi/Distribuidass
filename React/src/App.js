@@ -6,6 +6,7 @@ import Login from './Login';
 import Reclamos from './Reclamos'
 import Registro from './Registro'
 import ConsultarReclamos from './ConsultarReclamos'
+import SubirFotos from './SubirFotos'
 class App extends Component {
 
     state = {
@@ -55,6 +56,8 @@ class App extends Component {
                                 <Route exact path='/login' render={() => <Login appLogin={this.handleChildLogin}/>}/>
                                 <Route exact path='/reclamos' component={Reclamos}/>
                                 <Route exact path='/Consultar' component={ConsultarReclamos}/>
+                                
+                                <Route exact path='/SubirFotos' component={SubirFotos}/>
                                 <Route exact path='/registro' render={() => <Registro appRegistro={this.handleChildLogin}/>}/>
                             </div>
                             
