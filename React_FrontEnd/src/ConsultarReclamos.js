@@ -3,22 +3,13 @@ import React, {Component} from 'react';
 import {Button, Form } from 'react-bootstrap';
 import {withRouter} from 'react-router-dom'
 import { ConsoleLogger } from '@aws-amplify/core';
-
+var reclamos= [];
  class ConsultarReclamos extends Component {
-
-    constructor(props) {
-       super(props);
-       this.state  = {
-         IdReclamo : '',
-        documento : '',
-        codigo: '',
-        reclamos: [],
-         isLoaded:false
-       }
-    }
-
+    
+    
     ConsultarRe = (event) => {
       event.preventDefault();
+      reclamos= [];
       const documento = event.target.documento.value
       alert (documento)
       const url = 'http://localhost:8080/myapp/Reclamos/Consultar?documento=' + documento
@@ -42,21 +33,28 @@ import { ConsoleLogger } from '@aws-amplify/core';
               console.log ("Documento " +documento)
               var estado = entry.est
               console.log ("Estado " + estado)
-
-              
-              var IdReclamo = entry.IdReclamo
-              console.log ("IdReclamo " +IdReclamo)
+              var IdReclamo = entry.idReclamo
+              console.log ("IdReclamo.. " + IdReclamo)
               var identificador = entry.identificador
               console.log ("Identificador " + identificador)
 
               
               var ubicacion = entry.ubicacion
               console.log ("Ubicacion " +ubicacion)
+
+              reclamos.push({
+                IdReclamo: IdReclamo,
+                Codigo: codigo,
+                Documento : documento,
+                Ubicacion: ubicacion,
+                Identificador: identificador,
+                Descripcion: descripcion,
+                Estado: estado
+            });
+
+            console.log (reclamos)
             }
           }
-          this.state({
-            reclamos: this.state.reclamos.map(url)
-        })
             this.handleSuccessfulReclamo(documento);
             this.props.history.push("/home");
         })
@@ -77,6 +75,10 @@ import { ConsoleLogger } from '@aws-amplify/core';
             <Button variant="primary" type="submit">
                     Consultar
                 </Button>
+                <div>
+      {reclamos}
+    </div>
+
 
       </Form>
      )
