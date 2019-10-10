@@ -83,23 +83,37 @@ import Loading from './Loading'
                 <React.Fragment>
                   
                 <Table striped bordered hover>
-                    <thead className="thead-dark">
+                    <thead className="table table-striped table-hover">
+                    <tr>
+                        
+                        <th>#</th>
+                        <th>Identificador</th>
+                        <th>IdReclamo</th>
+                        <th>Codigo</th>
+                        <th>Ubicacion</th>
+                        <th>Descripcion</th>
+                        <th>Documento</th>
+                        <td>Estado</td>
+                    </tr>
+                    </thead>
+<tbody>
                         {this.state.reclamos.map((reclamos) => (
                             <tr>
+                              
+                                <td>#</td>
+                                <td>{reclamos.identificador}</td>
+                                <td>{reclamos.idReclamo}</td>
+                                <td>{reclamos.codigo}</td>
+                                <td>{reclamos.ubicacion}</td>
+                                <td>{reclamos.descripcion}</td>
+                                <td>{reclamos.documento}</td>
                                 
-                                <th>#</th>
-                                <th>Identificador: {reclamos.identificador}</th>
-                                <th>IdReclamo :{reclamos.idReclamo}</th>
-                                <th>Codigo:{reclamos.codigo}</th>
-                                <th>Ubicacion:{reclamos.ubicacion}</th>
-                                <th>Descripcion:{reclamos.descripcion}</th>
-                                <th>Documento:{reclamos.documento}</th>
-                                
-                                <th>Estado:{reclamos.est}</th>
+                                <td>{reclamos.est}</td>
 
                             </tr>
                         ))}
-                        </thead>
+                        </tbody>
+                        
                  </Table>
         </React.Fragment>
 

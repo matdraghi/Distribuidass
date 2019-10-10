@@ -1,4 +1,4 @@
-.App { background-color: #282c34;
+.App { background-color: #1fc0f1;
   color: white;
   padding: 40px;
   font-family: Arial;
@@ -10,7 +10,7 @@
 }
 
 .App-header {
-  background-color: #b2bd1a;
+  background-color: #07e451;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
