@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import controlador.Controlador;
 import dto.ReclamosViewDTO;
 import dto.exception.ExceptionDTO;
+import exceptions.DuenioException;
+import exceptions.InquilinoException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import modelo.Reclamo;
@@ -30,19 +32,21 @@ public class ReclamosController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReclamosController.class);
 
-	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZA LA BD*/
+	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZA LA BD
+	 * @throws InquilinoException 
+	 * @throws DuenioException */
 	@ResponseBody
 	@RequestMapping(value = "/alta", method = RequestMethod.GET)
-	public ResponseEntity<String> altaProducto(@RequestParam(value = "documento", required = true) String documento,
+	public ResponseEntity<String> altaReclamo(@RequestParam(value = "documento", required = true) String documento,
 			@RequestParam (value="codigo", required = true) int codigo, 
 			@RequestParam (value="ubicacion", required = true) String ubicacion, 
 			@RequestParam (value="descripcion", required = true) String descripcion, 
-			@RequestParam (value="identificador", required = true) int identificador) throws PersonaException, ReclamoException {
+			@RequestParam (value="identificador", required = true) int identificador) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
 		LOGGER.info("Dando de alta Reclamo: {}", documento);
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
 		try {
-		String C = Controlador.getInstancia().altaReclamo(documento, codigo, ubicacion, descripcion, identificador);
+		Boolean C = Controlador.getInstancia().altaReclamo(documento, codigo, ubicacion, descripcion, identificador);
 		System.out.println (mapper.toJson(C));
 		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
 		}catch (ReclamoException ex) {
@@ -100,4 +104,30 @@ public class ReclamosController {
 		}
 		return response;
 	}
+	
+	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZA LA BD
+	 * @throws InquilinoException 
+	 * @throws DuenioException */
+	@ResponseBody
+	@RequestMapping(value = "/altaEdificio", method = RequestMethod.GET)
+	public ResponseEntity<String> altaEdificio(@RequestParam(value = "documento", required = true) String documento,
+			@RequestParam (value="codigo", required = true) int codigo, 
+			@RequestParam (value="ubicacion", required = true) String ubicacion, 
+			@RequestParam (value="descripcion", required = true) String descripcion) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
+		LOGGER.info("Dando de alta Reclamo: {}", documento);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		try {
+		Boolean C = Controlador.getInstancia().altaReclamoEdificio(documento, codigo, ubicacion, descripcion);
+		System.out.println (mapper.toJson(C));
+		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
+		}catch (ReclamoException ex) {
+			LOGGER.error(ex.getMessage(), ex.getCause());
+			ExceptionDTO exceptionDTO = new ExceptionDTO(ex.getMessage(), HttpStatus.NOT_FOUND);
+			response = new ResponseEntity<String>(mapper.toJson(exceptionDTO), HttpStatus.NOT_FOUND);
+		}
+		return response;
+		
+	}
+	
 }
