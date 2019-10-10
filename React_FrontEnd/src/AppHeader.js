@@ -50,6 +50,9 @@ export class AppHeader extends Component {
                                 <Link className='nav-link' to='/reclamos'>Reclamos</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className='nav-link' to='/reclamoEdificio'>Reclamos Edificio</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className='nav-link' to='/SubirFotos'>Subir Fotos</Link>
                             </li>
                         </ul>
