@@ -66,6 +66,7 @@ public class DuenioDAO {
 			
 	}
 
+	
 	private Duenio toNegocio(DuenioEntity r) {
 		// TODO Auto-generated method stub
 		Duenio de = null;

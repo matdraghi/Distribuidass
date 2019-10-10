@@ -48,7 +48,7 @@ public class Test {
 		/** ESTA PROBADO QUE VA A LA BD */
 		ReclamoView r = new ReclamoView ("CPA3992034",2,"San Martin 42547", "FALLA5334S", 28);
 		
-		Controlador.getInstancia().altaReclamo(r);
+		//Controlador.getInstancia().altaReclamo(r);
 	
 		/*
 		DetalleView r1 = new DetalleView (32,228,822, "Floricientaaa");

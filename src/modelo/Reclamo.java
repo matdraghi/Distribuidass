@@ -16,6 +16,16 @@ public class Reclamo {
 		this.identificador = identificador;
 		this.est = est;
 	}
+	
+	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
+			 Estado est) {
+		super();
+		this.Documento = documento;
+		this.codigo = codigo;
+		this.ubicacion = ubicacion;
+		this.descripcion = descripcion;
+		this.est = est;
+	}
 
 	public Reclamo(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
 			int identificador) {
@@ -91,6 +101,7 @@ public class Reclamo {
 	public void setEst(Estado est) {
 		this.est = est;
 	}
+
 	
 }
 

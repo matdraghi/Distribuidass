@@ -113,13 +113,58 @@ public class Controlador {
 	}
 	
 	// Agregado por grupo
-	public String altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador) throws ReclamoException {
+	public Boolean altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
 		// TODO Auto-generated method stub
-		Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo);
-		R.save();
-		return null;
+		Boolean B = null;
+		List<Inquilinos> i;
+		i = InquilinoDAO.getInstancia().getAll(documento);
+		
+		String Doc = null;
+
+		
+		for (Inquilinos p2: i) {
+			System.out.println("Id: " + p2.getId());
+			System.out.println("Identificador: " + p2.getIdentificador());
+			if (p2.getIdentificador()== identificador) {
+				System.out.println("Alquila dicha unidad" + identificador);				
+				B = false;
+			}
+			System.out.println("Documento: " + p2.getDocumento());
+			Doc = p2.getDocumento();
+			System.out.println("-------------------------------------------------");
+		}
+		
+		if (B == null) {
+		List<Duenio> d;
+		d = DuenioDAO.getInstancia().getAll(documento);
+		
+		String Docu = null;
+
+		
+		for (Duenio p2: d) {
+			System.out.println("Id: " + p2.getDocumento());
+			Doc = p2.getDocumento();
+
+			System.out.println("Identificador de duenio " + p2.getIdentificador());
+			if (p2.getIdentificador()== identificador) {
+				System.out.println("Duenio dicha unidad" + identificador);
+				Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo);
+				R.save();
+				B = true;
+			}
+			System.out.println("-------------------------------------------------");
+		}
+		
+		
+		}
+		return B;
 	}
 	
+	public Boolean altaReclamoEdificio(String documento, int codigo, String ubicacion, String descripcion) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
+		Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion,Estado.nuevo);
+		R.save();
+		return false;
+	}
 	
 	public boolean RegistrarUsuario (String documento, String contraseña) throws InquilinoException, PersonaException, DuenioException, ReclamoException {
 		Persona p;
