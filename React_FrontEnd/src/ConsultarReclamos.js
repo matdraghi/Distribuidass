@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 
-import {Button, Form } from 'react-bootstrap';
+import {Button, Form, Table} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom'
 import { ConsoleLogger } from '@aws-amplify/core';
-var reclamos= [];
+import Loading from './Loading'
  class ConsultarReclamos extends Component {
     
     
+  state = {
+    reclamos: []
+}
     ConsultarRe = (event) => {
       event.preventDefault();
-      reclamos= [];
       const documento = event.target.documento.value
       alert (documento)
       const url = 'http://localhost:8080/myapp/Reclamos/Consultar?documento=' + documento
@@ -41,22 +43,25 @@ var reclamos= [];
               
               var ubicacion = entry.ubicacion
               console.log ("Ubicacion " +ubicacion)
+              this.setState({
+                reclamos : k,
+              });
 
-              reclamos.push({
-                IdReclamo: IdReclamo,
-                Codigo: codigo,
-                Documento : documento,
-                Ubicacion: ubicacion,
-                Identificador: identificador,
-                Descripcion: descripcion,
-                Estado: estado
-            });
-
-            console.log (reclamos)
+              console.log(k)
+              //reclamos.push({
+                //IdReclamo: IdReclamo,
+                //Codigo: codigo,
+               // Documento : documento,
+                //Ubicacion: ubicacion,
+                //Identificador: identificador,
+                //Descripcion: descripcion,
+                //Estado: estado
+            //})
+            //console.log (reclamos)
             }
           }
             this.handleSuccessfulReclamo(documento);
-            this.props.history.push("/home");
+            //this.props.history.push("/home");
         })
     }
 
@@ -75,10 +80,28 @@ var reclamos= [];
             <Button variant="primary" type="submit">
                     Consultar
                 </Button>
-                <div>
-      {reclamos}
-    </div>
+                <React.Fragment>
+                  
+                <Table striped bordered hover>
+                    <thead className="thead-dark">
+                        {this.state.reclamos.map((reclamos) => (
+                            <tr>
+                                
+                                <th>#</th>
+                                <th>Identificador: {reclamos.identificador}</th>
+                                <th>IdReclamo :{reclamos.idReclamo}</th>
+                                <th>Codigo:{reclamos.codigo}</th>
+                                <th>Ubicacion:{reclamos.ubicacion}</th>
+                                <th>Descripcion:{reclamos.descripcion}</th>
+                                <th>Documento:{reclamos.documento}</th>
+                                
+                                <th>Estado:{reclamos.est}</th>
 
+                            </tr>
+                        ))}
+                        </thead>
+                 </Table>
+        </React.Fragment>
 
       </Form>
      )
