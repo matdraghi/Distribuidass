@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +41,6 @@ public class ReclamosEntity  {
 	private String ubicacion;
 	private String descripcion;
 	private int identificador;
-	private String estado;
 	public ReclamosEntity() {
 		
 	}
@@ -78,8 +79,9 @@ public class ReclamosEntity  {
 	public int getIdentificador() {
 		return identificador;
 	}
-	
-	@Column (name ="Estado")
+	@Enumerated(EnumType.STRING)
+	@Column (name = "Estado")
+	private String estado;
 	
 
 	public void setIdReclamo(int idReclamo) {

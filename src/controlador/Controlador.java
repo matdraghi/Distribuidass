@@ -41,6 +41,8 @@ public class Controlador {
 
 	private static Controlador instancia;
 	
+	private String Docum;
+	
 	private Controlador() { }
 	
 	public static Controlador getInstancia() {
@@ -160,6 +162,13 @@ public class Controlador {
 		return B;
 	}
 	
+	public void SetDocumento (String documento) {
+		Docum = documento;
+	}
+	
+	public String GetDocumento () {
+		return Docum;
+	}
 	public Boolean altaReclamoEdificio(String documento, int codigo, String ubicacion, String descripcion) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
 		Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion,Estado.nuevo);
 		R.save();
@@ -258,7 +267,7 @@ public class Controlador {
 			//System.out.println("Estado: " + p2.getEst().getValue().toString());
 			
 			System.out.println("-------------------------------------------------");
-		}
+			}
 		}
 		return resultado;
 	}
