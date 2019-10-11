@@ -3,7 +3,20 @@ import {Button, Form } from 'react-bootstrap';
 import {withRouter} from 'react-router-dom'
 class ReclamosEdificio extends Component {
 
-    
+    ObtenerDocumento = () => {
+        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerDoc';
+        alert (url)
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+            alert (json)
+            this.setState(
+                {
+                    documento:  json,
+                }
+            )
+        })
+    }
     cargarReclamo = (event) => {
         event.preventDefault(); 
         const documento = event.target.documento.value;
@@ -41,7 +54,9 @@ class ReclamosEdificio extends Component {
             <Form className="mb-3" onSubmit={this.cargarReclamo}>
              <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
-             <Form.Control name="documento" placeholder="DNI39549135"/>
+                <Form.Control as="select" >
+                    <option>{this.props.documento}</option>
+                </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="codigo">
                     <Form.Label>Codigo</Form.Label>

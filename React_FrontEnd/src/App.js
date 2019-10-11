@@ -50,9 +50,9 @@ class App extends Component {
                   <Route exact path='/home' component={Home}/>
 
                   <Route exact path='/login' render={() => <Login appLogin={this.handleChildLogin}/>}/>
-                  <Route exact path='/reclamos' component={Reclamos}/>
-                  <Route exact path='/reclamoEdificio' component={ReclamosEdificio}/>
-                  <Route exact path='/Consultar' component={ConsultarReclamos}/>
+                  <Route exact path='/reclamos' render={() => <Reclamos documento={this.state.documento}/>}/>
+                  <Route exact path='/reclamoEdificio'render={() => <ReclamosEdificio documento={this.state.documento}/>}/>
+                  <Route exact path='/Consultar' render={() => <ConsultarReclamos documento={this.state.documento}/>}/>
                   
                   <Route exact path='/cambiar-contraseña/:usuario' component={CambiarContraseña}/>
                   <Route exact path='/SubirFotos' component={SubirFotos}/>

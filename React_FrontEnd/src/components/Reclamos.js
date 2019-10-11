@@ -6,6 +6,7 @@ import Select from 'react-select';
 
 class Reclamos extends Component {
     
+    
     ObtenerDocumento = () => {
         const url = 'http://localhost:8080/myapp/Reclamos/ObtenerDoc';
         alert (url)
@@ -13,6 +14,11 @@ class Reclamos extends Component {
         fetch(url)
         .then((response) => response.json()).then((json) => {
             alert (json)
+            this.setState(
+                {
+                    documento:  json,
+                }
+            )
         })
     }
     cargarReclamo = (event) => {
@@ -57,10 +63,11 @@ class Reclamos extends Component {
     render() {
         return (      
             <Form className="mb-3" onSubmit={this.cargarReclamo}>
-             <Form.Group controlId="documento">
+                <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
-                <Select options={this.state.documento} onChange={this.ObtenerDocumento()}
-                />
+                <Form.Control as="select" >
+                    <option>{this.props.documento}</option>
+                </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="codigo">
                     <Form.Label>Codigo</Form.Label>

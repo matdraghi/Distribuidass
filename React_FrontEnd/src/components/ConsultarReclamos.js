@@ -72,10 +72,12 @@ import Loading from './Loading'
   render() {
     return (
       <Form className="mb-3" onSubmit={this.ConsultarRe}>
-             <Form.Group controlId="documento">
+              <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
-             <Form.Control name="documento" placeholder="DNI39549135"/>
-            </Form.Group>
+                <Form.Control as="select" >
+                    <option>{this.props.documento}</option>
+                </Form.Control>
+                </Form.Group>
             <Button variant="primary" type="submit">
                     Consultar
                 </Button>
