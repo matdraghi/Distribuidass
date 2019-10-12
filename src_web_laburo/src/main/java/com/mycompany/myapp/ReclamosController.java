@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import controlador.Controlador;
 import dto.ReclamosViewDTO;
+import dto.UnidadView;
 import dto.exception.ExceptionDTO;
 import exceptions.DuenioException;
+import exceptions.EdificioException;
 import exceptions.InquilinoException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
+import exceptions.UnidadException;
 import modelo.Reclamo;
 import views.ReclamoView;
 
@@ -126,6 +129,19 @@ public class ReclamosController {
 			ExceptionDTO exceptionDTO = new ExceptionDTO(ex.getMessage(), HttpStatus.NOT_FOUND);
 			response = new ResponseEntity<String>(mapper.toJson(exceptionDTO), HttpStatus.NOT_FOUND);
 		}
+		return response;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ObtenerIdentificadores", method = RequestMethod.GET)
+	public ResponseEntity<String> altaEdificio(@RequestParam(value = "codigo", required = true) int codigo) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
+		LOGGER.info("Consultando Identificadores: {}", codigo);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		List<views.UnidadView> C = Controlador.getInstancia().getUnidadesPorEdificio(codigo);
+		System.out.println (mapper.toJson(C));
+		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
 		return response;
 		
 	}

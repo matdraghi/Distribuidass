@@ -61,8 +61,10 @@ public class HelloController {
     }*/  
     
     @RequestMapping(value="/savefile",method=RequestMethod.POST)  
-    public ModelAndView upload(@RequestParam CommonsMultipartFile file,HttpSession session){  
+    public ResponseEntity<String> upload(@RequestParam CommonsMultipartFile file,HttpSession session){  
     	//@RequestParam(value = "IdReclamo", required = true) int IdReclamo
+	    	ResponseEntity<String> response = null;
+			JsonMapper mapper = new JsonMapper();
             String path=session.getServletContext().getRealPath("/");  
             String filename=file.getOriginalFilename();  
             String filetype = file.getContentType();
@@ -86,6 +88,7 @@ public class HelloController {
 				e1.printStackTrace();
 			}
              // viene aca
+            String C = path + filename;
             System.out.println("Direccion en la Pc" + path+" "+filename);  
             try{  
             byte barr[]=file.getBytes();  
@@ -95,9 +98,10 @@ public class HelloController {
             bout.write(barr);  
             bout.flush();  
             bout.close();  
-              
+            System.out.println (mapper.toJson(C));
+            response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
             }catch(Exception e){System.out.println(e);}  
-            return new ModelAndView("index","filename",path+"/"+filename);  
+            return response;  
         }  
     
     @RequestMapping(value = "/Foto", method = RequestMethod.POST)
