@@ -6,7 +6,10 @@ import Select from 'react-select';
 
 class Reclamos extends Component {
     
-    
+       
+  state = {
+    identificadores: []
+}
     ObtenerDocumento = () => {
         const url = 'http://localhost:8080/myapp/Reclamos/ObtenerDoc';
         alert (url)
@@ -51,9 +54,33 @@ class Reclamos extends Component {
                 
                 this.props.history.push("/reclamoEdificio");
             }
+            else if (json === null){
+                
+                this.props.history.push("/reclamoEdificio");
+            }
         })
         
                 
+    }
+
+    ObtenerIdentificadores = (codigo) => {
+        alert("Consultando con Documento " + codigo)
+        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerIdentificadores?codigo=' +  codigo;
+        alert (url)
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+            alert (json)
+            var j = JSON.stringify(json)
+            var k = JSON.parse(j)
+            console.log (k)
+            this.setState({
+                identificadores : k,
+              });
+            }
+           
+        )
+        
     }
 
     handleSuccessfulReclamo = (documento) => {

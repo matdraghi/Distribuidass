@@ -109,7 +109,7 @@ import Loading from './Loading'
                                 <td>{reclamos.descripcion}</td>
                                 <td>{reclamos.documento}</td>
                                 
-                                <td>{reclamos.est}</td>
+                                <td>{reclamos.estado}</td>
 
                             </tr>
                         ))}

@@ -29,8 +29,8 @@ export class Registro extends Component {
 
     render() {
         return (
-            <Form className="col-lg-5 no-padding-left" onSubmit={this.autenticar}>
-                <h2 className="mb-3">Registro</h2>
+            <Form className="text-center" onSubmit={this.autenticar}>
+                <h2 className="mt-5">Registro</h2>
                 <Form.Group controlId="documento">
                     <Form.Label>Documento</Form.Label>
                     <Form.Control name="documento"/>
