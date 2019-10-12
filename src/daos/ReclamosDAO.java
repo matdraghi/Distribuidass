@@ -76,7 +76,8 @@ private ReclamosDAO() { }
 	Reclamo toNegocio(ReclamosEntity r) {
 		Reclamo reclamo = null;
 		if(r!=null) {
-			reclamo = new Reclamo(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador());		}
+			reclamo = new Reclamo(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), r.getEstado());
+			}
 		return reclamo;
 	}
 	

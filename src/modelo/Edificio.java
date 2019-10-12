@@ -113,5 +113,9 @@ public class Edificio {
 		return new EdificioView(codigo, nombre, direccion);
 	}
 
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 
 }

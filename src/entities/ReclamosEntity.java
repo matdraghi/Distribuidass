@@ -79,8 +79,9 @@ public class ReclamosEntity  {
 	public int getIdentificador() {
 		return identificador;
 	}
+	
 	@Enumerated(EnumType.STRING)
-	@Column (name = "Estado")
+	@Column(length = 50)
 	private String estado;
 	
 

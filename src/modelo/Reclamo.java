@@ -28,7 +28,7 @@ public class Reclamo {
 	}
 
 	public Reclamo(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
-			int identificador) {
+			int identificador, String Estado) {
 		super();
 		IdReclamo = idReclamo;
 		Documento = documento;
@@ -36,6 +36,7 @@ public class Reclamo {
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.identificador = identificador;
+		this.estado = Estado;
 	}
 	private int IdReclamo;
 	private String Documento;
@@ -44,6 +45,7 @@ public class Reclamo {
 	private String descripcion;
 	private int identificador;
 	private Estado est;
+	private String estado;
 	
 	public int getIdReclamo() {
 		return IdReclamo;
@@ -100,6 +102,14 @@ public class Reclamo {
 
 	public void setEst(Estado est) {
 		this.est = est;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	

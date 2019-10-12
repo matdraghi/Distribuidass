@@ -252,11 +252,12 @@ public class Controlador {
 		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
 		
 		for (Reclamo p1: aux) {
+			if (p1.getDocumento().equals(documento)) {
 			resultado.add(p1);
+			}
 		}
 		
 		for (Reclamo p2: resultado) {
-			if (p2.getDocumento().equals(documento)) {
 			System.out.println("IdReclamo: " + p2.getIdReclamo());
 			System.out.println("Documento: " + p2.getDocumento());
 			System.out.println("Codigo: " + p2.getCodigo());
@@ -264,14 +265,12 @@ public class Controlador {
 			System.out.println("Descripcion: " + p2.getDescripcion());
 			System.out.println("Identificador: " + p2.getIdentificador());
 
-			//System.out.println("Estado: " + p2.getEst().getValue().toString());
+			System.out.println("Estado: " + p2.getEstado());
 			
 			System.out.println("-------------------------------------------------");
-			}
 		}
 		return resultado;
 	}
-	
 	
 	public String SolicitarDetalles ( int codigo, int piso, int identificador, String ubicacion) {
 		DetalleReclamos w = new DetalleReclamos (codigo, piso, identificador, ubicacion);

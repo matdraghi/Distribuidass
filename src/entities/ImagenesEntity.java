@@ -10,26 +10,26 @@ import javax.persistence.Table;
 @Table (name= "imageness")
 public class ImagenesEntity {
 	
-	public ImagenesEntity(int id, String path, String tipo) {
+	public ImagenesEntity(int numero, String path, String tipo) {
 		super();
-		this.id = id;
+		this.numero = numero;
 		this.path = path;
 		this.tipo = tipo;
 	}
 	
 	@Id
 	@GeneratedValue
-	@Column (name= "id")
-	private int id;
+	@Column (name= "numero")
+	private int numero;
 	@Column (name= "path")
 	private String path;
 	@Column (name= "tipo")
 	private String tipo;
 	public int getNumero() {
-		return id;
+		return numero;
 	}
-	public void setNumero(int id) {
-		this.id = id;
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 	public String getPath() {
 		return path;
