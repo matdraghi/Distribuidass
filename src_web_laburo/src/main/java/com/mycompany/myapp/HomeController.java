@@ -97,7 +97,7 @@ public class HomeController {
 	@RequestMapping(value = "/Registro", method = RequestMethod.GET)
 	public ResponseEntity<String> Registro(@RequestParam(value = "Documento", required = true) String documento,
 			@RequestParam(value = "Password", required = true) String password)
-			throws DuenioException, InquilinoException, PersonaException, ReclamoException {
+			throws DuenioException, InquilinoException, PersonaException, ReclamoException, UsuarioException {
 		boolean result = false;
 		result = Controlador.getInstancia().RegistrarUsuario(documento, password);
 		System.out.println (result);
