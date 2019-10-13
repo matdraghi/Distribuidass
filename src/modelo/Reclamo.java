@@ -6,8 +6,10 @@ import views.ReclamoView;
 
 public class Reclamo {
 	
+	private int p;
+
 	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
-			int identificador, Estado est) {
+			int identificador, Estado est, int piso, String nombre) {
 		super();
 		this.Documento = documento;
 		this.codigo = codigo;
@@ -15,20 +17,25 @@ public class Reclamo {
 		this.descripcion = descripcion;
 		this.identificador = identificador;
 		this.est = est;
+		this.p = piso;
+		this.nombre = nombre;
 	}
 	
 	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
-			 Estado est) {
+			 Estado est, int piso, String nombre) {
 		super();
 		this.Documento = documento;
 		this.codigo = codigo;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.est = est;
+		this.p = piso;
+		this.nombre = nombre;
+
 	}
 
 	public Reclamo(int idReclamo, String documento, int codigo, String ubicacion, String descripcion,
-			int identificador, String Estado) {
+			int identificador, String Estado, int piso, String nombre) {
 		super();
 		IdReclamo = idReclamo;
 		Documento = documento;
@@ -37,6 +44,9 @@ public class Reclamo {
 		this.descripcion = descripcion;
 		this.identificador = identificador;
 		this.estado = Estado;
+
+		this.p = piso;
+		this.nombre = nombre;
 	}
 	private int IdReclamo;
 	private String Documento;
@@ -46,6 +56,7 @@ public class Reclamo {
 	private int identificador;
 	private Estado est;
 	private String estado;
+	private String nombre;
 	
 	public int getIdReclamo() {
 		return IdReclamo;
@@ -110,6 +121,22 @@ public class Reclamo {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getP() {
+		return p;
+	}
+
+	public void setP(int p) {
+		this.p = p;
 	}
 
 	

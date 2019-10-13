@@ -76,14 +76,14 @@ private ReclamosDAO() { }
 	Reclamo toNegocio(ReclamosEntity r) {
 		Reclamo reclamo = null;
 		if(r!=null) {
-			reclamo = new Reclamo(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), r.getEstado());
+			reclamo = new Reclamo(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), r.getEstado(), r.getP(), r.getNombre());
 			}
 		return reclamo;
 	}
 	
 	ReclamosEntity toEntity(Reclamo r) {
 		Estado s = Estado.nuevo;
-		return new ReclamosEntity(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), s.toString());
+		return new ReclamosEntity(r.getIdReclamo(),r.getDocumento(),r.getCodigo(),r.getUbicacion(),r.getDescripcion(),r.getIdentificador(), s.toString(), r.getP(), r.getNombre());
 	}
 	
 	public void save(Reclamo r){ 

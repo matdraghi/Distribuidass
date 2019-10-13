@@ -25,6 +25,7 @@ public class ImagenesEntity {
 	private String path;
 	@Column (name= "tipo")
 	private String tipo;
+
 	public int getNumero() {
 		return numero;
 	}

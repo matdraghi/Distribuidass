@@ -115,7 +115,7 @@ public class Controlador {
 	}
 	
 	// Agregado por grupo
-	public Boolean altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
+	public Boolean altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador, int piso, String nombre) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
 		// TODO Auto-generated method stub
 		Boolean B = null;
 		List<Inquilinos> i;
@@ -150,7 +150,7 @@ public class Controlador {
 			System.out.println("Identificador de duenio " + p2.getIdentificador());
 			if (p2.getIdentificador()== identificador) {
 				System.out.println("Duenio dicha unidad" + identificador);
-				Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo);
+				Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo, piso, nombre);
 				R.save();
 				B = true;
 			}
@@ -169,8 +169,8 @@ public class Controlador {
 	public String GetDocumento () {
 		return Docum;
 	}
-	public Boolean altaReclamoEdificio(String documento, int codigo, String ubicacion, String descripcion) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
-		Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion,Estado.nuevo);
+	public Boolean altaReclamoEdificio(String documento, int codigo, String ubicacion, String descripcion, int piso, String nombre) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
+		Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion,Estado.nuevo, piso,  nombre);
 		R.save();
 		return false;
 	}
@@ -272,6 +272,33 @@ public class Controlador {
 			System.out.println("Identificador: " + p2.getIdentificador());
 
 			System.out.println("Estado: " + p2.getEstado());
+			System.out.println ("Piso: " + p2.getP());
+			
+			System.out.println("-------------------------------------------------");
+		}
+		return resultado;
+	}
+	
+	public  List<Reclamo> ObtenerIdReclamos(String documento) throws PersonaException, ReclamoException {
+
+		List<Reclamo> resultado = new ArrayList<Reclamo>();
+		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
+		
+		for (Reclamo p1: aux) {
+			if (p1.getDocumento().equals(documento)) {
+			resultado.add(p1);
+			}
+		}
+		
+		for (Reclamo p2: resultado) {
+			System.out.println("IdReclamo: " + p2.getIdReclamo());
+			System.out.println("Documento: " + p2.getDocumento());
+			System.out.println("Codigo: " + p2.getCodigo());
+			System.out.println("Ubicacion: " + p2.getUbicacion());
+			System.out.println("Descripcion: " + p2.getDescripcion());
+			System.out.println("Identificador: " + p2.getIdentificador());
+
+			System.out.println("Estado: " + p2.getEstado());
 			
 			System.out.println("-------------------------------------------------");
 		}
@@ -288,7 +315,18 @@ public class Controlador {
 	
 	
 	
+	public List<UnidadView> getUnidadesPorEdif(String nombre) throws EdificioException, UnidadException{
+		List<UnidadView> resultado = new ArrayList<UnidadView>();
+		Edificio edificio = buscarCodig(nombre);
+		List<Unidad> unidades = edificio.getUnidades();
+		for(Unidad unidad : unidades)
+			resultado.add(unidad.toView());
+		return resultado;
+	}
 	
+	private Edificio buscarCodig(String nombre)throws EdificioException, UnidadException {
+		return EdificioDAO.getInstancia().findCode(nombre);
+	}
 	
 	/** OK */
 	public List<EdificioView> getEdificios() throws EdificioException, UnidadException{

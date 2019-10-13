@@ -59,12 +59,12 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		 List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdificio(1);
+		 List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdif("SLS Puerto Madero");
 
 		 System.out.println ("Unidades Edificio " + p1.size());
 		 for (UnidadView p2: p1) {
 
-			 System.out.println (p2.getId() + " " + p2.getPiso());
+			 System.out.println (p2.getId() + " " + p2.getPiso() + " " + p2.getEdificio().getCodigo());
 			}
 		 }
 

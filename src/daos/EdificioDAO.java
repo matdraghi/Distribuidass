@@ -49,6 +49,17 @@ public class EdificioDAO {
 		return resultado;
 	}
 	
+	public Edificio findCode(String nombre) throws EdificioException, UnidadException {
+		Edificio resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		EdificioEntity edificio = (EdificioEntity)s.createQuery("from EdificioEntity e where e.nombre = ?").setString(0, nombre).uniqueResult();
+		if(edificio != null)
+			resultado = toNegocio(edificio);
+		return resultado;
+	}
+	
 	Edificio toNegocio(EdificioEntity e) throws EdificioException, UnidadException {
 		if(e != null) {
 			Edificio edificio = new Edificio(e.getCodigo(), e.getNombre(), e.getDireccion());

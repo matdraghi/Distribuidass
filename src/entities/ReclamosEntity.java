@@ -41,12 +41,15 @@ public class ReclamosEntity  {
 	private String ubicacion;
 	private String descripcion;
 	private int identificador;
+
+	@Column (name ="piso")
+	private int p;
 	public ReclamosEntity() {
 		
 	}
 	
 	public ReclamosEntity(int idReclamo, String documento, int codigo, String ubicacion, String descripcion, int identificador,
-			String estado) {
+			String estado, int piso, String nombre) {
 		this.IdReclamo = idReclamo;
 		this.documento = documento;
 		this.codigo = codigo;
@@ -54,6 +57,8 @@ public class ReclamosEntity  {
 		this.descripcion = descripcion;
 		this.identificador = identificador;
 		this.estado= estado;
+		this.p = piso;
+		this.nombre = nombre;
 	}
 	
 
@@ -83,7 +88,8 @@ public class ReclamosEntity  {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 50)
 	private String estado;
-	
+	@Column (name = "nombre")
+	private String nombre;
 
 	public void setIdReclamo(int idReclamo) {
 		IdReclamo = idReclamo;
@@ -116,6 +122,23 @@ public class ReclamosEntity  {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getP() {
+		return p;
+	}
+
+	public void setP(int p) {
+		this.p = p;
+	}
+
 	
 	
 	
