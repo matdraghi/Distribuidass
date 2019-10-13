@@ -25,10 +25,15 @@ class Reclamos extends Component {
         //alert (event.target.descripcion.value)
        const identificador = event.target.identificador.value;
 
+       
+       const piso = event.target.piso.value;
+       //alert (event.target.descripcion.value)
+      const nombre = event.target.nombre.value;
+
        // this.props.history.push ("/reclamos")
         //alert (event.target.identificador.value)
         //alert (documento + "" + codigo + "" + ubicacion + "" + descripcion + "" + identificador)
-        const url = 'http://localhost:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador;
+        const url = 'http://localhost:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + "&piso=" + piso + "&nombre=" + nombre;
         fetch(url)
         .then((response) => response.json()).then((json) => {
             
@@ -92,31 +97,77 @@ class Reclamos extends Component {
         
     }
 
+    
+    pruebaNombre= (event) => {
+        event.preventDefault(); 
+        const nombre = event.target.nombre.value;
+        this.ObtenerIdentificadoress(nombre);
+    
+        this.props.history.push ("/reclamos")
+    }
+    ObtenerIdentificadoress(nombre) {
+        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
+       
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+            var j = JSON.stringify(json)
+            console.log (j)
+            var k = JSON.parse(j)
+            for (var i in k) {
+                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+                if (k.hasOwnProperty(i)) {
+                  var entry = k[i];
+                  var entryy = k [i + 1];
+                  var id = entry.id
+                  console.log ("Codigo " +id)
+                  var piso = entry.piso
+                  console.log ("piso " + piso)
+                  
+                  var numero = entry.numero
+                  console.log ("Numero " +numero)
+                  var codigo = entry.edificio.codigo
+                  console.log ("Codigo " +codigo)
+                  
+                this.setState({
+                identificadores : k,
+                codig: codigo,
+              });
+
+
+              console.log (this.state.codig)
+            }
+        }
+            }
+           
+        )
+        
+    }
     handleSuccessfulReclamo = (documento) => {
         alert("Creado Reclamo con Documento " + documento)
     }
 
     render() {
         return (      
-            <Form className="mb-3" onSubmit={this.cargarReclamo} onReset= {this.prueba}>
+            <Form className="mb-3" onSubmit={this.cargarReclamo} onReset= {this.pruebaNombre}>
                 <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
                 <Form.Control as="select" >
                     <option>{this.props.documento}</option>
                 </Form.Control>
                 </Form.Group>
-                <Form.Group controlId="codigo">
-                    <Form.Label>Codigo</Form.Label>
+                <Form.Group controlId="nombre">
+                    <Form.Label>Nombre Edificio</Form.Label>
                     <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
+                    <option>SLS Puerto Madero</option>
+                    <option>The Link Towers</option>
+                    <option>The Fire Place</option>
+                    <option>Alvear Tower</option>
+                    <option>Dique Dos</option>
+                    <option>Libertador Plaza</option>
+                    <option>Chateau Libertador</option>
+                    <option>The Tower</option>
+                    <option>Lizard Plaza</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="ubicacion">
@@ -141,6 +192,13 @@ class Reclamos extends Component {
                 <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
                     Obtener Campos Restantes
                 </Button>
+                <Form.Group controlId="codigo">
+                    <Form.Label>Codigo</Form.Label>
+                    <Form.Control as="select" >
+                        
+                    <option>{this.state.codig}</option>
+                    </Form.Control>
+                </Form.Group>
                 <Form.Group controlId="identificador">
                     <Form.Label>Identificador</Form.Label>
                     <Form.Control as="select" >

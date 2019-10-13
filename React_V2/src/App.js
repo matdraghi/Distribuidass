@@ -57,7 +57,7 @@ class App extends Component {
                   <Route exact path='/Consultar' render={() => <ConsultarReclamos documento={this.state.documento}/>}/>
                   
                   <Route exact path='/cambiar-contraseña/:usuario' component={CambiarContraseña}/>
-                  <Route exact path='/SubirFotos' component={SubirFotos}/>
+                  <Route exact path='/SubirFotos' render={() => <SubirFotos documento={this.state.documento}/>}/>
                   <Route exact path='/registro' render={() => <Registro appRegistro={this.handleChildLogin}/>}/>
               </div>
               

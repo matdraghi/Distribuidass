@@ -42,6 +42,7 @@ import Loading from './Loading'
               
               var ubicacion = entry.ubicacion
               console.log ("Ubicacion " +ubicacion)
+              alert (entry.p)
               this.setState({
                 reclamos : k,
               });
@@ -94,7 +95,9 @@ import Loading from './Loading'
                         <th>Ubicacion</th>
                         <th>Descripcion</th>
                         <th>Documento</th>
-                        <td>Estado</td>
+                        <th>Estado</th>
+                        <th>Piso</th>
+                        <th>Nombre Edificio</th>
                     </tr>
                     </thead>
 <tbody>
@@ -110,6 +113,10 @@ import Loading from './Loading'
                                 <td>{reclamos.documento}</td>
                                 
                                 <td>{reclamos.estado}</td>
+
+                                <td>{reclamos.p}</td>
+                                
+                                <td>{reclamos.nombre}</td>
 
                             </tr>
                         ))}

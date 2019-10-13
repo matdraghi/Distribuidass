@@ -3,19 +3,55 @@ import {Button, Form } from 'react-bootstrap';
 import {withRouter} from 'react-router-dom'
 class ReclamosEdificio extends Component {
 
-    ObtenerDocumento = () => {
-        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerDoc';
-        alert (url)
+    state = {
+        identificadores: [], 
+        codig: '',
+    } 
+
+    pruebaNombre= (event) => {
+        event.preventDefault(); 
+        const nombre = event.target.nombre.value;
+        this.ObtenerIdentificadoress(nombre);
+    
+        this.props.history.push ("/reclamoEdificio")
+    }
+    ObtenerIdentificadoress(nombre) {
+        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
+       
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-            alert (json)
-            this.setState(
-                {
-                    documento:  json,
-                }
-            )
-        })
+            var j = JSON.stringify(json)
+            console.log (j)
+            var k = JSON.parse(j)
+            for (var i in k) {
+                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+                if (k.hasOwnProperty(i)) {
+                  var entry = k[i];
+                  var entryy = k [i + 1];
+                  var id = entry.id
+                  console.log ("Codigo " +id)
+                  var piso = entry.piso
+                  console.log ("piso " + piso)
+                  
+                  var numero = entry.numero
+                  console.log ("Numero " +numero)
+                  var codigo = entry.edificio.codigo
+                  console.log ("Codigo " +codigo)
+                  
+                this.setState({
+                identificadores : k,
+                codig: codigo,
+              });
+
+
+              console.log (this.state.codig)
+            }
+        }
+            }
+           
+        )
+        
     }
     cargarReclamo = (event) => {
         event.preventDefault(); 
@@ -26,10 +62,12 @@ class ReclamosEdificio extends Component {
         const ubicacion = event.target.ubicacion.value;
         //alert (event.target.ubicacion.value)
         const descripcion = event.target.descripcion.value;
+        const piso = event.target.piso.value;
+        const nombre = event.target.nombre.value;
         //alert (event.target.descripcion.value)
         //alert (event.target.identificador.value)
         //alert (documento + "" + codigo + "" + ubicacion + "" + descripcion + "" + identificador)
-        const url = 'http://localhost:8080/myapp/Reclamos/altaEdificio?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion;
+        const url = 'http://localhost:8080/myapp/Reclamos/altaEdificio?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + "&nombre=" + nombre + "&piso=" + piso;
         alert (url)
 
         fetch(url)
@@ -51,25 +89,25 @@ class ReclamosEdificio extends Component {
 
     render() {
         return (      
-            <Form className="mb-3" onSubmit={this.cargarReclamo}>
+            <Form className="mb-3" onSubmit={this.cargarReclamo} onReset= {this.pruebaNombre}>
              <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
                 <Form.Control as="select" >
                     <option>{this.props.documento}</option>
                 </Form.Control>
                 </Form.Group>
-                <Form.Group controlId="codigo">
-                    <Form.Label>Codigo</Form.Label>
+                <Form.Group controlId="nombre">
+                    <Form.Label>Nombre Edificio</Form.Label>
                     <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
+                    <option>SLS Puerto Madero</option>
+                    <option>The Link Towers</option>
+                    <option>The Fire Place</option>
+                    <option>Alvear Tower</option>
+                    <option>Dique Dos</option>
+                    <option>Libertador Plaza</option>
+                    <option>Chateau Libertador</option>
+                    <option>The Tower</option>
+                    <option>Lizard Plaza</option>
                     </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="ubicacion">
@@ -90,6 +128,28 @@ class ReclamosEdificio extends Component {
                     <Form.Label>Descripcion</Form.Label>
                     <Form.Control as="textarea" rows="3" />
                 </Form.Group>
+                <Form.Group controlId="codigo">
+                    <Form.Label>Codigo</Form.Label>
+                    <Form.Control as="select" >
+                        
+                    <option>{this.state.codig}</option>
+                    </Form.Control>
+                </Form.Group>
+
+                
+                <Form.Group controlId="piso">
+                    <Form.Label>Piso</Form.Label>
+                    <Form.Control as="select" >
+                    {this.state.identificadores.map((identificadores) => (
+                        <option key = {identificadores.piso} value= {identificadores.piso} > {identificadores.piso}
+                        </option>
+                    ))}
+                    </Form.Control>
+                </Form.Group>
+                   
+                <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
+                    Obtener Codigo/Piso
+                </Button>
                 
                 <Button variant="primary" type="submit">
                     Ingresar
