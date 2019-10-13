@@ -175,11 +175,17 @@ public class Controlador {
 		return false;
 	}
 	
-	public boolean RegistrarUsuario (String documento, String contraseña) throws InquilinoException, PersonaException, DuenioException, ReclamoException {
+	public boolean RegistrarUsuario (String documento, String contraseña) throws InquilinoException, PersonaException, DuenioException, ReclamoException, UsuarioException {
 		Persona p;
 		p = PersonaDAO.getInstancia().findByID(documento);
 		
+		Usuario u = UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
+		
 		if(p != null) {
+			if (u.getDocumento().equals(documento)){
+				System.out.println ("YA EXISTE EN LA TABLA!");
+				return false;
+			}
 			System.out.println("Existe dentro de la tabla personas");
 			List<Inquilinos> i;
 			i = InquilinoDAO.getInstancia().getAll(documento);
@@ -196,8 +202,8 @@ public class Controlador {
 			if(documento.equals(Doc)) {
 				
 				System.out.println("El usario es un inquilino del edificio");
-				Usuario u = new Usuario (documento, contraseña);
-				u.save();
+				Usuario us = new Usuario (documento, contraseña);
+				us.save();
 
 				return true;
 			} 
@@ -218,8 +224,8 @@ public class Controlador {
 			
 			if (Docc.equals(documento)) {
 					System.out.println("Es duenio del edificio");
-					Usuario u = new Usuario (documento, contraseña);
-					u.save();
+					Usuario us = new Usuario (documento, contraseña);
+					us.save();
 
 					return true;
 				}
