@@ -57,9 +57,6 @@ export class AppHeader extends Component {
                         </ul>
                         <span className="navbar-text">
                             <div className="btn-group">
-                                <span className="header-username-container">
-                                <span className="header-username">{this.props.documento}</span>
-                                </span>
                                 {this.props.isSessionActive ?
                                     <DropdownButton id="dropdown-basic-button" title="Funcionalidades" variant = 'secondary'>
                                     <Dropdown.Item

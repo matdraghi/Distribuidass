@@ -27,7 +27,8 @@ class App extends Component {
     handleChildLogin = (documento) => {
         this.setState({
             isSessionActive: true,
-            documento: documento
+            documento: documento, 
+            Nombre: ''
         })
     }
 
@@ -51,6 +52,7 @@ class App extends Component {
 
                   <Route exact path='/login' render={() => <Login appLogin={this.handleChildLogin}/>}/>
                   <Route exact path='/reclamos' render={() => <Reclamos documento={this.state.documento}/>}/>
+                  
                   <Route exact path='/reclamoEdificio'render={() => <ReclamosEdificio documento={this.state.documento}/>}/>
                   <Route exact path='/Consultar' render={() => <ConsultarReclamos documento={this.state.documento}/>}/>
                   

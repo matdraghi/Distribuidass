@@ -8,41 +8,30 @@ class Reclamos extends Component {
     
        
   state = {
-    identificadores: []
+    identificadores: [], 
+    codig: '',
 }
-    ObtenerDocumento = () => {
-        const url = 'http://localhost:8080/myapp/Reclamos/ObtenerDoc';
-        alert (url)
 
-        fetch(url)
-        .then((response) => response.json()).then((json) => {
-            alert (json)
-            this.setState(
-                {
-                    documento:  json,
-                }
-            )
-        })
-    }
     cargarReclamo = (event) => {
         event.preventDefault(); 
         const documento = event.target.documento.value;
         //alert (event.target.documento.value)
         const codigo = event.target.codigo.value;
+        //this.ObtenerIdentificadores(codigo)
         //alert (event.target.codigo.value)
         const ubicacion = event.target.ubicacion.value;
         //alert (event.target.ubicacion.value)
         const descripcion = event.target.descripcion.value;
         //alert (event.target.descripcion.value)
-        const identificador = event.target.identificador.value;
+       const identificador = event.target.identificador.value;
+
+       // this.props.history.push ("/reclamos")
         //alert (event.target.identificador.value)
         //alert (documento + "" + codigo + "" + ubicacion + "" + descripcion + "" + identificador)
         const url = 'http://localhost:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador;
-        alert (url)
-
         fetch(url)
         .then((response) => response.json()).then((json) => {
-            alert (json)
+            
             if (json === true){
                 alert ("Es duenio de la Unidad")
             this.handleSuccessfulReclamo(documento);
@@ -63,20 +52,40 @@ class Reclamos extends Component {
                 
     }
 
-    ObtenerIdentificadores = (codigo) => {
-        alert("Consultando con Documento " + codigo)
+    prueba = (event) => {
+        event.preventDefault(); 
+        const documento = event.target.documento.value;
+        //alert (event.target.documento.value)
+        const codigo = event.target.codigo.value;
+        this.ObtenerIdentificadores(codigo);
+    
+        this.props.history.push ("/reclamos")
+    }
+    ObtenerIdentificadores(codigo) {
         const url = 'http://localhost:8080/myapp/Reclamos/ObtenerIdentificadores?codigo=' +  codigo;
-        alert (url)
+       
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-            alert (json)
             var j = JSON.stringify(json)
+            console.log (j)
             var k = JSON.parse(j)
-            console.log (k)
-            this.setState({
+            for (var i in k) {
+                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+                if (k.hasOwnProperty(i)) {
+                  var entry = k[i];
+                  var id = entry.id
+                  console.log ("Codigo " +id)
+                  var piso = entry.piso
+                  console.log ("piso " + piso)
+                  
+                  var numero = entry.numero
+                  console.log ("Numero " +numero)
+                this.setState({
                 identificadores : k,
               });
+            }
+        }
             }
            
         )
@@ -89,7 +98,7 @@ class Reclamos extends Component {
 
     render() {
         return (      
-            <Form className="mb-3" onSubmit={this.cargarReclamo}>
+            <Form className="mb-3" onSubmit={this.cargarReclamo} onReset= {this.prueba}>
                 <Form.Group controlId="documento">
                 <Form.Label>Documento</Form.Label>
                 <Form.Control as="select" >
@@ -128,50 +137,33 @@ class Reclamos extends Component {
                     <Form.Label>Descripcion</Form.Label>
                     <Form.Control as="textarea" rows="3" />
                 </Form.Group>
+                
+                <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
+                    Obtener Campos Restantes
+                </Button>
                 <Form.Group controlId="identificador">
                     <Form.Label>Identificador</Form.Label>
-                    <Form.Control as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>11</option>
-                    <option>12</option>
-                    <option>13</option>
-                    <option>14</option>
-                    <option>15</option>
-                    <option>16</option>
-                    <option>17</option>
-                    <option>18</option>
-                    <option>19</option>
-                    <option>21</option>
-                    <option>22</option>
-                    <option>23</option>
-                    <option>24</option>
-                    <option>25</option>
-                    <option>26</option>
-                    <option>27</option>
-                    <option>28</option>
-                    <option>29</option>
-                    <option>31</option>
-                    <option>32</option>
-                    <option>33</option>
-                    <option>34</option>
-                    <option>35</option>
-                    <option>36</option>
-                    <option>37</option>
-                    <option>38</option>
-                    <option>43</option>
+                    <Form.Control as="select" >
+                    {this.state.identificadores.map((identificadores) => (
+                        <option key = {identificadores.id} value= {identificadores.id} > {identificadores.id}
+                        </option>
+                    ))}
+                    </Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId="piso">
+                    <Form.Label>Piso</Form.Label>
+                    <Form.Control as="select" >
+                    {this.state.identificadores.map((identificadores) => (
+                        <option key = {identificadores.piso} value= {identificadores.piso} > {identificadores.piso}
+                        </option>
+                    ))}
                     </Form.Control>
                 </Form.Group>
                 
+               
                 <Button variant="primary" type="submit">
-                    Ingresar
+                    Realizar Alta Reclamo
                 </Button>
                 </Form>
     )

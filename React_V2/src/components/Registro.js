@@ -20,8 +20,8 @@ export class Registro extends Component {
             .then((res) => res.json()).then((json) => {
                 if (json === true) {
                     this.handleSuccessfullRegistro(documento);
-                } else {
-                    alert("Hola" +json.message);
+                } else if (json === false){
+                    alert ("Usuario ya existe como registrado en la BD!!!!");
                 }
             }
         );
