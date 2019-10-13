@@ -44,12 +44,14 @@ public class ReclamosController {
 			@RequestParam (value="codigo", required = true) int codigo, 
 			@RequestParam (value="ubicacion", required = true) String ubicacion, 
 			@RequestParam (value="descripcion", required = true) String descripcion, 
-			@RequestParam (value="identificador", required = true) int identificador) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
+			@RequestParam (value="identificador", required = true) int identificador,
+			@RequestParam (value="piso", required = true) int piso,
+			@RequestParam (value="nombre", required = true) String nombre) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
 		LOGGER.info("Dando de alta Reclamo: {}", documento);
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
 		try {
-		Boolean C = Controlador.getInstancia().altaReclamo(documento, codigo, ubicacion, descripcion, identificador);
+		Boolean C = Controlador.getInstancia().altaReclamo(documento, codigo, ubicacion, descripcion, identificador, piso, nombre);
 		System.out.println (mapper.toJson(C));
 		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
 		}catch (ReclamoException ex) {
@@ -116,12 +118,15 @@ public class ReclamosController {
 	public ResponseEntity<String> altaEdificio(@RequestParam(value = "documento", required = true) String documento,
 			@RequestParam (value="codigo", required = true) int codigo, 
 			@RequestParam (value="ubicacion", required = true) String ubicacion, 
-			@RequestParam (value="descripcion", required = true) String descripcion) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
+			@RequestParam (value="descripcion", required = true) String descripcion,
+
+			@RequestParam (value="piso", required = true) int piso,
+			@RequestParam (value="nombre", required = true) String nombre) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
 		LOGGER.info("Dando de alta Reclamo: {}", documento);
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
 		try {
-		Boolean C = Controlador.getInstancia().altaReclamoEdificio(documento, codigo, ubicacion, descripcion);
+		Boolean C = Controlador.getInstancia().altaReclamoEdificio(documento, codigo, ubicacion, descripcion,piso,  nombre);
 		System.out.println (mapper.toJson(C));
 		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
 		}catch (ReclamoException ex) {
@@ -146,4 +151,45 @@ public class ReclamosController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/ObtenerIdentificadoress", method = RequestMethod.GET)
+	public ResponseEntity<String> altaEdificio(@RequestParam(value = "nombre", required = true) String nombre) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
+		LOGGER.info("Consultando Con Nombre: {}", nombre);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		System.out.println(Controlador.getInstancia().getUnidadesPorEdif(nombre));
+		List<views.UnidadView> C = Controlador.getInstancia().getUnidadesPorEdif(nombre);
+		for (views.UnidadView p2: C) {
+			System.out.println("Codigo: " + p2.getEdificio().getCodigo());
+			System.out.println("piso: " + p2.getPiso());
+			System.out.println("Identificador: " + p2.getId());
+			
+			System.out.println("-------------------------------------------------");
+		}
+		
+		System.out.println (mapper.toJson(C));
+		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
+		return response;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ObtenerIdReclamos", method = RequestMethod.GET)
+	public ResponseEntity<String> ConsultaIdReclamos(@RequestParam(value = "documento", required = true) String documento) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
+		LOGGER.info("Consultando IdReclamos Para Documento: {}", documento);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		System.out.println(Controlador.getInstancia().ObtenerIdReclamos(documento));
+		List<Reclamo> Consulta = Controlador.getInstancia().ObtenerIdReclamos(documento);
+		for (Reclamo p2: Consulta) {
+			System.out.println("IdReclamo: " + p2.getIdReclamo());
+			
+			System.out.println("-------------------------------------------------");
+		}
+		
+		System.out.println (mapper.toJson(Consulta));
+		response = new ResponseEntity<String>(mapper.toJson(Consulta), HttpStatus.CREATED);
+		return response;
+		
+	}
 }

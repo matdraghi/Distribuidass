@@ -61,13 +61,16 @@ public class HelloController {
     }*/  
     
     @RequestMapping(value="/savefile",method=RequestMethod.POST)  
-    public ResponseEntity<String> upload(@RequestParam CommonsMultipartFile file,HttpSession session){  
+    public ResponseEntity<String> upload(@RequestParam CommonsMultipartFile file, HttpSession session){  
     	//@RequestParam(value = "IdReclamo", required = true) int IdReclamo
 	    	ResponseEntity<String> response = null;
 			JsonMapper mapper = new JsonMapper();
             String path=session.getServletContext().getRealPath("/");  
             String filename=file.getOriginalFilename();  
             String filetype = file.getContentType();
+            //int Id = IdReclamo;
+
+           // System.out.println("IdRe: " +IdReclamo);
             System.out.println("PATH: " +path);
             System.out.println("TIPO: " +filetype); // Me devuelve que tipo de imagen tengo
             /*
@@ -101,6 +104,7 @@ public class HelloController {
             System.out.println (mapper.toJson(C));
             response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
             }catch(Exception e){System.out.println(e);}  
+            System.out.println (response);
             return response;  
         }  
     
