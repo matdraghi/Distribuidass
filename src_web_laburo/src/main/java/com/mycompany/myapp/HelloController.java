@@ -27,8 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controlador.Controlador;
 import daos.ReclamosDAO;
+import dto.exception.ExceptionDTO;
+import exceptions.ImagenException;
 import exceptions.PersonaException;
-import exceptions.ReclamoException;  
+import exceptions.ReclamoException;
+import modelo.Imagen;  
   
 @Controller  
 public class HelloController {  
@@ -61,14 +64,14 @@ public class HelloController {
     }*/  
     
     @RequestMapping(value="/savefile",method=RequestMethod.POST)  
-    public ResponseEntity<String> upload(@RequestParam CommonsMultipartFile file, HttpSession session){  
-    	//@RequestParam(value = "IdReclamo", required = true) int IdReclamo
+    public ResponseEntity<String> upload(@RequestParam CommonsMultipartFile file, HttpSession session) throws ReclamoException, ImagenException{  
+    	
 	    	ResponseEntity<String> response = null;
 			JsonMapper mapper = new JsonMapper();
             String path=session.getServletContext().getRealPath("/");  
             String filename=file.getOriginalFilename();  
             String filetype = file.getContentType();
-            //int Id = IdReclamo;
+           
 
            // System.out.println("IdRe: " +IdReclamo);
             System.out.println("PATH: " +path);
@@ -84,15 +87,10 @@ public class HelloController {
 				e1.printStackTrace();
 			}*/
             
-            try {
-				Controlador.getInstancia().CargarImagen(path.toString(), filetype.toString());
-			} catch (ReclamoException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-             // viene aca
-            String C = path + filename;
-            System.out.println("Direccion en la Pc" + path+" "+filename);  
+            int K = Controlador.getInstancia().CargarImagen(path.toString(), filetype.toString(), filename.toString());
+             // viene aca 
+            String C = path + filename ;
+            System.out.println("Direccion en la Pc" + path+" "+filename + " ");  
             try{  
             byte barr[]=file.getBytes();  
               
@@ -101,24 +99,20 @@ public class HelloController {
             bout.write(barr);  
             bout.flush();  
             bout.close();  
-            System.out.println (mapper.toJson(C));
-            response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
+            System.out.println (mapper.toJson(K));
+            response = new ResponseEntity<String>(mapper.toJson(K), HttpStatus.CREATED);
             }catch(Exception e){System.out.println(e);}  
             System.out.println (response);
             return response;  
         }  
     
-    @RequestMapping(value = "/Foto", method = RequestMethod.POST)
-    public ResponseEntity  handleFileUpload(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+    @RequestMapping(value = "/Asociar", method = RequestMethod.GET)
+    public ResponseEntity  handleFileUpload(@RequestParam (value="numero", required = true) int numero, @RequestParam (value="idReclamo", required = true) int IdReclamo) throws ReclamoException, ImagenException {
     	ResponseEntity<String> response = null;
-            System.out.printf("File name=%s, size=%s\n", file.getOriginalFilename(),file.getSize());
-            //creating a new file in some local directory
-            File fileToSave = new File("C:\\test\\" + file.getOriginalFilename());
-            //copy file content from received file to new local file
-            file.transferTo(fileToSave);
-        
-        //everything was OK, return HTTP OK status (200) to the client
-        response = new ResponseEntity<String>(HttpStatus.CREATED);
-        return response;
-    }
+    	JsonMapper mapper = new JsonMapper();
+    		Boolean C = Controlador.getInstancia().CargarIdAImagen(numero, IdReclamo);
+    		System.out.println (mapper.toJson(C));
+    		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
+    		return response;
+}
 }
