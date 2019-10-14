@@ -8,6 +8,8 @@ class SubirFotos extends Component {
     state = {
         uri: "",
         identificadores: [],
+        id: "",
+        numero: "",
     }
 
     
@@ -43,19 +45,44 @@ class SubirFotos extends Component {
       
   }
 
-  onChange(e) {
-        var input = document.querySelector('input[type="file"]')
+  AsociarIdReclamo(n, id) {
+    const url = 'http://localhost:8080/myapp/Asociar?numero=' +  n + "&idReclamo=" + id;
+   
 
+    fetch(url)
+    .then((response) => response.json()).then((json) => {
+      
+        alert ("Asociando IdReclamo")
+        }
+    )
+    
+}
+  onChang = (event) => {
+        event.preventDefault();
+        var input = document.querySelector('input[type="file"]')
+        const idReclamo = event.target.idReclamo.value;
+        var id = JSON.parse (idReclamo)
         var data = new FormData()
         data.append('file', input.files[0])
-        data.append('user', 'hubot')
-        fetch('http://localhost:8080/myapp/savefile', {
-          method: 'POST',
-          body: data
-        }).then((response) => response.json()).then((json) => {
+        alert (data.get('file'))
+        alert (data)
+        alert (id)
+        fetch('http://localhost:8080/myapp/savefile',{
+          method: 'POST', // change to GET
+          body: data, id,
+   } ).then((response) => response.json()).then((json) => {
           alert (json)
+          this.setState({
+            numero : json,
+          });
+
+          alert ("numero"+ this.state.numero);
+          var n = this.state.numero;
+          alert ("!" + n)
           this.state.uri = json;
+          this.AsociarIdReclamo(n, id)
           alert (this.state.uri)
+          this.handleUploadImage()
               
         })
     
@@ -70,7 +97,7 @@ render (){
         return (
             
           <div>
-    <Form className="mb-3"  onReset= {this.prueba}>
+    <Form className="mb-3" onSubmit={this.onChang} onReset= {this.prueba}>
     <Form.Group controlId="idReclamo">
                     <Form.Label>Id</Form.Label>
                     <Form.Control as="select" >
@@ -84,11 +111,8 @@ render (){
                     Obtener Campos Restantes
                 </Button>
             <h1>File Upload</h1>
-            <input type="file" onChange={(e) => this.onChange(e)} />
-            <img 
-                                         src= {this.state.uri}
-                                                                 />
-            <Button variant="primary" onClick={this.handleUploadImage} >
+            <input type="file" />
+            <Button variant="primary" type = "submit" >
            
            
                  Upload File!
