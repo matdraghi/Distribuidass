@@ -10,12 +10,28 @@ import javax.persistence.Table;
 @Table (name= "imageness")
 public class ImagenesEntity {
 	
-	public ImagenesEntity(int numero, String path, String tipo) {
+
+	public ImagenesEntity(int numero, String path, String tipo, String nombre) {
 		super();
 		this.numero = numero;
 		this.path = path;
 		this.tipo = tipo;
+		this.nombre = nombre;
 	}
+
+
+	public ImagenesEntity(int numero, String path, String tipo, int id, String nombre) {
+		super();
+		this.numero = numero;
+		this.path = path;
+		this.tipo = tipo;
+		Id = id;
+		this.nombre = nombre;
+	}
+	
+	
+	public ImagenesEntity() {}
+	
 	
 	@Id
 	@GeneratedValue
@@ -25,7 +41,10 @@ public class ImagenesEntity {
 	private String path;
 	@Column (name= "tipo")
 	private String tipo;
-
+	@Column (name = "IdReclamo")
+	private int Id;
+	@Column (name ="nombre")
+	private String nombre;
 	public int getNumero() {
 		return numero;
 	}
@@ -44,5 +63,16 @@ public class ImagenesEntity {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 }

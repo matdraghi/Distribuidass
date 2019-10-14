@@ -5,16 +5,31 @@ import daos.UsuarioDAO;
 
 public class Imagen {
 	
-	public Imagen(String path, String tipo) {
+	private int id;
+	private String file;
+	private String nombre;
+	public Imagen(int numero, String path, String tipo, String filename ) {
+		super();
+
+		this.numero = numero;
+		this.path = path;
+		this.tipo = tipo;
+		this.file = filename;
+	}
+	
+	public Imagen(String path, String tipo, String filename ) {
 		super();
 		this.path = path;
 		this.tipo = tipo;
+		this.file = filename;
 	}
-	public Imagen(int numero, String path, String tipo) {
+	public Imagen(int numero, String path, String tipo, int i, String filename) {
 		super();
 		this.numero = numero;
 		this.path = path;
 		this.tipo = tipo;
+		this.id = i;
+		this.file = filename;
 	}
 	private int numero;
 	private String path;
@@ -42,6 +57,17 @@ public class Imagen {
 		// TODO Auto-generated method stub
 		ImagenDAO.getInstancia().save(this);
 	}
-	
+	public int getId() {
+		return id;
+	}
+	public int setId(int id) {
+		return this.id = id;
+	}
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
 	
 }

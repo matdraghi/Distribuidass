@@ -15,6 +15,7 @@ import daos.UsuarioDAO;
 import exceptions.DocumentException;
 import exceptions.DuenioException;
 import exceptions.EdificioException;
+import exceptions.ImagenException;
 import exceptions.InquilinoException;
 import exceptions.LoginException;
 import exceptions.NombreException;
@@ -233,12 +234,23 @@ public class Controlador {
 		return false;
 	}
 	
-	public void CargarImagen (String path, String tipo) throws ReclamoException {
-		Imagen e = new Imagen (path, tipo);
+	public int CargarImagen (String path, String tipo, String filename) throws ReclamoException, ImagenException {
+		Imagen e = new Imagen (path, tipo, filename);
 		e.save();
+		
+		Imagen n = ImagenDAO.getInstancia().findByName(filename);
+		return n.getNumero();
 		
 	}
 	
+	public boolean CargarIdAImagen (int numero, int idReclamo) throws ImagenException {
+		Imagen n = ImagenDAO.getInstancia().findByNumero(numero);
+		System.out.println (n.getNumero() + " " + n.getId() + " " + n.getPath() + " " + n.getTipo() + " " + n.getFile());
+		int k = n.setId(idReclamo);
+		System.out.println (k);
+		n.save();
+		return true;
+	}
 	public boolean login(String documento, String password) throws LoginException, UsuarioException{
 		Usuario u =UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
 		if(u.getPassword().equals(password)){
