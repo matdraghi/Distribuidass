@@ -43,7 +43,7 @@ export class AppHeader extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top">
                 <div className="container">
-                    <a className="navbar-brand" href="/">TPO AD</a>
+                    <a className="navbar-brand" href="/">Sistema Reclamos</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -71,9 +71,6 @@ export class AppHeader extends Component {
                                     <Dropdown.Item
                                         onClick={this.handleSubirFoto} 
                                         style ={{ color: 'black' }}>Subir Foto</Dropdown.Item>
-                                    <Dropdown.Item
-                                            onClick={this.handleCambiarPass} 
-                                            style ={{ color: 'black' }}>Cambiar Contraseña</Dropdown.Item>
                                     <Dropdown.Item
                                             onClick={this.handleCerrarSesion}
                                             style ={{ color: 'black' }}>Cerrar Sesión</Dropdown.Item>

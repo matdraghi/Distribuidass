@@ -135,7 +135,7 @@ class Reclamos extends Component {
               });
 
 
-              console.log (this.state.codig)
+              //console.log (this.state.codig)
             }
         }
             }
@@ -183,14 +183,9 @@ class Reclamos extends Component {
                     <option>Parana 300</option>
                     <option>Av. Lizard 1000</option>
                     </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="descripcion">
-                    <Form.Label>Descripcion</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
-                </Form.Group>
-                
+                </Form.Group>                
                 <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
-                    Obtener Campos Restantes
+                    Obtener Codigo/identificadores/pisos
                 </Button>
                 <Form.Group controlId="codigo">
                     <Form.Label>Codigo</Form.Label>
@@ -218,7 +213,10 @@ class Reclamos extends Component {
                     ))}
                     </Form.Control>
                 </Form.Group>
-                
+                <Form.Group controlId="descripcion">
+                    <Form.Label>Descripcion</Form.Label>
+                    <Form.Control as="textarea" rows="3" />
+                </Form.Group>
                
                 <Button variant="primary" type="submit">
                     Realizar Alta Reclamo

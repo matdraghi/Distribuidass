@@ -12,15 +12,15 @@ import Loading from './Loading'
     ConsultarRe = (event) => {
       event.preventDefault();
       const documento = event.target.documento.value
-      alert (documento)
+     // alert (documento)
       const url = 'http://localhost:8080/myapp/Reclamos/Consultar?documento=' + documento
-      alert (url)
+      //alert (url)
       fetch(url)
         .then((res) =>  res.json()).then((json) => {
 
           var j = JSON.stringify(json)
           var k = JSON.parse(j)
-          console.log (k)
+          //console.log (k)
           for (var i in k) {
             // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
             if (k.hasOwnProperty(i)) {
@@ -42,7 +42,7 @@ import Loading from './Loading'
               
               var ubicacion = entry.ubicacion
               console.log ("Ubicacion " +ubicacion)
-              alert (entry.p)
+              //alert (entry.p)
               this.setState({
                 reclamos : k,
               });
@@ -80,7 +80,7 @@ import Loading from './Loading'
                 </Form.Control>
                 </Form.Group>
             <Button variant="primary" type="submit">
-                    Consultar
+                    Consultar Reclamos
                 </Button>
                 <React.Fragment>
                   

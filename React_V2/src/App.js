@@ -5,7 +5,6 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import ConsultarReclamos from './components/ConsultarReclamos';
 import Login from './components/Login';
 import Reclamos from './components/Reclamos';
-import CambiarContraseña from './components/CambiarContraseña';
 import Registro from '../src/components/Registro'
 import ReclamosEdificio from './components/ReclamosEdificio'
 import SubirFotos from './components/SubirFoto'
@@ -56,7 +55,6 @@ class App extends Component {
                   <Route exact path='/reclamoEdificio'render={() => <ReclamosEdificio documento={this.state.documento}/>}/>
                   <Route exact path='/Consultar' render={() => <ConsultarReclamos documento={this.state.documento}/>}/>
                   
-                  <Route exact path='/cambiar-contraseña/:usuario' component={CambiarContraseña}/>
                   <Route exact path='/SubirFotos' render={() => <SubirFotos documento={this.state.documento}/>}/>
                   <Route exact path='/registro' render={() => <Registro appRegistro={this.handleChildLogin}/>}/>
               </div>

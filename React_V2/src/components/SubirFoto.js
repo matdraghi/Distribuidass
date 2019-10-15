@@ -17,7 +17,7 @@ class SubirFotos extends Component {
       event.preventDefault(); 
       const documento = this.props.documento;
       //alert (event.target.documento.value)
-      alert (documento)
+      //alert (documento)
       this.ObtenerIdentificadores(documento);
   }
   ObtenerIdentificadores(documento) {
@@ -52,7 +52,8 @@ class SubirFotos extends Component {
     fetch(url)
     .then((response) => response.json()).then((json) => {
       
-        alert ("Asociando IdReclamo")
+        //alert ("Asociando IdReclamo")
+        this.props.history.push ("/home")
         }
     )
     
@@ -64,24 +65,24 @@ class SubirFotos extends Component {
         var id = JSON.parse (idReclamo)
         var data = new FormData()
         data.append('file', input.files[0])
-        alert (data.get('file'))
-        alert (data)
-        alert (id)
+ 
+        //alert (data)
+        //alert (id)
         fetch('http://localhost:8080/myapp/savefile',{
           method: 'POST', // change to GET
           body: data, id,
    } ).then((response) => response.json()).then((json) => {
-          alert (json)
+          //alert (json)
           this.setState({
             numero : json,
           });
 
-          alert ("numero"+ this.state.numero);
+          //alert ("numero"+ this.state.numero);
           var n = this.state.numero;
-          alert ("!" + n)
+          //alert ("!" + n)
           this.state.uri = json;
           this.AsociarIdReclamo(n, id)
-          alert (this.state.uri)
+          //alert (this.state.uri)
           this.handleUploadImage()
               
         })
@@ -89,7 +90,7 @@ class SubirFotos extends Component {
       }
 
       handleUploadImage = () => {
-        alert("Your file is being uploaded!");
+        alert("Tu archivo ha sido subido con exito!");
         
     }
 
@@ -99,7 +100,7 @@ render (){
           <div>
     <Form className="mb-3" onSubmit={this.onChang} onReset= {this.prueba}>
     <Form.Group controlId="idReclamo">
-                    <Form.Label>Id</Form.Label>
+                    <Form.Label>Id Reclamo</Form.Label>
                     <Form.Control as="select" >
                     {this.state.identificadores.map((identificadores) => (
                         <option key = {identificadores.idReclamo} value= {identificadores.idReclamo} > {identificadores.idReclamo}
@@ -108,14 +109,14 @@ render (){
                     </Form.Control>
                 </Form.Group>
     <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
-                    Obtener Campos Restantes
+                    Obtener IdReclamos
                 </Button>
-            <h1>File Upload</h1>
+            <h1>Subir Archivo</h1>
             <input type="file" />
             <Button variant="primary" type = "submit" >
            
            
-                 Upload File!
+                 Subir Archivo!
             </Button>
             </Form>
         </div>

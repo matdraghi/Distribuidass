@@ -68,13 +68,13 @@ class ReclamosEdificio extends Component {
         //alert (event.target.identificador.value)
         //alert (documento + "" + codigo + "" + ubicacion + "" + descripcion + "" + identificador)
         const url = 'http://localhost:8080/myapp/Reclamos/altaEdificio?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + "&nombre=" + nombre + "&piso=" + piso;
-        alert (url)
+        //alert (url)
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-            alert (json)
+            //alert (json)
             if (json === false){
-                alert ("Es Inquilino de la Unidad")
+            //alert ("Es Inquilino de la Unidad")
             this.handleSuccessfulReclamo(documento);
             this.props.history.push("/home");
             }
@@ -84,7 +84,7 @@ class ReclamosEdificio extends Component {
     }
 
     handleSuccessfulReclamo = (documento) => {
-        alert("Creado Reclamo con Documento " + documento)
+        alert("Creado Reclamo para Edificio con Documento " + documento)
     }
 
     render() {
@@ -124,10 +124,9 @@ class ReclamosEdificio extends Component {
                     <option>Av. Lizard 1000</option>
                     </Form.Control>
                 </Form.Group>
-                <Form.Group controlId="descripcion">
-                    <Form.Label>Descripcion</Form.Label>
-                    <Form.Control as="textarea" rows="3" />
-                </Form.Group>
+                <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
+                    Obtener Codigo/Piso
+                </Button>
                 <Form.Group controlId="codigo">
                     <Form.Label>Codigo</Form.Label>
                     <Form.Control as="select" >
@@ -146,13 +145,13 @@ class ReclamosEdificio extends Component {
                     ))}
                     </Form.Control>
                 </Form.Group>
-                   
-                <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" >
-                    Obtener Codigo/Piso
-                </Button>
-                
+
+                <Form.Group controlId="descripcion">
+                    <Form.Label>Descripcion</Form.Label>
+                    <Form.Control as="textarea" rows="3" />
+                </Form.Group>
                 <Button variant="primary" type="submit">
-                    Ingresar
+                    Realizar Alta Reclamo En Edificio
                 </Button>
                 </Form>
     )
