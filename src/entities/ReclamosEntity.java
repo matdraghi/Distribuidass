@@ -30,7 +30,6 @@ public class ReclamosEntity  {
 		return IdReclamo;
 	}
 	
-	
 	private String documento;
 	public String getDocumento() {
 		return documento;
@@ -42,8 +41,6 @@ public class ReclamosEntity  {
 	private String descripcion;
 	private int identificador;
 
-	@Column (name ="piso")
-	private int p;
 	public ReclamosEntity() {
 		
 	}
@@ -88,6 +85,9 @@ public class ReclamosEntity  {
 	@Enumerated(EnumType.STRING)
 	@Column(length = 50)
 	private String estado;
+
+	@Column (name ="piso")
+	private int p;
 	@Column (name = "nombre")
 	private String nombre;
 
@@ -139,7 +139,7 @@ public class ReclamosEntity  {
 		this.p = p;
 	}
 
-	
+		
 	
 	
 }

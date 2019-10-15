@@ -25,6 +25,20 @@ public static UsuarioDAO instancia;
 	}
 	
 
+	public boolean Existe(String documento) throws UsuarioException{
+		boolean B;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.openSession();
+		s.beginTransaction();
+		UsuarioEntity recuperado = (UsuarioEntity) s.createQuery("from UsuarioEntity where documento = ?").setString(0, documento).uniqueResult();	
+		if (recuperado == null)
+			B = false;
+		else
+			B = true;
+		s.getTransaction().commit();
+		return B;
+	}
+	
 	public Usuario getUsuarioByDoc(String documento) throws UsuarioException{
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session s = sf.openSession();
@@ -36,8 +50,7 @@ public static UsuarioDAO instancia;
 		else
 			throw new UsuarioException("No existe el usuaio " + documento); 
 	}
-	
-	
+
 	
 	Usuario toNegocio(UsuarioEntity detalle) {
 		Usuario resultado = new Usuario(detalle.getDocumento(), detalle.getPassword());

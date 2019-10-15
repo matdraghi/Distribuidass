@@ -14,8 +14,8 @@ public class Usuario {
 	public String getDocumento() {
 		return documento;
 	}
-	public void setDocumento(String documento) {
-		this.documento = documento;
+	public String setDocumento(String documento) {
+		return this.documento = documento;
 	}
 	public String getPassword() {
 		return Password;

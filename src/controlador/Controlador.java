@@ -180,56 +180,17 @@ public class Controlador {
 		Persona p;
 		p = PersonaDAO.getInstancia().findByID(documento);
 		
-		Usuario u = UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
+		Boolean C = UsuarioDAO.getInstancia().Existe(documento) ;
 		
 		if(p != null) {
-			if (u.getDocumento().equals(documento)){
-				System.out.println ("YA EXISTE EN LA TABLA!");
-				return false;
-			}
-			System.out.println("Existe dentro de la tabla personas");
-			List<Inquilinos> i;
-			i = InquilinoDAO.getInstancia().getAll(documento);
-			String Doc = null;
-			for (Inquilinos p2: i) {
-				System.out.println("Id: " + p2.getId());
-				System.out.println("Identificador: " + p2.getIdentificador());
-				System.out.println("Documento: " + p2.getDocumento());
-				Doc = p2.getDocumento();
-				System.out.println("-------------------------------------------------");
-			}
-			
-			System.out.println(Doc);
-			if(documento.equals(Doc)) {
-				
-				System.out.println("El usario es un inquilino del edificio");
-				Usuario us = new Usuario (documento, contraseña);
-				us.save();
-
-				return true;
-			} 
-			else 
-			{
-			System.out.println("El usuario ingresado no es Inquilino, vuelva a ingresar");
-			}
-			List<Duenio> d;
-			d = DuenioDAO.getInstancia().getAll(documento);
-			String Docc = null;
-			for (Inquilinos p2: i) {
-				System.out.println("Id: " + p2.getId());
-				System.out.println("Identificador: " + p2.getIdentificador());
-				System.out.println("Documento: " + p2.getDocumento());
-				Docc = p2.getDocumento();
-				System.out.println("-------------------------------------------------");
-			}
-			
-			if (Docc.equals(documento)) {
-					System.out.println("Es duenio del edificio");
+			if (C == false) {
 					Usuario us = new Usuario (documento, contraseña);
 					us.save();
-
 					return true;
 				}
+			else if (C == true) {
+				return false;
+			}
 			}
 		return false;
 	}
@@ -252,7 +213,7 @@ public class Controlador {
 		return true;
 	}
 	public boolean login(String documento, String password) throws LoginException, UsuarioException{
-		Usuario u =UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
+		Usuario u = UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
 		if(u.getPassword().equals(password)){
 			System.out.println("ENTRE");
 			return true;
