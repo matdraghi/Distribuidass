@@ -192,4 +192,21 @@ public class ReclamosController {
 		return response;
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/Obtener", method = RequestMethod.GET)
+	public ResponseEntity<String> ConsultaIdReclamos(@RequestParam(value = "documento", required = true) String documento,
+			@RequestParam(value = "nombre", required = true) String nombre,
+			@RequestParam(value = "descripcion", required = true) String descripcion,
+			@RequestParam(value = "piso", required = true) int piso) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
+		LOGGER.info("Consultando IdReclamos Para Documento: {}", documento);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		System.out.println(Controlador.getInstancia().ObtenerId(documento, nombre, descripcion, piso));
+		int Consulta = Controlador.getInstancia().ObtenerId(documento, nombre, descripcion, piso);
+		System.out.println (mapper.toJson(Consulta));
+		response = new ResponseEntity<String>(mapper.toJson(Consulta), HttpStatus.CREATED);
+		return response;
+		
+	}
 }
