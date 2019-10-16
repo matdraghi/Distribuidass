@@ -278,6 +278,13 @@ public class Controlador {
 		return resultado;
 	}
 	
+	public  int ObtenerId(String documento, String nombre, String descripcion, int piso) throws PersonaException, ReclamoException {
+
+		Reclamo Aux= ReclamosDAO.getInstancia().Obtener(documento, nombre, descripcion, piso);
+		int resultado = Aux.getIdReclamo();
+		return resultado;
+	}
+	
 	public String SolicitarDetalles ( int codigo, int piso, int identificador, String ubicacion) {
 		DetalleReclamos w = new DetalleReclamos (codigo, piso, identificador, ubicacion);
 		w.save();
