@@ -75,12 +75,30 @@ class ReclamosEdificio extends Component {
             //alert (json)
             if (json === false){
             //alert ("Es Inquilino de la Unidad")
+            
+            this.QueIdReclamo(documento, nombre, descripcion, piso)
             this.handleSuccessfulReclamo(documento);
             this.props.history.push("/home");
             }
         })
         
                 
+    }
+
+
+    
+
+    QueIdReclamo(documento, nombre, descripcion, piso) {
+        const url = 'http://localhost:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
+       
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+          alert ("IdReclamo..."+ json )
+            }
+           
+        )
+        
     }
 
     handleSuccessfulReclamo = (documento) => {

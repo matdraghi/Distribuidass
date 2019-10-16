@@ -10,7 +10,10 @@ class Reclamos extends Component {
   state = {
     identificadores: [], 
     codig: '',
+    pisos: '',
+    p : [],
 }
+
 
     cargarReclamo = (event) => {
         event.preventDefault(); 
@@ -39,6 +42,8 @@ class Reclamos extends Component {
             
             if (json === true){
                 alert ("Es duenio de la Unidad")
+            this.QueIdReclamo(documento, nombre, descripcion, piso)
+            
             this.handleSuccessfulReclamo(documento);
             this.props.history.push("/home");
             }
@@ -97,6 +102,19 @@ class Reclamos extends Component {
         
     }
 
+    QueIdReclamo(documento, nombre, descripcion, piso) {
+        const url = 'http://localhost:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
+       
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+          alert ("IdReclamo..."+ json )
+            }
+           
+        )
+        
+    }
+
     
     pruebaNombre= (event) => {
         event.preventDefault(); 
@@ -107,8 +125,6 @@ class Reclamos extends Component {
     }
     ObtenerIdentificadoress(nombre) {
         const url = 'http://localhost:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
-       
-
         fetch(url)
         .then((response) => response.json()).then((json) => {
             var j = JSON.stringify(json)
@@ -118,7 +134,6 @@ class Reclamos extends Component {
                 // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
                 if (k.hasOwnProperty(i)) {
                   var entry = k[i];
-                  var entryy = k [i + 1];
                   var id = entry.id
                   console.log ("Codigo " +id)
                   var piso = entry.piso
@@ -128,11 +143,16 @@ class Reclamos extends Component {
                   console.log ("Numero " +numero)
                   var codigo = entry.edificio.codigo
                   console.log ("Codigo " +codigo)
-                  
                 this.setState({
                 identificadores : k,
                 codig: codigo,
+                pisos : piso
               });
+
+                   
+
+
+
 
 
               //console.log (this.state.codig)

@@ -46,7 +46,7 @@ class App extends Component {
           <div className="row">
               <div className="col-lg-12">
                   
-                  <Route exact path='/' component={Home}/>
+                  <Route exact path='/' component={Registro}/>
                   <Route exact path='/home' component={Home}/>
 
                   <Route exact path='/login' render={() => <Login appLogin={this.handleChildLogin}/>}/>
