@@ -54,6 +54,8 @@ class Reclamos extends Component {
                 this.props.history.push("/reclamoEdificio");
             }
             else if (json === null){
+
+                alert ("Usted no es duenio ni inquilino de la unidad ingresada")
                 
                 this.props.history.push("/reclamoEdificio");
             }
@@ -169,8 +171,8 @@ class Reclamos extends Component {
 
     render() {
         return (      
-            <Form className="mb-3" onSubmit={this.cargarReclamo} onReset= {this.pruebaNombre}>
-                <Form.Group controlId="documento">
+            <Form className="mb-3"  onSubmit={this.cargarReclamo} onReset= {this.pruebaNombre}>
+                <Form.Group controlId="documento" >
                 <Form.Label>Documento</Form.Label>
                 <Form.Control as="select" >
                     <option>{this.props.documento}</option>

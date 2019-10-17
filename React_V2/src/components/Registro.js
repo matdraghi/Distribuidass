@@ -22,6 +22,7 @@ export class Registro extends Component {
                     this.handleSuccessfullRegistro(documento);
                 } else if (json === false){
                     alert ("Usuario ya existe como registrado en la BD!!!!");
+                    this.props.history.push("/login")
                 }
             }
         );
@@ -41,7 +42,7 @@ export class Registro extends Component {
                     <Form.Control type="password" name="password"/>
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Ingresar
+                    Registrarse
                 </Button>
             </Form>
         )

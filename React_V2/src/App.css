@@ -1,10 +1,11 @@
-.App { background-color: #e0e0d3;
+.App { background-color: #26b7ca;
   color: rgb(151, 23, 23);
   padding: 40px;
   font-family: Arial;
   text-align: center;
   height:190vh;
-  /*background-image: url(../public/Collage.jpg)*/
+  /*background-image: url(../src/img/paisaje.png);*/
+  
 }
 
 .Login {

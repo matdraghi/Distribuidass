@@ -38,7 +38,7 @@ export class Login extends Component {
                     <Form.Control type="password" name="password"/>
                 </Form.Group>
                 <Button variant="primary" type="submit">
-                    Ingresar
+                    Iniciar Sesion
                 </Button>
             </Form>
         )
