@@ -7,17 +7,19 @@ import Login from './componentes/Login';
 import Navigator from './componentes/Navigator'
 //import {KeyboardAvoidingView} from 'react-native'
 //import CameraPagee from './componentes/CamaraPagee'
+import AltaReclamo from './componentes/AltaReclamo'
 import CamaraPage from './componentes/CamaraPage'
-import Cam from './componentes/Cam'
 import { NetInfo } from "react-native";
 import UploadForm from './componentes/UploadForm'
 
 export default class App extends React.Component {
+  
   render() {
    console.disableYellowBox = true; 
     return (
-          //<CamaraPage/>
+          //<CamaraPage/><Navigator
           <Navigator/>
+                               
         // <CamaraPage/>
          //<UploadForm/>
     )

@@ -25,21 +25,11 @@ export class UploadForm extends Component {
     state = {
         photo: null,
       }
-    
-     /* handleChoosePhoto = () => {
-        const options = {
-          noData: true,
-        }
-        ImagePicker.launchImageLibrary(options, response => {
-          if (response.uri) {
-            this.setState({ photo: response })
-          }
-        })
-      }*/
+      
 
       handleUploadPhoto = () => {
         fetch("http://192.168.0.12:8080/myapp/uploadform", {
-          method: "POST",
+          method: "GET",
           body: createFormData(this.state.photo)
         })
           .then(response => response.json())

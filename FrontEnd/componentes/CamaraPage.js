@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, Image, Button,ScrollView, CameraRoll, TouchableHighlight } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+
 import {ImagePicker} from 'expo-image-picker';
 import styles from './styles'
 
@@ -9,6 +10,7 @@ export default class CamaraPage extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+    uri: '',
   };
 
   async componentDidMount() {
@@ -25,6 +27,27 @@ export default class CamaraPage extends React.Component {
        await this.camera.takePictureAsync(options).then(photo => {
           photo.exif.Orientation = 1;            
            console.log(photo.uri);
+           this.setState ({
+             uri: photo.uri
+           })
+      
+      //alert (data)
+      //alert (id)
+      
+      var file = this.state.uri
+      console.log (file)
+      var data = new FormData
+      data.append ("file", file)
+      fetch('http://localhost:8080/myapp/savefile',{
+        method: 'POST', // change to GET
+        body: data,
+    } ).then((response) => response.json()).then((json) => {
+        console.log (json)
+        this.setState({
+          numero : json,
+        });
+            
+      })
            
         CameraRoll.saveToCameraRoll(photo.uri, 'photo');       
            });     
@@ -33,7 +56,7 @@ export default class CamaraPage extends React.Component {
 
     _saveToCameraRollAsync = async () => {
       let result = await takeSnapshotAsync(this._container, {
-        format: 'png',
+        format: 'jpg',
         result: 'file',
       });
   
@@ -73,6 +96,8 @@ getPhotosFromGallery() {
       console.log(res, "images data")
     })
 }
+
+
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -118,7 +143,7 @@ getPhotosFromGallery() {
               </TouchableOpacity>
               <TouchableOpacity style={styles.captureBtnInternal} onPress={this.snapPhoto.bind(this)}>        
               
-              <Image style={styles.submitButton} source={require('../assets/Circulo.png')}  
+              <Image style={styles.submitButton} source={require('../assets/Circulo.png') }  
                 />
             </TouchableOpacity>
             </View>

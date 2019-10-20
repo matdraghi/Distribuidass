@@ -11,13 +11,18 @@ export class Login extends Component {
         mostrarMensaje: ''
     }
 
+    getUsuarioValue(){
+        return this.state.documento
+    }
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
         const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
-                if (json == true) {
+                console.log (json)
+                if (json === true) {
+
                     this.handleSuccessfulLogin();
                 }
                 else {
@@ -29,7 +34,11 @@ export class Login extends Component {
 
     handleSuccessfulLogin = () => {
         this.mostrarMensaje("Bienvenido " + this.state.documento)
-        this.props.navigation.navigate('App', { documento: this.state.documento })
+        this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
+        
+        this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
+        this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
+        //console.log (documento)
     }
 
     mostrarMensaje = (mensaje) => {

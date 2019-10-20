@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component }  from 'react'
 import {createSwitchNavigator, createAppContainer } from 'react-navigation';
 import  {createStackNavigator} from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
@@ -6,15 +6,36 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './Login'
 import AltaReclamo from './AltaReclamo'
-import DetallesReclamos from './DetallesReclamos'
+import ReclamosEdificio from './ReclamosEdificio'
 import Usuario from './Usuario'
-import ConsultarReclamo from './ConsultarReclamo'
+import ConsultarReclamos from './ConsultarReclamo'
 import CamaraPage from './CamaraPage'
 
-const backgroundColor = '#d32f2f'
-const headerTextColor = '#ffffff'
+import { ScreenOrientation } from 'expo';
+const backgroundColor = '#00FA9A'
+const headerTextColor = '#ffffff';
+
+
+
+
+ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL);
+handleChildCerrarSesion = () => {
+    this.setState({
+        isSessionActive: false,
+        documento: ''
+    });
+}
+
+handleChildLogin = (documento) => {
+    this.setState({
+        isSessionActive: true,
+        documento: documento, 
+        Nombre: ''
+    })
+}
 
 const ProductosStack = createStackNavigator({
+
       AltaReclamo: { 
         screen: AltaReclamo,
         navigationOptions: {
@@ -38,10 +59,10 @@ ProductosStack.navigationOptions = {
 }
 
 const DetalleStack = createStackNavigator({
-    DetallesReclamos: { 
-        screen: DetallesReclamos,
+    ReclamosEdificio: { 
+        screen: ReclamosEdificio,
         navigationOptions: {
-            headerTitle: 'Detalle Reclamo',
+            headerTitle: 'Reclamos Edificio',
             headerTitleStyle: {
                 textAlign: "center",
                 flex: 1
@@ -55,7 +76,7 @@ const DetalleStack = createStackNavigator({
 })
 
 DetalleStack.navigationOptions = {
-    tabBarLabel: "Detalles",
+    tabBarLabel: "Reclamos Edificio",
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 const UsuarioStack = createStackNavigator({
@@ -80,8 +101,9 @@ UsuarioStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-contact" size={20} /> )
 }
 
+
 const CameraStack = createStackNavigator({
-    Usuario: {
+    Camara: {
         screen: CamaraPage,
         navigationOptions: {
             headerTitle: 'Camara',
@@ -103,8 +125,10 @@ CameraStack.navigationOptions = {
 }
 
 const ConsultarStack =  createStackNavigator({
-    Usuario: {
-        screen: ConsultarReclamo,
+    
+    ConsultarReclamos: {
+        screen: ConsultarReclamos,
+        
         navigationOptions: {
             headerTitle: 'Consultar Reclamos',
             headerTitleStyle: {
@@ -128,8 +152,8 @@ const AppTabNavigator = createMaterialBottomTabNavigator(
     {
         ProductosStack,
         DetalleStack,
-        ConsultarStack,
         CameraStack,
+        ConsultarStack,
         UsuarioStack,
     },
     {
@@ -156,9 +180,9 @@ const AppStackNavigator = createStackNavigator(
 
 const AppSwitchNavigator = createSwitchNavigator({
     Login: { screen: Login },
+    
     App: { screen: AppStackNavigator }
 });
 
 const Navigator = createAppContainer(AppSwitchNavigator)
-
 export default Navigator
