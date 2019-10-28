@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Button, TextInput, Snackbar } from 'react-native-paper'
+import Logotipo from "../assets/Images/Logo.png"
 
 export class Login extends Component {
     state = {
@@ -17,7 +18,7 @@ export class Login extends Component {
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)
@@ -101,6 +102,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    logo : {
+        flex: 1,
+        width: '90%',
+        resizeMode: 'contain',
+        alignSelf: 'center',
     },
     input: {
         width: '90%',

@@ -11,6 +11,7 @@ import AltaReclamo from './componentes/AltaReclamo'
 import CamaraPage from './componentes/CamaraPage'
 import { NetInfo } from "react-native";
 import UploadForm from './componentes/UploadForm'
+import ImagePickerExample from './componentes/ImagePickerExample'
 
 export default class App extends React.Component {
   

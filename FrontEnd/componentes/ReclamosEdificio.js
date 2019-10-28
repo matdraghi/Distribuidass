@@ -24,7 +24,7 @@ export class DetallesReclamos extends Component {
     
     }
     ObtenerIdentificadoress(nombre) {
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
        
 
         fetch(url)
@@ -70,7 +70,7 @@ export class DetallesReclamos extends Component {
         const nombre = this.state.nombre;
         console.log(".." +nombre)
         
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/altaEdificio?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + "&nombre=" + nombre + "&piso=" + piso;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/altaEdificio?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + "&nombre=" + nombre + "&piso=" + piso;
         //alert (url)
 
         fetch(url)
@@ -91,7 +91,7 @@ export class DetallesReclamos extends Component {
     
 
     QueIdReclamo(documento, nombre, descripcion, piso) {
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
        
 
         fetch(url)

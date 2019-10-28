@@ -40,7 +40,7 @@ export class AltaProducto extends Component {
         console.log(".." +nombre)
         const piso = this.state.piso;
         console.log("piso " +piso)
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + '&piso=' + piso + '&nombre=' + nombre;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + '&piso=' + piso + '&nombre=' + nombre;
         fetch(url)
             .then(res =>  res.json()).then((json) => {
                 if (json == true) {
@@ -88,7 +88,7 @@ export class AltaProducto extends Component {
     }
 
     ObtenerIdentificadores(nombre) {
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/ObtenerIdentificadoress?nombre=' +  nombre;
         fetch(url)
         .then((response) => response.json()).then((json) => {
             var j = JSON.stringify(json)
@@ -113,7 +113,7 @@ export class AltaProducto extends Component {
     }
 
     QueIdReclamo(documento, nombre, descripcion, piso) {
-        const url = 'http://192.168.0.12:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Obtener?documento=' +  documento + "&nombre=" + nombre + "&descripcion=" + descripcion + "&piso=" + piso ;
        
 
         fetch(url)
