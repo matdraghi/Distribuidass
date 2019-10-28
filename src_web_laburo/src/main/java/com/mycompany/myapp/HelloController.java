@@ -1,7 +1,8 @@
 package com.mycompany.myapp;
 
 import java.io.BufferedOutputStream;  
-import java.io.File;  
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -115,4 +116,52 @@ public class HelloController {
     		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
     		return response;
 }
+    
+    @RequestMapping(value="/savefilee",method=RequestMethod.GET)  
+    public ResponseEntity<String> upload(@RequestParam (value="file", required = true) String file, HttpSession session) throws ReclamoException, ImagenException{  
+    	
+	    	ResponseEntity<String> response = null;
+			JsonMapper mapper = new JsonMapper();
+			String C = file;
+			System.out.println (C.length() - 40);
+			String filee;
+			filee = C.substring(C.length()-40, C.length());
+			String path = C.substring(0, C.length()- 40);
+			String tipo = C.substring(C.length() - 4); 
+			System.out.println ("Tipo: " + tipo);
+			System.out.println ("Path: " + path);
+			System.out.println("file " + filee);
+           
+
+           // System.out.println("IdRe: " +IdReclamo);
+            //System.out.println("PATH: " +path);
+            //System.out.println("TIPO: " +filetype); // Me devuelve que tipo de imagen tengo
+            /*
+            try {
+				ReclamosDAO.getInstancia().findByIDReclamo(IdReclamo);
+			} catch (ReclamoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (PersonaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}*/
+
+            System.out.println("Direccion en la Pc" + path+" "+filee + " "); 
+            int J = Controlador.getInstancia().CargarImagen(path, tipo, filee);
+            try{  
+                byte barr[]=file.getBytes();  
+                  
+                BufferedOutputStream bout=new BufferedOutputStream(  
+                         new FileOutputStream(path+"/"+filee));  
+                bout.write(barr);  
+                bout.flush();  
+                bout.close();  
+            System.out.println (mapper.toJson(J));
+            response = new ResponseEntity<String>(mapper.toJson(J), HttpStatus.CREATED) ;
+            }
+            catch(Exception e){System.out.println(e);};
+            return response;  
+        }  
+    
 }
