@@ -258,7 +258,6 @@ export class AltaProducto extends Component {
                 </Picker>
                 
                 <Button 
-                    icon="add-circle-outline" 
                     mode="contained" 
                     color = '#d32f2f' 
                     onPress={() => this.nuevoReclamo()}

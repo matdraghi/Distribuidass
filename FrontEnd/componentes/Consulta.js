@@ -62,7 +62,6 @@ export class Consulta extends Component {
                     keyboardType='default'
                 />
                 <Button 
-                    icon="add-circle-outline" 
                     mode="contained" 
                     color = '#d32f2f' 
                     onPress={() => this.mostrarInfo()}

@@ -89,7 +89,6 @@ export class ConsultarReclamo extends Component {
                     value={this.state.documento}
                 />
                 <Button 
-                    icon="add-circle-outline" 
                     mode="contained" 
                     color = '#d32f2f' 
                     onPress={() => this.nuevoReclamo()}
