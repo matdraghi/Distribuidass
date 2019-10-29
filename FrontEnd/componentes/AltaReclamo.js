@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert} from 'react-native'
+import { View, StyleSheet, Picker, ScrollView, Alert , KeyboardAvoidingView} from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar, TouchableWithoutFeedback } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -14,6 +14,7 @@ export class AltaProducto extends Component {
         ubicacion: '',
         descripcion: '',
         identificador: '',
+        identific: [],
         piso: '',
         nombre: '',
         mensaje: '',
@@ -97,15 +98,17 @@ export class AltaProducto extends Component {
                 // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
                 
                 var entry = k[i];
-                var codigo = entry.edificio.codigo
+                var codigo = entry.edificio.codigo 
                 if (k.hasOwnProperty(i)) {
                 this.setState({
-                identificadores : k,
                 codig: codigo,
               });
               
+              
             }
         }
+        
+        this.IdentificadorDuenio (this.state.codig,this.state.documento);
             }
            
         )
@@ -118,29 +121,46 @@ export class AltaProducto extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          console.log ("IdReclamo..."+ json )
-          Alert.alert(
-            'Id Reclamo',
-            json,
-            [
-              {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+          alert ("IdReclamo..."+ json )
+          
             }
            
         )
         
     }
+
+    
+    IdentificadorDuenio(codigo, documento) {
+        var i = 0;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Identificad?codigo=' +  codigo + "&documento=" + this.state.documento;
+       console.log (url)
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+          alert (" "+ json );
+          var j = JSON.stringify(json)
+          console.log (j)
+          var k = JSON.parse(j)
+          console.log (k)
+          for (var i in k) {
+              // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+              
+              var entry = k[i];
+              console.log (entry); 
+              if (k.hasOwnProperty(i)) {
+              this.setState({
+                  identificadores: k
+            });
+        }
+    }
+        }
+    
+        )
+        
+    }
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                 </View>
                 
@@ -175,7 +195,7 @@ export class AltaProducto extends Component {
                     <Picker.Item label="The Tower" value="The Tower" />  
                     <Picker.Item label="Lizard Plaza" value="Lizard Plaza" />
                     </Picker>
-                    <TextInput
+             <TextInput
                     style={styles.inputs}
                     label='ubicacion'
                     underlineColor = '#d32f2f'
@@ -205,15 +225,14 @@ export class AltaProducto extends Component {
                 >
                     Obtener Identificadores/piso/codigo
                 </Button>
-                 <TextInput
+                <TextInput
                     style={styles.inputs}
                     label='codigo'
                     underlineColor = '#d32f2f'
                     selectionColor = '#d32f2f'
                   
                     value={this.state.codig && String (this.state.codig)}
-                 />
-                  
+                 />  
                 <TextInput
                     style={styles.inputs}
                     label='descripcion'
@@ -223,24 +242,7 @@ export class AltaProducto extends Component {
                     onChangeText={descripcion => this.setState({descripcion })}
                     keyboardType='default'
                 />
-                 <TextInput
-                    style={styles.inputs}
-                    label='identificador'
-                    underlineColor = '#d32f2f'
-                    selectionColor = '#d32f2f'
-                    value={this.state.identificador && String (this.state.identificador)}
-                />
-
-                <Picker selectedValue={this.state.identificador}
-                    onValueChange={(itemValue, itemIndex) =>
-                        this.setState({ identificador: itemValue })
-                    }>
-                    {this.state.identificadores.map(identificadores =>
-                        <Picker.Item label={identificadores.id} value={identificadores.id} key={identificadores.id} />
-                    )}
-        </Picker>
-
-                <TextInput
+        <TextInput
                     style={styles.inputs}
                     label='piso'
                     underlineColor = '#d32f2f'
@@ -256,7 +258,23 @@ export class AltaProducto extends Component {
                         <Picker.Item label={identificadores.piso} value={identificadores.piso} key={identificadores.piso} />
                     )}
                 </Picker>
-                
+
+                <TextInput
+                    style={styles.inputs}
+                    label='identificador'
+                    underlineColor = '#d32f2f'
+                    selectionColor = '#d32f2f'
+                    value={this.state.identificador && String (this.state.identificador)}
+                />
+
+                <Picker selectedValue={this.state.identificador}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ identificador: itemValue })
+                    }>
+                    {this.state.identificadores.map(identificadores =>
+                        <Picker.Item label={identificadores.identificador} value={identificadores.identificador} key={identificadores.identificador} />
+                    )}
+                 </Picker>
                 <Button 
                     mode="contained" 
                     color = '#d32f2f' 
@@ -275,8 +293,7 @@ export class AltaProducto extends Component {
                     {this.state.mensaje}
                 </Snackbar>
                 </ScrollView>
-            </View>
-            
+            </KeyboardAvoidingView>
         )
     }
 }
@@ -301,6 +318,23 @@ const styles = StyleSheet.create({
 export default AltaProducto
 
 /*
+
+<TextInput
+                    style={styles.inputs}
+                    label='piso'
+                    underlineColor = '#d32f2f'
+                    selectionColor = '#d32f2f'
+                    value={this.state.piso && String (this.state.piso)}
+                />
+              
+              <Picker selectedValue={this.state.piso}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ piso: itemValue })
+                    }>
+                    {this.state.identificadores.map(identificadores =>
+                        <Picker.Item label={identificadores.piso} value={identificadores.piso} key={identificadores.piso} />
+                    )}
+                </Picker>
 
                 <RNPickerSelect
                 placeholder = {{
@@ -343,4 +377,67 @@ export default AltaProducto
                     <Picker.Item label="8" value="8" />  
                     <Picker.Item label="9" value="9" />
                     </Picker>
-                */
+         
+         
+         
+                    Alert.alert(
+            'Id Reclamo',
+            json,
+            [
+              {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );   
+             
+             
+                     <TextInput
+                    style={styles.inputs}
+                    label='codigo'
+                    underlineColor = '#d32f2f'
+                    selectionColor = '#d32f2f'
+                  
+                    value={this.state.codig && String (this.state.codig)}
+                 />  
+          
+            <TextInput
+                    style={styles.inputs}
+                    label='identificador'
+                    underlineColor = '#d32f2f'
+                    selectionColor = '#d32f2f'
+                    value={this.state.identificador && String (this.state.identificador)}
+                />
+
+                <Picker selectedValue={this.state.identificador}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ identificador: itemValue })
+                    }>
+                    {this.state.identificadores.map(identificadores =>
+                        <Picker.Item label={identificadores.id} value={identificadores.id} key={identificadores.id} />
+                    )}
+        </Picker>
+        
+
+
+           <TextInput
+                    style={styles.inputs}
+                    label='identificador'
+                    underlineColor = '#d32f2f'
+                    selectionColor = '#d32f2f'
+                    value={this.state.identificador && String (this.state.identificador)}
+                />
+
+                <Picker selectedValue={this.state.identificador}
+                    onValueChange={(itemValue, itemIndex) =>
+                        this.setState({ identificador: itemValue })
+                    }>
+                    {this.state.identificadores.map(identificadores =>
+                        <Picker.Item label={identificadores.identificador} value={identificadores.identificador} key={identificadores.identificador} />
+                    )}
+                 </Picker>
+        */

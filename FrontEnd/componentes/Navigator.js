@@ -10,8 +10,10 @@ import ReclamosEdificio from './ReclamosEdificio'
 import Usuario from './Usuario'
 import ConsultarReclamos from './ConsultarReclamo'
 import CamaraPage from './CamaraPage'
+import ImagePicker from './ImagePickerExample'
 
 import { ScreenOrientation } from 'expo';
+import Registro from './Registro';
 const backgroundColor = '#00FA9A'
 const headerTextColor = '#ffffff';
 
@@ -34,7 +36,7 @@ handleChildLogin = (documento) => {
     })
 }
 
-const ProductosStack = createStackNavigator({
+const AltaReclamoStack = createStackNavigator({
 
       AltaReclamo: { 
         screen: AltaReclamo,
@@ -53,7 +55,7 @@ const ProductosStack = createStackNavigator({
      
 })
 
-ProductosStack.navigationOptions = {
+AltaReclamoStack.navigationOptions = {
     tabBarLabel: "Reclamos",
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
@@ -148,12 +150,37 @@ ConsultarStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
+
+const ElegirImagenStack =  createStackNavigator({
+    
+    ImagePicker: {
+        screen: ImagePicker,
+        
+        navigationOptions: {
+            headerTitle: 'Image Picker Select',
+            headerTitleStyle: {
+                textAlign: "center",
+                flex: 1
+            },
+            headerStyle: {
+                backgroundColor: backgroundColor,
+              },
+            headerTintColor: headerTextColor,
+        }
+    },
+})
+
+ElegirImagenStack.navigationOptions = {
+    tabBarLabel: "Image Picker Select",
+    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+}
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
-        ProductosStack,
+        AltaReclamoStack,
         DetalleStack,
         CameraStack,
         ConsultarStack,
+        ElegirImagenStack,
         UsuarioStack,
     },
     {
@@ -179,6 +206,7 @@ const AppStackNavigator = createStackNavigator(
 
 
 const AppSwitchNavigator = createSwitchNavigator({
+    Registro: {screen: Registro},
     Login: { screen: Login },
     
     App: { screen: AppStackNavigator }

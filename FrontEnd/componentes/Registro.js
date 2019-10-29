@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView, Text } from 'react-native'
 import { Button, TextInput, Snackbar } from 'react-native-paper'
-import Logotipo from "../assets/Images/Logo.png"
 
-export class Login extends Component {
+export class Registro extends Component {
     state = {
-        documento: this.props.navigation.getParam('documento'),
+        documento: '',
         password: '',
         cambioPass: false,
         mensaje: '',
@@ -18,7 +17,7 @@ export class Login extends Component {
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        const url = 'http://192.168.43.142:8080/myapp/Registro?Documento=' + documento + '&Password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)
@@ -26,21 +25,16 @@ export class Login extends Component {
 
                     this.handleSuccessfulLogin();
                 }
-                else {
-                    this.mostrarMensaje(json.message)
+                else if (json === false){
+                    alert ("Usuario ya existe como registrado en la BD!!!!");
+                    this.props.navigation.navigate('Login', { documento: this.state.documento })
                 }
             }
             );
     }
 
     handleSuccessfulLogin = () => {
-        this.mostrarMensaje("Bienvenido " + this.state.documento)
-        this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
-        
-        this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
-        this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
-        
-        this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
+        this.mostrarMensaje("Bienvenido Nuevo Usuario" + this.state.documento)
         //console.log (documento)
     }
 
@@ -52,11 +46,10 @@ export class Login extends Component {
     }
 
     render() {
-        return (
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        return ( <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
              <Text 
                   style={styles.label}>
-                  Login
+                  Registro
               </Text>
                 <TextInput
                     style={styles.input}
@@ -85,7 +78,7 @@ export class Login extends Component {
                         color = '#00FFFF'
                         onPress={() => this.autenticar()}
                     >
-                        Ingresar
+                        Registrarse!
                     </Button>
                 </View>
                 <Snackbar
@@ -138,4 +131,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Login
+export default Registro

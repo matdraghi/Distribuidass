@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert } from 'react-native'
+import { View, StyleSheet, Picker, ScrollView, Alert, KeyboardAvoidingView } from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -96,21 +96,7 @@ export class DetallesReclamos extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          //alert ("IdReclamo..."+ json )
-          Alert.alert(
-            'Id Reclamo',
-            json,
-            [
-              {text: 'Ask me later'},
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+          alert ("IdReclamo..."+ json )
             }
            
         )
@@ -129,7 +115,8 @@ export class DetallesReclamos extends Component {
     }
 
     render() {
-        return ( <View style={styles.container}>
+        return ( 
+        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
             <View style={{ alignItems: 'center', flexDirection: 'row' }}>
             </View>
             
@@ -247,7 +234,7 @@ export class DetallesReclamos extends Component {
                 {this.state.mensaje}
             </Snackbar>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
         )
     }
 }
@@ -270,3 +257,19 @@ const styles = StyleSheet.create({
 })
 
 export default DetallesReclamos
+
+
+/* Alert.alert(
+            'Id Reclamo',
+            json,
+            [
+              {text: 'Ask me later'},
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );*/

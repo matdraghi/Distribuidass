@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView , Text} from 'react-native'
+import { View, StyleSheet, Picker, ScrollView , Text, KeyboardAvoidingView} from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar, DataTable, FAB } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -21,7 +21,7 @@ export class ConsultarReclamo extends Component {
         const documento = this.state.documento;
         console.log (documento);
 
-        const url = 'http://10.125.93.50:8080/myapp/Reclamos/Consultar?documento=' + documento ;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Consultar?documento=' + documento ;
         fetch(url)
         .then(res =>  res.json()).then((json) => {
             console.log ("entre")
@@ -80,7 +80,7 @@ export class ConsultarReclamo extends Component {
 
     render() {
         return ( 
-            <View style = {styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <TextInput
                     style={styles.inputs}
                     label='documento'
@@ -142,7 +142,7 @@ export class ConsultarReclamo extends Component {
                     )}
                     </ScrollView>
                 </DataTable>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
