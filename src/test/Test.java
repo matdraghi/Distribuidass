@@ -3,14 +3,19 @@ package test;
 import java.util.List;
 
 import controlador.Controlador;
+import daos.DuenioDAO;
 import daos.InquilinoDAO;
+import daos.UnidadDAO;
 import exceptions.EdificioException;
 import exceptions.LoginException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import exceptions.UsuarioException;
+import modelo.Duenio;
+import modelo.Inquilinos;
 import modelo.Reclamo;
+import modelo.Unidad;
 import views.DetalleView;
 import views.EdificioView;
 import views.PersonaView;
@@ -59,13 +64,19 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		 List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdif("SLS Puerto Madero");
+		
+		int [] temp = controlador.Controlador.getInstancia().Identificadores(2, "DNI30012288");
+		
+		for (int i = 0; i < temp.length; i++) {
+			System.out.println (temp[i]);
+		}
+		/* List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdif("SLS Puerto Madero");
 
 		 System.out.println ("Unidades Edificio " + p1.size());
 		 for (UnidadView p2: p1) {
 
 			 System.out.println (p2.getId() + " " + p2.getPiso() + " " + p2.getEdificio().getCodigo());
-			}
+			}*/
 		 }
 
 }

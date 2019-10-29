@@ -1,6 +1,7 @@
 package controlador;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import modelo.DetalleReclamos;
 import modelo.Duenio;
 import modelo.Unidad;
 import modelo.Usuario;
+import modelo.Identificadores;
 import views.EdificioView;
 import views.Estado;
 import views.PersonaView;
@@ -163,6 +165,51 @@ public class Controlador {
 		return B;
 	}
 	
+	
+	public List<Identificadores> Identificadores (int codigo, String documento) throws PersonaException, EdificioException, UnidadException {
+		int [] identif = new int [10];
+		List<Identificadores> identificadores = new ArrayList<Identificadores>();
+		List<Duenio> d = DuenioDAO.getInstancia().getUnidadesPorDuenio(documento);
+		for (Duenio p2: d) {
+			System.out.println("Identificadorrr: " + p2.getIdentificador());
+			System.out.println("-------------------------------------------------");
+		}
+		
+		
+		List<Unidad> j = UnidadDAO.getInstancia().getIdentificadoresPorCodigo(codigo);
+		for (Unidad p2: j) {
+			System.out.println("Identificador: " + p2.getId());
+			System.out.println("-------------------------------------------------");
+		}
+		int i = 0;
+		for (Duenio p2: d) {
+			for (Unidad p3:j ) {
+				if (p2.getIdentificador() == p3.getId()) {
+
+					Identificadores ident = new Identificadores();
+					String f = String.valueOf(p2.getIdentificador());
+					System.out.println(f);
+					//identif [i] = f;
+					System.out.println("ident" + ident.setIdentificador(f));
+					
+					//i++;
+					String k = p3.getPiso();
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					//int z = Integer.parseInt(k.trim());
+					System.out.println(k);
+					//identif [i] = z;
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					
+				}
+			}
+		}
+		
+		
+		return identificadores;
+	}
 	public void SetDocumento (String documento) {
 		Docum = documento;
 	}
@@ -257,21 +304,28 @@ public class Controlador {
 		List<Reclamo> resultado = new ArrayList<Reclamo>();
 		List<Reclamo> aux = ReclamosDAO.getInstancia().getAll();
 		
+		
 		for (Reclamo p1: aux) {
+			Reclamo r = new Reclamo();
 			if (p1.getDocumento().equals(documento)) {
-			resultado.add(p1);
+		
+			String f = String.valueOf(p1.getIdReclamo());
+			System.out.println(f);
+			r.setidRe(f);
+			System.out.println("aaaaa " + p1.getIdRe());
+			resultado.add(r);
 			}
 		}
 		
 		for (Reclamo p2: resultado) {
-			System.out.println("IdReclamo: " + p2.getIdReclamo());
-			System.out.println("Documento: " + p2.getDocumento());
+			System.out.println("IdReclamo: " + p2.getIdRe());
+			/*System.out.println("Documento: " + p2.getDocumento());
 			System.out.println("Codigo: " + p2.getCodigo());
 			System.out.println("Ubicacion: " + p2.getUbicacion());
 			System.out.println("Descripcion: " + p2.getDescripcion());
 			System.out.println("Identificador: " + p2.getIdentificador());
 
-			System.out.println("Estado: " + p2.getEstado());
+			System.out.println("Estado: " + p2.getEstado());*/
 			
 			System.out.println("-------------------------------------------------");
 		}

@@ -10,8 +10,10 @@ import entities.DuenioEntity;
 import entities.PersonaEntity;
 import entities.UnidadEntity;
 import exceptions.EdificioException;
+import exceptions.PersonaException;
 import exceptions.UnidadException;
 import hibernate.HibernateUtil;
+import modelo.Duenio;
 import modelo.Edificio;
 import modelo.Persona;
 import modelo.Unidad;
@@ -76,6 +78,24 @@ public class UnidadDAO {
 		else
 			throw new UnidadException("No se pudieron recuperar las unidades");
 	}
+	
+	public List<Unidad> getIdentificadoresPorCodigo(int codigo) throws PersonaException, EdificioException, UnidadException {
+		List<Unidad> resultado = new ArrayList<Unidad>();
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<UnidadEntity> u = s.createQuery("from UnidadEntity u where u.edificio = ?").setInteger(0, codigo).list();
+		s.getTransaction().commit();
+		if (u != null) {
+		for(UnidadEntity p : u)
+			resultado.add(toNegocio(p));
+			return resultado;		
+		}else
+			throw new UnidadException("No se pudo recuperar Unidad");
+		
+	}
+	
 		
 	Unidad toNegocio(UnidadEntity e) throws EdificioException, UnidadException {
 		if(e != null) {

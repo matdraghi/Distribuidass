@@ -6,6 +6,9 @@ import views.ReclamoView;
 
 public class Reclamo {
 	
+	public Reclamo() {
+		super();
+	}
 	private int p;
 
 	public Reclamo (String documento, int codigo, String ubicacion, String descripcion,
@@ -49,6 +52,7 @@ public class Reclamo {
 		this.nombre = nombre;
 	}
 	private int IdReclamo;
+	private String idRe;
 	private String Documento;
 	private int codigo;
 	private String ubicacion;
@@ -58,6 +62,12 @@ public class Reclamo {
 	private String estado;
 	private String nombre;
 	
+	public void setidRe(String idRe) {
+		this.idRe = idRe;
+	}
+	public String getIdRe () {
+		return idRe;
+	}
 	public int getIdReclamo() {
 		return IdReclamo;
 	}

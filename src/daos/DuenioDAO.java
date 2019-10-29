@@ -50,6 +50,24 @@ public class DuenioDAO {
 		
 	}
 	
+	
+	public List<Duenio> getUnidadesPorDuenio(String documento) throws PersonaException {
+		List<Duenio> resultado = new ArrayList<Duenio>();
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<DuenioEntity> duenios = s.createQuery("from DuenioEntity de where de.persona = ?").setString(0, documento).list();
+		s.getTransaction().commit();
+		if (duenios != null) {
+		for(DuenioEntity p : duenios)
+			resultado.add(toNegocio(p));
+			return resultado;		
+		}else
+			throw new PersonaException("No se pudo recuperar los duenios");
+		
+	}
+	
 	public Duenio findByID(String documento) throws PersonaException, DuenioException {
 		Duenio resultado = null;
 		SessionFactory sf = HibernateUtil.getSessionFactory();
