@@ -133,7 +133,7 @@ public class HelloController {
 			System.out.println("file " + filee);
            
 
-           // System.out.println("IdRe: " +IdReclamo);
+            //System.out.println("IdRe: " +IdReclamo);
             //System.out.println("PATH: " +path);
             //System.out.println("TIPO: " +filetype); // Me devuelve que tipo de imagen tengo
             /*
