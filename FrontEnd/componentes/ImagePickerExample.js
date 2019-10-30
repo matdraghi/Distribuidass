@@ -61,30 +61,31 @@ ObtenerIdentificadores(documento) {
     .then((response) => response.json()).then((json) => {
       
         alert ("Asociando IdReclamo")
+        
         }
     )
     
 }
-
-
-onChang = (event) => {
   
-  event.preventDefault(); 
-  var image = this.state.image
-  const idReclamo = event.target.idReclamo.value;
-  var id = JSON.parse (idReclamo)
+  
 
-  //alert (data)
-  //alert (id)
-  fetch('http://192.168.43.142:8080/myapp/savefilee?file=' + file).then((response) => response.json()).then((json) => {
-    //alert (json)
+onChang = () => {
+  const idReclamo = this.state.idReclamo;
+  console.log ("Hi!!!!!!!!!!!!!!!  " + idReclamo);
+  var id = JSON.parse (idReclamo)
+  console.log ("Foto: " +this.state.image)
+  const file = this.state.image
+  console.log (file)
+  fetch('http://192.168.43.142:8080/myapp/savefilee?file=' + file ).then((response) => response.json()).then((json) => {
+    console.log ("Hola" + json)
     this.setState({
       numero : json,
     });
+        
 
-    //alert ("numero"+ this.state.numero);
+    alert ("numero"+ this.state.numero);
     var n = this.state.numero;
-    //alert ("!" + n)
+    alert ("!" + n)
     this.state.uri = json;
     this.AsociarIdReclamo(n, id)
     //alert (this.state.uri)
@@ -94,6 +95,7 @@ onChang = (event) => {
 
 }
 
+ 
 handleUploadImage = () => {
   alert("Tu archivo ha sido subido con exito!");
   
@@ -129,12 +131,18 @@ handleUploadImage = () => {
                onPress = {this.prueba}
         />
 
+    <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
+               title = "Subir Imagen!"
+               onPress = {this.onChang}
+               
+        />
+
         <Button
           title="Pick an image from camera roll"
           onPress={this._pickImage}
         />
         {image &&
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+          <Image source={{ uri: image }} style={{ width: 400, height: 400 }} />}
         </ScrollView>
         </KeyboardAvoidingView>
     );
@@ -163,7 +171,9 @@ handleUploadImage = () => {
     console.log(result);
 
     if (!result.cancelled) {
+      console.log ("uri " + result.uri)
       this.setState({ image: result.uri });
+      console.log (this.state.image)
     }
   };
 }

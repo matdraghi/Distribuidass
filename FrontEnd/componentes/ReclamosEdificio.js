@@ -117,9 +117,6 @@ export class DetallesReclamos extends Component {
     render() {
         return ( 
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-            <View style={{ alignItems: 'center', flexDirection: 'row' }}>
-            </View>
-            
             <ScrollView>
             <TextInput
                 style={styles.inputs}

@@ -35,7 +35,7 @@ export default class CamaraPage extends React.Component {
       //alert (id)
       const file = this.state.uri
       console.log (file)
-      fetch('http://192.168.43.142:8080/myapp/savefilee?file=' + file ).then((response) => response.json()).then((json) => {
+      fetch('http://192.168.43.142:8080/myapp/savefileee?file=' + file ).then((response) => response.json()).then((json) => {
         console.log ("Hola" + json)
         this.setState({
           numero : json,

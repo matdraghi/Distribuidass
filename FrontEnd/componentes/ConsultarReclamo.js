@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Picker, ScrollView , Text, KeyboardAvoidingView} from 'react-native'
-import { TextInput, Button, ActivityIndicator, Snackbar, DataTable, FAB } from 'react-native-paper'
+import { TextInput, Button, ActivityIndicator, Snackbar, DataTable, FAB, DarkTheme } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
 import Loading from './Loading';
@@ -13,6 +13,9 @@ export class ConsultarReclamo extends Component {
         reclamos : [],
         documento: this.props.navigation.getParam('documento'),
         mensaje: '',
+        identificadores: [],
+        id: "",
+        idReclamo: "",
         mostrarMensaje: false,
     }
 
@@ -50,25 +53,9 @@ export class ConsultarReclamo extends Component {
     });
 }
 
-
-/*
-    OkReclamo(data){
-        if (data!= null){
-            var i , r = [];
-            for (i = 0; i < data.length; i++){
-                r.push({
-                    idReclamo : data.IdReclamo,
-                    documento: data.documento
-
-                 } );
-            }
-            this.setState({reclamos: r});
-        }
-    }*/
-
-    
+   
     handleSuccessfulReclamo = () => {
-        this.mostrarMensaje("Consultando Reclamo : " + documento)
+        this.mostrarMensaje("Consultando Reclamo : " + this.state.documento)
     }
 
     mostrarMensaje = (mensaje) => {
@@ -79,8 +66,12 @@ export class ConsultarReclamo extends Component {
     }
 
     render() {
+        
         return ( 
-            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+                
+               <View>
+
+            <ScrollView>
                 <TextInput
                     style={styles.inputs}
                     label='documento'
@@ -95,24 +86,11 @@ export class ConsultarReclamo extends Component {
                 >
                     Consultar Reclamo
                 </Button>
-                <Snackbar
-                    visible={this.state.mostrarMensaje}
-                    onDismiss={() => { this.setState({ mostrarMensaje: false }) }}
-                    action={{
-                        label: 'OK',
-                        onPress: () => { this.setState({ mostrarMensaje: false }) }
-                    }}
-                >
-                    {this.state.mensaje}
-
-                </Snackbar>
                 <DataTable>
                     <DataTable.Header>
                         <DataTable.Title>IdReclamo</DataTable.Title>
                         
                         <DataTable.Title>Documento</DataTable.Title>
-                        <DataTable.Title>Codigo</DataTable.Title>
-                        <DataTable.Title >Ubicacion</DataTable.Title>
                         <DataTable.Title>Descripcion</DataTable.Title>
                         <DataTable.Title >Identificador</DataTable.Title>
                         
@@ -120,29 +98,27 @@ export class ConsultarReclamo extends Component {
                        
                         <DataTable.Title numeric>Nombre Edificio</DataTable.Title> 
                         <DataTable.Title>Estado</DataTable.Title>
+                        
                     </DataTable.Header>
                     <Loading/>
                     <ScrollView>
                     {this.state.reclamos.map((reclamos) =>
                     
                             <DataTable.Row>
-                                <DataTable.Cell>{reclamos.idReclamo}</DataTable.Cell>
-                                
+                                <DataTable.Cell>{reclamos.idReclamo}</DataTable.Cell> 
                                 <DataTable.Cell>{reclamos.documento}</DataTable.Cell>
-                                <DataTable.Cell>{reclamos.codigo}</DataTable.Cell>
-                                <DataTable.Cell >{reclamos.ubicacion}</DataTable.Cell>
                                 <DataTable.Cell>{reclamos.descripcion}</DataTable.Cell>
                                 <DataTable.Cell >{reclamos.identificador}</DataTable.Cell>
-                                
                                 <DataTable.Cell >{reclamos.p}</DataTable.Cell>
                                 <DataTable.Cell >{reclamos.nombre}</DataTable.Cell>
-                                
                                 <DataTable.Cell >{reclamos.estado}</DataTable.Cell>
                             </DataTable.Row>
                     )}
                     </ScrollView>
                 </DataTable>
-            </KeyboardAvoidingView>
+                
+                </ScrollView>
+                </View>
         )
     }
 }

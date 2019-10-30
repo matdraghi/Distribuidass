@@ -78,7 +78,7 @@ export class Registro extends Component {
                         color = '#00FFFF'
                         onPress={() => this.autenticar()}
                     >
-                        Registrarse!
+                        Registrarse
                     </Button>
                 </View>
                 <Snackbar

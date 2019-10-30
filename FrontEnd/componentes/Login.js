@@ -35,12 +35,14 @@ export class Login extends Component {
 
     handleSuccessfulLogin = () => {
         this.mostrarMensaje("Bienvenido " + this.state.documento)
-        this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         
         this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
         this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
         
+        this.props.navigation.navigate('VerFoto', { documento: this.state.documento })
         this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
+        
+        this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         //console.log (documento)
     }
 
@@ -85,7 +87,7 @@ export class Login extends Component {
                         color = '#00FFFF'
                         onPress={() => this.autenticar()}
                     >
-                        Ingresar
+                        Iniciar Sesion
                     </Button>
                 </View>
                 <Snackbar

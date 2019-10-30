@@ -11,6 +11,7 @@ import Usuario from './Usuario'
 import ConsultarReclamos from './ConsultarReclamo'
 import CamaraPage from './CamaraPage'
 import ImagePicker from './ImagePickerExample'
+import VerFoto from './VerFoto'
 
 import { ScreenOrientation } from 'expo';
 import Registro from './Registro';
@@ -60,7 +61,32 @@ AltaReclamoStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
-const DetalleStack = createStackNavigator({
+
+const VerFotoStack = createStackNavigator({
+
+    VerFoto: { 
+      screen: VerFoto,
+      navigationOptions: {
+          headerTitle: 'Consultar Foto',
+          headerTitleStyle: {
+              textAlign: "center",
+              flex: 1
+          },
+          headerStyle: {
+              backgroundColor: backgroundColor,
+            },
+          headerTintColor: headerTextColor,
+      }
+   },
+   
+})
+
+VerFotoStack.navigationOptions = {
+  tabBarLabel: "Fotografia",
+  tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+}
+
+const ReclamosEdificioStack = createStackNavigator({
     ReclamosEdificio: { 
         screen: ReclamosEdificio,
         navigationOptions: {
@@ -77,7 +103,7 @@ const DetalleStack = createStackNavigator({
      }
 })
 
-DetalleStack.navigationOptions = {
+ReclamosEdificioStack.navigationOptions = {
     tabBarLabel: "Reclamos Edificio",
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
@@ -177,10 +203,11 @@ ElegirImagenStack.navigationOptions = {
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
         AltaReclamoStack,
-        DetalleStack,
+        ReclamosEdificioStack,
         CameraStack,
         ConsultarStack,
         ElegirImagenStack,
+        VerFotoStack,
         UsuarioStack,
     },
     {
