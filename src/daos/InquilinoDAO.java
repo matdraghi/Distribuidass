@@ -6,12 +6,14 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import entities.DuenioEntity;
 import entities.InquilinoEntity;
 import entities.ReclamosEntity;
 import exceptions.InquilinoException;
 import exceptions.PersonaException;
 import exceptions.ReclamoException;
 import hibernate.HibernateUtil;
+import modelo.Duenio;
 import modelo.Inquilinos;
 import modelo.Persona;
 import modelo.Reclamo;
@@ -61,6 +63,23 @@ public class InquilinoDAO {
 		else
 			throw new InquilinoException("No existe una Persona con el documento ingresado que sea inquilino del edificio:" + documento);
 			
+	}
+	
+	public List<Inquilinos> getUnidadesPorInquilino(String documento) throws PersonaException {
+		List<Inquilinos> resultado = new ArrayList<Inquilinos>();
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		List<InquilinoEntity> inquilino = s.createQuery("from InquilinoEntity de where de.persona = ?").setString(0, documento).list();
+		s.getTransaction().commit();
+		if (inquilino != null) {
+		for(InquilinoEntity p : inquilino)
+			resultado.add(toNegocio(p));
+			return resultado;		
+		}else
+			throw new PersonaException("No se pudo recuperar los duenios");
+		
 	}
 	
 	public List<Inquilinos> getAll(String documento){

@@ -118,7 +118,7 @@ public class Controlador {
 	}
 	
 	// Agregado por grupo
-	public Boolean altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador, int piso, String nombre) throws ReclamoException, InquilinoException, PersonaException, DuenioException {
+	public Boolean altaReclamo(String documento, int codigo, String ubicacion, String descripcion, int identificador, int piso, String nombre) throws ReclamoException, InquilinoException, PersonaException, DuenioException, EdificioException, UnidadException {
 		// TODO Auto-generated method stub
 		Boolean B = null;
 		List<Inquilinos> i;
@@ -127,11 +127,17 @@ public class Controlador {
 		String Doc = null;
 
 		
+		
 		for (Inquilinos p2: i) {
 			System.out.println("Id: " + p2.getId());
 			System.out.println("Identificador: " + p2.getIdentificador());
 			if (p2.getIdentificador()== identificador) {
-				System.out.println("Alquila dicha unidad" + identificador);				
+				System.out.println(" " + identificador);	
+				Unidad u = UnidadDAO.getInstancia().findByIdentificador(identificador);
+				if (u.estaHabitado()) {
+					B = true;
+				}
+					
 				B = false;
 			}
 			System.out.println("Documento: " + p2.getDocumento());
@@ -153,9 +159,14 @@ public class Controlador {
 			System.out.println("Identificador de duenio " + p2.getIdentificador());
 			if (p2.getIdentificador()== identificador) {
 				System.out.println("Duenio dicha unidad" + identificador);
+				Unidad u = UnidadDAO.getInstancia().findByIdentificador(identificador);
+				if (u.estaHabitado()) {
+					B = true;
+				}
+				else {
 				Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo, piso, nombre);
 				R.save();
-				B = true;
+				}
 			}
 			System.out.println("-------------------------------------------------");
 		}
@@ -170,8 +181,14 @@ public class Controlador {
 		int [] identif = new int [10];
 		List<Identificadores> identificadores = new ArrayList<Identificadores>();
 		List<Duenio> d = DuenioDAO.getInstancia().getUnidadesPorDuenio(documento);
+		List <Inquilinos> inqui = InquilinoDAO.getInstancia().getUnidadesPorInquilino(documento);
 		for (Duenio p2: d) {
 			System.out.println("Identificadorrr: " + p2.getIdentificador());
+			System.out.println("-------------------------------------------------");
+		}
+		
+		for (Inquilinos p2: inqui) {
+			System.out.println("Identificador Inquilino: " + p2.getIdentificador());
 			System.out.println("-------------------------------------------------");
 		}
 		
@@ -183,6 +200,28 @@ public class Controlador {
 		}
 		int i = 0;
 		for (Duenio p2: d) {
+			for (Unidad p3:j ) {
+				if (p2.getIdentificador() == p3.getId()) {
+
+					Identificadores ident = new Identificadores();
+					String f = String.valueOf(p2.getIdentificador());
+					System.out.println(f);
+					System.out.println("ident" + ident.setIdentificador(f));
+					
+					//i++;
+					String k = p3.getPiso();
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					System.out.println(k);
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					
+				}
+			}
+		}
+		
+		for (Inquilinos p2: inqui) {
 			for (Unidad p3:j ) {
 				if (p2.getIdentificador() == p3.getId()) {
 

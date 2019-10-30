@@ -63,6 +63,21 @@ public class UnidadDAO {
 			throw new UnidadException("No se pudo recuperar las unidades");
 	}
 	
+	public Unidad findByIdentificador(int identificador) throws EdificioException, UnidadException {
+		Unidad resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		UnidadEntity unidad = (UnidadEntity) s.createQuery("from UnidadEntity where identificador = ?")
+				.setInteger(0, identificador)
+				.uniqueResult();
+		s.getTransaction().commit();
+		if(unidad != null) {
+			return toNegocio(unidad);		}
+		else
+			throw new UnidadException("No se pudo recuperar las unidades");
+	}
+	
 	public List<Unidad> getUnidadesByEdificio(Edificio edificio) throws UnidadException, EdificioException {
 		List<Unidad> resultado = new ArrayList<Unidad>();
 		SessionFactory sf = HibernateUtil.getSessionFactory();
