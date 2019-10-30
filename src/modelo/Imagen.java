@@ -66,8 +66,8 @@ public class Imagen {
 	public String getFile() {
 		return file;
 	}
-	public void setFile(String file) {
-		this.file = file;
+	public String setFile(String file) {
+		return this.file = file;
 	}
 	
 }

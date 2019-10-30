@@ -46,7 +46,7 @@ public class ImagenDAO {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session s = sf.getCurrentSession();
 			s.beginTransaction();
-			ImagenesEntity i = (ImagenesEntity) s.createQuery("from ImagenesEntity r where r.IdReclamo = ?").setLong(0, IdReclamo).uniqueResult();
+			ImagenesEntity i = (ImagenesEntity) s.createQuery("FROM ImagenesEntity where IdReclamo = ?").setInteger(0, IdReclamo).uniqueResult();
 			s.getTransaction().commit();
 			if(i != null) {
 				resultado = toNegocio(i);

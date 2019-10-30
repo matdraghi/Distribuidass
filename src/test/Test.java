@@ -13,6 +13,7 @@ import exceptions.ReclamoException;
 import exceptions.UnidadException;
 import exceptions.UsuarioException;
 import modelo.Duenio;
+import modelo.Identificadores;
 import modelo.Inquilinos;
 import modelo.Reclamo;
 import modelo.Unidad;
@@ -65,11 +66,8 @@ public class Test {
 			e.printStackTrace();
 		}*/
 		
-		int [] temp = controlador.Controlador.getInstancia().Identificadores(2, "DNI30012288");
+		List<Identificadores> temp = controlador.Controlador.getInstancia().Identificadores(2, "DNI30012288");
 		
-		for (int i = 0; i < temp.length; i++) {
-			System.out.println (temp[i]);
-		}
 		/* List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdif("SLS Puerto Madero");
 
 		 System.out.println ("Unidades Edificio " + p1.size());

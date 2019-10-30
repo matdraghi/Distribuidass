@@ -251,13 +251,17 @@ public class Controlador {
 		
 	}
 	
-	public boolean CargarIdAImagen (int numero, int idReclamo) throws ImagenException {
+	public Imagen CargarIdAImagen (int numero, int idReclamo) throws ImagenException {
 		Imagen n = ImagenDAO.getInstancia().findByNumero(numero);
 		System.out.println (n.getNumero() + " " + n.getId() + " " + n.getPath() + " " + n.getTipo() + " " + n.getFile());
+		int r = numero -1;
+		Imagen s = ImagenDAO.getInstancia().findByNumero(r);
+		System.out.println (s.getFile());
 		int k = n.setId(idReclamo);
+		String file = n.setFile(s.getFile());
 		System.out.println (k);
 		n.save();
-		return true;
+		return s;
 	}
 	public boolean login(String documento, String password) throws LoginException, UsuarioException{
 		Usuario u = UsuarioDAO.getInstancia().getUsuarioByDoc(documento);
@@ -330,6 +334,23 @@ public class Controlador {
 			System.out.println("-------------------------------------------------");
 		}
 		return resultado;
+	}
+	
+	public String ObtenerImag (int IdReclamo) throws ImagenException {
+		Imagen i = ImagenDAO.getInstancia().findByID(IdReclamo);
+		if (i != null) {
+			System.out.println("PATH: " + i.getPath());
+
+			System.out.println("File: " + i.getFile());
+			
+
+			System.out.println("Tipo: " + i.getTipo());
+			
+		}
+		
+		String File = i.getPath() + i.getFile();
+		System.out.println (File);
+		return File;
 	}
 	
 	public  int ObtenerId(String documento, String nombre, String descripcion, int piso) throws PersonaException, ReclamoException {
