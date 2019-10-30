@@ -1,6 +1,7 @@
 package com.mycompany.myapp;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -38,7 +39,9 @@ public class ReclamosController {
 
 	/** EN TEORIA ANDARIA DADO QUE DESDE EL TEST DE JAVA ACTUALIZA LA BD
 	 * @throws InquilinoException 
-	 * @throws DuenioException */
+	 * @throws DuenioException 
+	 * @throws UnidadException 
+	 * @throws EdificioException */
 	@ResponseBody
 	@RequestMapping(value = "/alta", method = RequestMethod.GET)
 	public ResponseEntity<String> altaReclamo(@RequestParam(value = "documento", required = true) String documento,
@@ -47,7 +50,7 @@ public class ReclamosController {
 			@RequestParam (value="descripcion", required = true) String descripcion, 
 			@RequestParam (value="identificador", required = true) int identificador,
 			@RequestParam (value="piso", required = true) int piso,
-			@RequestParam (value="nombre", required = true) String nombre) throws PersonaException, ReclamoException, InquilinoException, DuenioException {
+			@RequestParam (value="nombre", required = true) String nombre) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
 		LOGGER.info("Dando de alta Reclamo: {}", documento);
 		ResponseEntity<String> response = null;
 		JsonMapper mapper = new JsonMapper();
