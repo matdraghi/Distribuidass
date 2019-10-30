@@ -33,6 +33,7 @@ export class DetallesReclamos extends Component {
             console.log (j)
             var k = JSON.parse(j)
             for (var i in k) {
+                console.log (i)
                 // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
                 if (k.hasOwnProperty(i)) {
                   var entry = k[i];
@@ -41,6 +42,11 @@ export class DetallesReclamos extends Component {
                   console.log ("Codigo " +id)
                   var codigo = entry.edificio.codigo
                   console.log ("Codigo " +codigo)
+                  var piso = entry.piso;
+                  console.log (entry.piso);
+                  if (piso != null){
+
+                  }
                   
                 this.setState({
                 identificadores : k,
@@ -97,6 +103,9 @@ export class DetallesReclamos extends Component {
         fetch(url)
         .then((response) => response.json()).then((json) => {
           alert ("IdReclamo..."+ json )
+          
+         
+            
             }
            
         )
@@ -117,6 +126,7 @@ export class DetallesReclamos extends Component {
     render() {
         return ( 
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+            
             <ScrollView>
             <TextInput
                 style={styles.inputs}

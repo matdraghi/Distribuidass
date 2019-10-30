@@ -22,8 +22,7 @@ export class Registro extends Component {
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
-
-                    this.handleSuccessfulLogin();
+                    this.props.navigation.navigate('Login', { documento: this.state.documento })
                 }
                 else if (json === false){
                     alert ("Usuario ya existe como registrado en la BD!!!!");
@@ -33,17 +32,7 @@ export class Registro extends Component {
             );
     }
 
-    handleSuccessfulLogin = () => {
-        this.mostrarMensaje("Bienvenido Nuevo Usuario" + this.state.documento)
-        //console.log (documento)
-    }
-
-    mostrarMensaje = (mensaje) => {
-        this.setState({
-            mensaje: mensaje,
-            mostrarMensaje: true
-        })
-    }
+   
 
     render() {
         return ( <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>

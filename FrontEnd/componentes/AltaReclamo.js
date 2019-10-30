@@ -44,13 +44,14 @@ export class AltaProducto extends Component {
         const url = 'http://192.168.43.142:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + '&piso=' + piso + '&nombre=' + nombre;
         fetch(url)
             .then(res =>  res.json()).then((json) => {
-                if (json == true) {
+                if (json == true || json == null) {
+                    alert ("es inquilino y esta alquilando esa unidad / O es duenio de la unidad")
                     this.QueIdReclamo(documento, nombre, descripcion, piso)
                     this.handleSuccessfulReclamo();
                 } 
-                 else {
+                 else if (json == false) {
                     Alert.alert(
-                        'Usted no se encuentra Autorizado',
+                        'Usted no se encuentra Autorizado dado que no es el duenio del identificador ingresado',
                         'Por Favor Dirijase a la siguiente ventana',
                         [
                           {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
@@ -123,6 +124,21 @@ export class AltaProducto extends Component {
         .then((response) => response.json()).then((json) => {
           alert ("IdReclamo..."+ json )
           
+          Alert.alert(
+            'Id Reclamo',
+            json,
+            [
+              {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
+              {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );   
+             
             }
            
         )
