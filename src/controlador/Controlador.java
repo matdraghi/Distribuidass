@@ -136,6 +136,8 @@ public class Controlador {
 				Unidad u = UnidadDAO.getInstancia().findByIdentificador(identificador);
 				if (u.estaHabitado()) {
 					B = true;
+					Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo, piso, nombre);
+					R.save();
 				}
 					
 				B = false;
@@ -162,10 +164,8 @@ public class Controlador {
 				Unidad u = UnidadDAO.getInstancia().findByIdentificador(identificador);
 				if (u.estaHabitado()) {
 					B = true;
-				}
-				else {
-				Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo, piso, nombre);
-				R.save();
+					Reclamo R = new Reclamo (documento, codigo, ubicacion, descripcion, identificador, Estado.nuevo, piso, nombre);
+					R.save();
 				}
 			}
 			System.out.println("-------------------------------------------------");
