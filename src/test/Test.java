@@ -66,15 +66,12 @@ public class Test {
 			e.printStackTrace();
 		}*/
 		
-		List<Identificadores> temp = controlador.Controlador.getInstancia().Identificadores(2, "DNI30012288");
+		List<Identificadores> temp = Controlador.getInstancia().pisos(2, "DNI30012288");
 		
-		/* List<UnidadView> p1 = Controlador.getInstancia().getUnidadesPorEdif("SLS Puerto Madero");
+		 for (Identificadores p2: temp) {
 
-		 System.out.println ("Unidades Edificio " + p1.size());
-		 for (UnidadView p2: p1) {
-
-			 System.out.println (p2.getId() + " " + p2.getPiso() + " " + p2.getEdificio().getCodigo());
-			}*/
+			 System.out.println ( "Test: " + p2.getPiso());
+			}
 		 }
 
 }

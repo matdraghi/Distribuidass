@@ -253,6 +253,8 @@ public class Controlador {
 		Docum = documento;
 	}
 	
+		
+	
 	public String GetDocumento () {
 		return Docum;
 	}
@@ -390,6 +392,108 @@ public class Controlador {
 		String File = i.getPath() + i.getFile();
 		System.out.println (File);
 		return File;
+	}
+	
+	public List<Identificadores> pisos (int codigo, String documento) throws PersonaException, EdificioException, UnidadException {
+		List<Identificadores> identificadores = new ArrayList<Identificadores>();
+		List<Identificadores> pisos = new ArrayList<Identificadores>();
+		List<Duenio> d = DuenioDAO.getInstancia().getUnidadesPorDuenio(documento);
+		List <Inquilinos> inqui = InquilinoDAO.getInstancia().getUnidadesPorInquilino(documento);
+		for (Duenio p2: d) {
+			System.out.println("Identificadorrr: " + p2.getIdentificador());
+			System.out.println("-------------------------------------------------");
+		}
+		
+		for (Inquilinos p2: inqui) {
+			System.out.println("Identificador Inquilino: " + p2.getIdentificador());
+			System.out.println("-------------------------------------------------");
+		}
+		
+		
+		List<Unidad> j = UnidadDAO.getInstancia().getIdentificadoresPorCodigo(codigo);
+		for (Unidad p2: j) {
+			System.out.println("Identificador: " + p2.getId());
+			System.out.println("-------------------------------------------------");
+		}
+		int i = 0;
+		for (Duenio p2: d) {
+			for (Unidad p3:j ) {
+				System.out.println("aca estoy");
+				Identificadores ident = new Identificadores();
+				String f = String.valueOf(p2.getIdentificador());
+				System.out.println(f);
+				String g = String.valueOf(p3.getId());
+				System.out.println(g);
+				if (f.equals(g)) {
+
+					System.out.println("ident" + ident.setIdentificador(f));
+					
+					//i++;
+					String k = p3.getPiso();
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					System.out.println(k);
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					
+				}
+			}
+		}
+		int q = 0;
+		for (Inquilinos p2: inqui) {
+			for (Unidad p3:j ) {
+				if (p2.getIdentificador() == p3.getId()) {
+
+					Identificadores ident = new Identificadores();
+					String f = String.valueOf(p2.getIdentificador());
+					System.out.println(f);
+					//identif [i] = f;
+					System.out.println("ident" + ident.setIdentificador(f));
+					
+					//i++;
+					String k = p3.getPiso();
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					//int z = Integer.parseInt(k.trim());
+					System.out.println(k);
+					//identif [i] = z;
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					q++;
+					System.out.println(q);
+				}
+			}
+		}
+		
+		System.out.println ("Largo:  " + q);
+		String mayor = identificadores.get(0).getPiso();
+		int ma = Integer.parseInt(mayor);
+		System.out.println("Mayor: " + ma);
+		String menor = "1";
+		for (int p = 0; p < ma; p++) {
+
+			Identificadores ident = new Identificadores();
+			if (p == 0) {
+				System.out.println("entre");
+				ident.setPiso(menor);
+				pisos.add(ident);
+			}
+			if (p > 0 && p < ma) {
+				String u = String.valueOf(p+ 1);
+				ident.setPiso(u);
+				pisos.add(ident);
+			}
+			
+		}
+		
+		for (Identificadores p2: pisos) {
+			System.out.println ("PISO:  " + p2.getPiso());
+		}
+		
+		
+		return pisos;
 	}
 	
 	public  int ObtenerId(String documento, String nombre, String descripcion, int piso) throws PersonaException, ReclamoException {
