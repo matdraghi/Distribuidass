@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Image, Button,ScrollView, CameraRoll, TouchableHighlight } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Button,ScrollView,TextInput, CameraRoll, TouchableHighlight } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
@@ -31,10 +31,13 @@ class CamaraPage extends React.Component {
            this.setState ({
              uri: photo.uri
            })
-      
+           
+    const file = this.state.uri;
+    
+    const receivedValue = this.props.navigation.getParam('receivedValue', () => {});
+    this.props.navigation.goBack();
       //alert (data)
       //alert (id)
-      const file = this.state.uri
       console.log (file)
       fetch('http://192.168.43.142:8080/myapp/savefileee?file=' + file ).then((response) => response.json()).then((json) => {
         console.log ("Hola" + json)
@@ -107,7 +110,6 @@ getPhotosFromGallery() {
     } else if (isFocused) {
       return (
         <View style={{ flex: 1 }}>
-         
           <Camera style={{ flex: 1 }} 
           ref={ (ref) => {this.camera = ref} }
           type={this.state.type}>  

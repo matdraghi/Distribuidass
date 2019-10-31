@@ -82,7 +82,7 @@ export class ConsultarReclamo extends Component {
                 <Button 
                     mode="contained" 
                     color = '#d32f2f' 
-                    onPress={() => this.nuevoReclamo()}
+                    onPress={this.nuevoReclamo}
                 >
                     Consultar Reclamo
                 </Button>

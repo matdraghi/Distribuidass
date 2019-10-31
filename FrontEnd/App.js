@@ -16,20 +16,20 @@ export default class App extends React.Component {
    console.disableYellowBox = true; 
     return (
           <Navigator/>
+          
     )
   }
 }
 
-
-
 NetInfo.getConnectionInfo().then((connectionInfo) => {
   console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: '    + connectionInfo.effectiveType);
 });
+      
 function handleFirstConnectivityChange(connectionInfo) {
   console.log('First change, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
   NetInfo.removeEventListener(
-    'connectionChange',
-    handleFirstConnectivityChange
+  'connectionChange',
+  handleFirstConnectivityChange
   );
 }
 NetInfo.addEventListener(

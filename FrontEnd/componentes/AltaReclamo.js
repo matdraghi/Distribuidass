@@ -5,7 +5,7 @@ import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
 import RNPickerSelect from 'react-native-picker-select'
 
-export class AltaProducto extends Component {
+export class AltaReclamo extends Component {
 
     
     state = {
@@ -20,11 +20,19 @@ export class AltaProducto extends Component {
         mensaje: '',
         mostrarMensaje: false,
         codig: '',
+        uri: '',
         identificadores: [], 
     }
 
-
-
+ 
+    receivedValue = (uri) => {
+        this.setState({uri})
+      }     
+    camara = () => {
+        this.props.navigation.navigate('Camara', {receivedValue: this.receivedValue});
+        
+        console.log (this.state.uri)
+    }
 
     nuevoReclamo = () => {
         const documento = this.state.documento;
@@ -41,6 +49,7 @@ export class AltaProducto extends Component {
         console.log(".." +nombre)
         const piso = this.state.piso;
         console.log("piso " +piso)
+       
         const url = 'http://192.168.43.142:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + '&piso=' + piso + '&nombre=' + nombre;
         fetch(url)
             .then(res =>  res.json()).then((json) => {
@@ -69,6 +78,7 @@ export class AltaProducto extends Component {
             }
         });
     }
+    
 
     handleSuccessfulReclamo = () => {
         this.mostrarMensaje("Creado Reclamo con Doc " + this.state.documento)
@@ -284,6 +294,14 @@ export class AltaProducto extends Component {
                 >
                     Crear Nuevo Reclamo
                 </Button>
+
+                <Button 
+                    mode="contained" 
+                    color = '#d32f2f' 
+                    onPress={() => this.camara()}
+                >
+                    Abrir Camara
+                </Button>
                 <Snackbar
                     visible={this.state.mostrarMensaje}
                     onDismiss={() => { this.setState({ mostrarMensaje: false }) }}
@@ -317,7 +335,7 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AltaProducto
+export default AltaReclamo
 
 /*
 

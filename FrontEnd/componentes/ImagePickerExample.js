@@ -128,17 +128,23 @@ handleUploadImage = () => {
         </Picker>
         <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
                title = "Obtener IdReclamos"
+               mode="contained" 
+               color = '#00FFFF' 
                onPress = {this.prueba}
         />
 
     <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
                title = "Subir Imagen!"
+               mode="contained" 
+               color = '#191970' 
                onPress = {this.onChang}
                
         />
 
         <Button
           title="Pick an image from camera roll"
+          mode="contained" 
+          color = '#00FF00' 
           onPress={this._pickImage}
         />
         {image &&
