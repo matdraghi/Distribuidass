@@ -8,6 +8,7 @@ import 'prop-types';
 export class DetallesReclamos extends Component {
     state = {
         identificadores: [], 
+        pisos: [], 
         documento: this.props.navigation.getParam('documento'),
         codigo: '',
         ubicacion: '',
@@ -57,8 +58,38 @@ export class DetallesReclamos extends Component {
               console.log (this.state.codig)
             }
         }
+        this.pisos (this.state.codig,this.state.documento);
             }
            
+        )
+        
+    }
+
+    pisos(codigo, documento) {
+        var i = 0;
+        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Pisos?codigo=' +  codigo + "&documento=" + this.state.documento;
+       console.log (url)
+
+        fetch(url)
+        .then((response) => response.json()).then((json) => {
+          alert (" "+ json );
+          var j = JSON.stringify(json)
+          console.log (j)
+          var k = JSON.parse(j)
+          console.log (k)
+          for (var i in k) {
+              // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+              
+              var entry = k[i];
+              console.log (entry); 
+              if (k.hasOwnProperty(i)) {
+              this.setState({
+                  pisos: k
+            });
+        }
+    }
+        }
+    
         )
         
     }
@@ -210,8 +241,8 @@ export class DetallesReclamos extends Component {
                 onValueChange={(itemValue, itemIndex) =>
                     this.setState({ piso: itemValue })
                 }>
-                {this.state.identificadores.map(identificadores =>
-                    <Picker.Item label={identificadores.piso} value={identificadores.piso} key={identificadores.piso} />
+                {this.state.pisos.map(pisos =>
+                    <Picker.Item label={pisos.piso} value={pisos.piso} key={pisos.piso} />
                 )}
             </Picker>
               <TextInput

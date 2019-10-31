@@ -5,8 +5,9 @@ import { Camera } from 'expo-camera';
 
 import {ImagePicker} from 'expo-image-picker';
 import styles from './styles'
+import { withNavigationFocus } from "react-navigation";
 
-export default class CamaraPage extends React.Component {
+class CamaraPage extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
@@ -94,11 +95,16 @@ getPhotosFromGallery() {
 
   render() {
     const { hasCameraPermission } = this.state;
+    const isFocused = this.props.navigation.isFocused();
+         
+    if (!isFocused) {
+             return null;
+    }
     if (hasCameraPermission === null) {
       return <View />;
     } else if (hasCameraPermission === false) {
       return <Text>No access to camera</Text>;
-    } else {
+    } else if (isFocused) {
       return (
         <View style={{ flex: 1 }}>
          
@@ -149,3 +155,5 @@ getPhotosFromGallery() {
     }
   }
 }
+
+export default withNavigationFocus(CamaraPage);

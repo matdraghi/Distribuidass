@@ -173,7 +173,7 @@ const ConsultarStack =  createStackNavigator({
 
 ConsultarStack.navigationOptions = {
     tabBarLabel: "Consultar Reclamo",
-    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+    tabBarIcon: ( <Icon name="md-rock" size={20} /> )
 }
 
 
