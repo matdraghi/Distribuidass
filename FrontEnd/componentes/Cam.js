@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity , Header, Item, Image} from 'react-native'
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import Styles from './styles'
-//import Ionicons from 'react-native-ionicons';
+import { withNavigationFocus } from "react-navigation";
 
 import {Icon ,Ionicons , MaterialCommunityIcons} from '@expo/vector-icons';
 
@@ -11,7 +11,8 @@ class Cam extends React.Component {
 
     state = {
       hasCameraPermission: null,
-      type: Camera.Constants.Type.back
+      type: Camera.Constants.Type.back, 
+      focusedScreen: true,
     }
   
     async componentWillMount() {
@@ -33,15 +34,19 @@ class Cam extends React.Component {
       }
   
     render() {
-      const { hasCameraPermission } = this.state
-  
+      const { hasCameraPermission, focusedScreen } = this.state
+      const isFocused = this.props.navigation.isFocused();
+         
+      if (!isFocused) {
+          return null;
+      } 
       if (hasCameraPermission === null) {
         return <View />
       }
       else if (hasCameraPermission === false) {
         return <Text> No access to camera</Text>
       }
-      else {
+      else if (focusedScreen == true){
         return (
           <View style={{ flex: 1 }}>
            <Camera style={{ flex: 1 }}
@@ -103,4 +108,4 @@ class Cam extends React.Component {
     }
   }
   
-  export default Cam;
+  export default withNavigationFocus(Cam);

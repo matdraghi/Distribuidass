@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, KeyboardAvoidingView, Text } from 'react-native'
 import { Button, TextInput, Snackbar } from 'react-native-paper'
-import Logotipo from "../assets/Images/Logo.png"
 
 export class Login extends Component {
     state = {
@@ -43,7 +42,7 @@ export class Login extends Component {
         this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
         
         this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
-        //console.log (documento)
+        
     }
 
     mostrarMensaje = (mensaje) => {

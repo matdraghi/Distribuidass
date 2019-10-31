@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, KeyboardAvoidingView, Text } from 'react-native'
+import { View, StyleSheet, KeyboardAvoidingView, Text, ScrollView, Picker } from 'react-native'
 import { Button, TextInput, Snackbar } from 'react-native-paper'
 
 export class Registro extends Component {
     state = {
         documento: '',
         password: '',
+        tipo: '',
         cambioPass: false,
-        mensaje: '',
-        mostrarMensaje: ''
     }
 
     getUsuarioValue(){
@@ -22,6 +21,7 @@ export class Registro extends Component {
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
+                    alert ("Usuario con Documento : " + this.state.documento + " Ha sido creado con exito");
                     this.props.navigation.navigate('Login', { documento: this.state.documento })
                 }
                 else if (json === false){
@@ -59,6 +59,7 @@ export class Registro extends Component {
                     onChangeText={password => this.setState({ password })}
                     textContentType='password'
                     secureTextEntry={true}
+                    keyboardType= 'default'
                 />
                 <View style={{ flexDirection: 'row' }}>
                     <Button
@@ -70,16 +71,6 @@ export class Registro extends Component {
                         Registrarse
                     </Button>
                 </View>
-                <Snackbar
-                    visible={this.state.mostrarMensaje}
-                    onDismiss={() => { this.setState({ mostrarMensaje: false }) }}
-                    action={{
-                        label: 'OK',
-                        onPress: () => { this.setState({ mostrarMensaje: false }) }
-                    }}
-                >
-                    {this.state.mensaje}
-                </Snackbar>
             </KeyboardAvoidingView>
         )
     }

@@ -6,13 +6,14 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"
-},
+  },
   "dependencies": {
     "@expo/vector-icons": "^10.0.6",
     "expo": "^35.0.0",
     "expo-camera": "^7.0.0",
     "expo-constants": "^7.0.1",
     "expo-image-picker": "^7.0.0",
+    "expo-multiple-imagepicker": "^1.0.6",
     "expo-permissions": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "16.8.3",

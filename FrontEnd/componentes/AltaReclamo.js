@@ -44,12 +44,13 @@ export class AltaProducto extends Component {
         const url = 'http://192.168.43.142:8080/myapp/Reclamos/alta?documento=' + documento + '&codigo=' + codigo + '&ubicacion=' + ubicacion + '&descripcion=' + descripcion + '&identificador=' + identificador + '&piso=' + piso + '&nombre=' + nombre;
         fetch(url)
             .then(res =>  res.json()).then((json) => {
-                if (json == true || json == null) {
+                console.log (json)
+                if (json == true) {
                     alert ("es inquilino y esta alquilando esa unidad / O es duenio de la unidad")
                     this.QueIdReclamo(documento, nombre, descripcion, piso)
                     this.handleSuccessfulReclamo();
                 } 
-                 else if (json == false) {
+                 else if (json == false || json == null) {
                     Alert.alert(
                         'Usted no se encuentra Autorizado dado que no es el duenio del identificador ingresado',
                         'Por Favor Dirijase a la siguiente ventana',
@@ -122,22 +123,7 @@ export class AltaProducto extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          alert ("IdReclamo..."+ json )
-          
-          Alert.alert(
-            'Id Reclamo',
-            json,
-            [
-              {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
-              {
-                text: 'Cancel',
-                onPress: () => console.log('Cancel Pressed'),
-                style: 'cancel',
-              },
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );   
+          alert ("IdReclamo..."+ json );
              
             }
            
@@ -153,7 +139,7 @@ export class AltaProducto extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          alert (" "+ json );
+          //alert (" "+ json );
           var j = JSON.stringify(json)
           console.log (j)
           var k = JSON.parse(j)

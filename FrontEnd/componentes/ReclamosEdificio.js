@@ -72,7 +72,7 @@ export class DetallesReclamos extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          alert (" "+ json );
+          //alert (" "+ json );
           var j = JSON.stringify(json)
           console.log (j)
           var k = JSON.parse(j)
@@ -134,8 +134,6 @@ export class DetallesReclamos extends Component {
         fetch(url)
         .then((response) => response.json()).then((json) => {
           alert ("IdReclamo..."+ json )
-          
-         
             
             }
            

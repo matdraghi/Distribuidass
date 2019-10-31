@@ -173,7 +173,7 @@ const ConsultarStack =  createStackNavigator({
 
 ConsultarStack.navigationOptions = {
     tabBarLabel: "Consultar Reclamo",
-    tabBarIcon: ( <Icon name="md-rock" size={20} /> )
+    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
 
@@ -183,7 +183,7 @@ const ElegirImagenStack =  createStackNavigator({
         screen: ImagePicker,
         
         navigationOptions: {
-            headerTitle: 'Image Picker Select',
+            headerTitle: 'Seleccionar Una Imagen',
             headerTitleStyle: {
                 textAlign: "center",
                 flex: 1
@@ -197,7 +197,7 @@ const ElegirImagenStack =  createStackNavigator({
 })
 
 ElegirImagenStack.navigationOptions = {
-    tabBarLabel: "Image Picker Select",
+    tabBarLabel: "Seleccionar Una Imagen",
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 const AppTabNavigator = createMaterialBottomTabNavigator(
