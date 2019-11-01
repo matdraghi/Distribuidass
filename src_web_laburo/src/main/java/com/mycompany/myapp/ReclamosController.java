@@ -272,4 +272,35 @@ public class ReclamosController {
 		return response;
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/Nombres", method = RequestMethod.GET)
+	public ResponseEntity<String> pisos(@RequestParam(value = "documento", required = true) String documento) throws PersonaException, ReclamoException, InquilinoException, DuenioException, EdificioException, UnidadException {
+		LOGGER.info("Consultando Nombres Para Documento: {}", documento);
+		ResponseEntity<String> response = null;
+		JsonMapper mapper = new JsonMapper();
+		//int [] temp = controlador.Controlador.getInstancia().Identificadores(codigo, documento);
+		List<Identificadores> consulta = controlador.Controlador.getInstancia().nombre(documento);
+		for (Identificadores p2: consulta) {
+			System.out.println ("identificadores: " + p2.getIdentificador());
+
+			System.out.println ("piso: " + p2.getPiso());
+			
+
+			System.out.println ("Nombre: " + p2.getNombre());
+		}
+		/*for (int i = 0; i < temp.length; i ++) {
+			System.out.println("Identificador: " + temp[i]);
+			
+			System.out.println("-------------------------------------------------");
+		}*/
+		
+		/*for (int i = 0; i < temp.length; i++) {
+			System.out.println (temp[i]);
+		}*/
+		System.out.println (mapper.toJson(consulta));
+		response = new ResponseEntity<String>(mapper.toJson(consulta), HttpStatus.CREATED);
+		return response;
+		
+	}
 }
