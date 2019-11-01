@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert , KeyboardAvoidingView} from 'react-native'
+import { View, StyleSheet, Picker, ScrollView, Alert , KeyboardAvoidingView, RefreshControl, SafeAreaView, Text} from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar, TouchableWithoutFeedback } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -25,6 +25,7 @@ export class AltaReclamo extends Component {
     }
 
  
+    
     receivedValue = (uri) => {
         this.setState({uri})
       }     
@@ -170,13 +171,17 @@ export class AltaReclamo extends Component {
         )
         
     }
+    
+    
+
+  
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                 </View>
                 
-                <ScrollView>
+                <ListView>
                 <TextInput
                     style={styles.inputs}
                     label='documento'
@@ -229,7 +234,6 @@ export class AltaReclamo extends Component {
                     <Picker.Item label="Parana 300" value="Parana 300" />  
                     <Picker.Item label="Av. Lizard 1000" value="Av. Lizard 1000" />
                  </Picker>
-
                  <Button 
                     mode="contained" 
                     color = '#00FFFF' 
@@ -312,7 +316,7 @@ export class AltaReclamo extends Component {
                 >
                     {this.state.mensaje}
                 </Snackbar>
-                </ScrollView>
+                </ListView>
             </KeyboardAvoidingView>
         )
     }

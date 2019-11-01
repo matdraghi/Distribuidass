@@ -9,6 +9,7 @@ import CamaraPage from './componentes/CamaraPage'
 import { NetInfo } from "react-native";
 import ImagePickerExample from './componentes/ImagePickerExample'
 import PickMultiple from './componentes/PickMultiple'
+import Refresh from './componentes/Refresh'
 
 export default class App extends React.Component {
   

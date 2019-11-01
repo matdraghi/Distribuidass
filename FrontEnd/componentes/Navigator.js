@@ -12,6 +12,7 @@ import ConsultarReclamos from './ConsultarReclamo'
 import CamaraPage from './CamaraPage'
 import ImagePicker from './ImagePickerExample'
 import VerFoto from './VerFoto'
+import RefreshController from './Refresh'
 
 import { ScreenOrientation } from 'expo';
 import Registro from './Registro';
@@ -61,6 +62,29 @@ AltaReclamoStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
+const RefreshStack = createStackNavigator({
+
+    RefreshController: { 
+      screen: RefreshController,
+      navigationOptions: {
+          headerTitle: 'Soy Refresh',
+          headerTitleStyle: {
+              textAlign: "center",
+              flex: 1
+          },
+          headerStyle: {
+              backgroundColor: backgroundColor,
+            },
+          headerTintColor: headerTextColor,
+      }
+   },
+   
+})
+
+RefreshStack.navigationOptions = {
+  tabBarLabel: "Soy Refresh",
+  tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+}
 
 const VerFotoStack = createStackNavigator({
 
@@ -202,7 +226,7 @@ ElegirImagenStack.navigationOptions = {
 }
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
-        AltaReclamoStack,
+        RefreshStack,
         ReclamosEdificioStack,
         CameraStack,
         ConsultarStack,
@@ -233,7 +257,7 @@ const AppStackNavigator = createStackNavigator(
 
 
 const AppSwitchNavigator = createSwitchNavigator({
-    Registro: {screen: Registro},
+    //Registro: {screen: Registro},
     Login: { screen: Login },
     
     App: { screen: AppStackNavigator }

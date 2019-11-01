@@ -36,12 +36,13 @@ export class Login extends Component {
         this.mostrarMensaje("Bienvenido " + this.state.documento)
         
         this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
-        this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
         
         this.props.navigation.navigate('VerFoto', { documento: this.state.documento })
         this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
         
         this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
+        
+        this.props.navigation.navigate('RefreshController', { documento: this.state.documento })
         
     }
 
