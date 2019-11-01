@@ -111,6 +111,20 @@ public class UnidadDAO {
 		
 	}
 	
+	public Unidad getCodigoPorIdentificador(int identificador) throws PersonaException, EdificioException, UnidadException {
+		Unidad resultado = null;
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session s = sf.getCurrentSession();
+		s.beginTransaction();
+		UnidadEntity unidad = (UnidadEntity) s.createQuery("from UnidadEntity where identificador = ?")
+				.setInteger(0, identificador)
+				.uniqueResult();
+		s.getTransaction().commit();
+		if(unidad != null) {
+			return toNegocio(unidad);		}
+		else
+			throw new UnidadException("No se pudo recuperar las unidades");
+	}
 		
 	Unidad toNegocio(UnidadEntity e) throws EdificioException, UnidadException {
 		if(e != null) {

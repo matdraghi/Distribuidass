@@ -10,6 +10,9 @@ public class Identificadores {
 	}
 	private String identificador;
 	private String piso;
+	private String nombre;
+	private String ubicacion;
+	private String documento;
 	public String getIdentificador() {
 		return identificador;
 	}
@@ -26,6 +29,26 @@ public class Identificadores {
 	}
 	public Identificadores() {
 		super();
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public String setNombre(String nombre) {
+		this.nombre = nombre;
+		return this.nombre;
+	}
+	public String getUbicacion() {
+		return ubicacion;
+	}
+	public String setUbicacion(String ubicacion) {
+		this.ubicacion = ubicacion;
+		return this.ubicacion;
+	}
+	public String getDocumento() {
+		return documento;
+	}
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 	
 	

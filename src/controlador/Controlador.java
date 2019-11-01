@@ -264,6 +264,109 @@ public class Controlador {
 		return false;
 	}
 	
+	public List<Identificadores> nombre (String documento) throws PersonaException, EdificioException, UnidadException {
+		int [] identif = new int [10];
+		List<Identificadores> identificadores = new ArrayList<Identificadores>();
+
+		List<Identificadores> prueba = new ArrayList<Identificadores>();
+		List<Duenio> d = DuenioDAO.getInstancia().getUnidadesPorDuenio(documento);
+		List <Inquilinos> inqui = InquilinoDAO.getInstancia().getUnidadesPorInquilino(documento);
+		for (Duenio p2: d) {
+
+			Identificadores p = new Identificadores();
+			System.out.println("Identificadorrr: " + p2.getIdentificador());
+			p.setIdentificador(String.valueOf(p2.getIdentificador()));
+			prueba.add(p);
+			System.out.println("-------------------------------------------------");
+		}
+		
+		for (Inquilinos p2: inqui) {
+
+			Identificadores p = new Identificadores();
+			System.out.println("Identificador inquilino: " + p2.getIdentificador());
+			p.setIdentificador(String.valueOf(p2.getIdentificador()));
+			prueba.add(p);
+		}
+		
+		for (Identificadores p4: prueba) {
+			
+		
+		Unidad je = UnidadDAO.getInstancia().getCodigoPorIdentificador(Integer.valueOf(p4.getIdentificador()));
+		if (je != null) {
+			System.out.println("Identificador: " + je.getId());
+			System.out.println("-------------------------------------------------");
+		}
+		
+		int i = 0;
+		for (Duenio p2: d) {
+				if (p2.getIdentificador() == je.getId()) {
+
+					Identificadores ident = new Identificadores();
+					String f = String.valueOf(p2.getIdentificador());
+					System.out.println(f);
+					Unidad u = UnidadDAO.getInstancia().findByIdentificador(Integer.parseInt(f));
+					int codigoEdi= u.getEdificio().getCodigo();
+					Edificio e = EdificioDAO.getInstancia().findByID(codigoEdi);
+					String nombre = e.getNombre();
+					String ubicacion = e.getDireccion();
+					System.out.println("ident" + ident.setIdentificador(f));
+
+					System.out.println("ident" + ident.setNombre(nombre));
+					
+
+					System.out.println("ident" + ident.setUbicacion(ubicacion));
+					
+					//i++;
+					String k = je.getPiso();
+					ident.setDocumento(documento);
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					System.out.println(k);
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					
+				}
+			}
+		
+		for (Inquilinos p2: inqui) {
+				if (p2.getIdentificador() == je.getId()) {
+
+					Identificadores ident = new Identificadores();
+					String f = String.valueOf(p2.getIdentificador());
+					System.out.println(f);
+					//identif [i] = f;Unidad u = UnidadDAO.getInstancia().findByIdentificador(Integer.parseInt(f));
+					Unidad u = UnidadDAO.getInstancia().findByIdentificador(Integer.parseInt(f));
+					
+					int codigoEdi= u.getEdificio().getCodigo();
+					Edificio e = EdificioDAO.getInstancia().findByID(codigoEdi);
+					String nombre = e.getNombre();
+					String ubicacion = e.getDireccion();
+					System.out.println("ident" + ident.setIdentificador(f));
+
+					System.out.println("ident" + ident.setNombre(nombre));
+					
+					ident.setDocumento(documento);
+					System.out.println("ident" + ident.setUbicacion(ubicacion));
+					
+					//i++;
+					String k = je.getPiso();
+
+					System.out.println ("piso:" + ident.setPiso(k));
+					//int z = Integer.parseInt(k.trim());
+					System.out.println(k);
+					//identif [i] = z;
+					System.out.println ("aca" + ident.getIdentificador() + " " + ident.getPiso());
+					identificadores.add(ident);
+					i++;
+					
+				}
+		}
+		}
+		
+		return identificadores;
+	}
+	
 	public boolean RegistrarUsuario (String documento, String contraseña) throws InquilinoException, PersonaException, DuenioException, ReclamoException, UsuarioException {
 		Persona p;
 		p = PersonaDAO.getInstancia().findByID(documento);
