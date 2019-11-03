@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableHighlightBase, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-paper'
 import 'prop-types';
 
@@ -12,12 +12,16 @@ export class Usuario extends Component {
                     style={styles.buttons}
                     mode="contained"
                     color = '#d32f2f'
-                    onPress={() => this.props.navigation.navigate('Login')}
+                    onPress={this._logout}
                 >
                     Cerrar Sesión
                 </Button>
             </View>
         )
+    }
+    _logout = async () =>{
+        await AsyncStorage.clear();
+        this.props.navigation.navigate("Auth")
     }
 }
 

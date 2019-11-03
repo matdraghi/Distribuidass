@@ -1,28 +1,41 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, KeyboardAvoidingView, Text } from 'react-native'
+import { View, StyleSheet, KeyboardAvoidingView, Text, StatusBar, AsyncStorage } from 'react-native'
 import { Button, TextInput, Snackbar } from 'react-native-paper'
+import Input from './input'
 
+const UserInfo = {documento: '', password: ''}
 export class Login extends Component {
-    state = {
+    /*state = {
         documento: this.props.navigation.getParam('documento'),
         password: '',
         cambioPass: false,
         mensaje: '',
         mostrarMensaje: ''
-    }
+    }*/
 
+    constructor(props){
+        super (props);
+        this.state = 
+        {
+            documento: '',
+            password: ''
+        }
+    }
+    
     getUsuarioValue(){
         return this.state.documento
     }
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
-
+                    UserInfo.documento = documento;
+                    UserInfo.password = password;
+                    this._login
                     this.handleSuccessfulLogin();
                 }
                 else {
@@ -42,7 +55,7 @@ export class Login extends Component {
         
         this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         
-        this.props.navigation.navigate('RefreshController', { documento: this.state.documento })
+        this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
         
     }
 
@@ -56,10 +69,12 @@ export class Login extends Component {
     render() {
         return (
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-             <Text 
-                  style={styles.label}>
-                  Login
-              </Text>
+                <View style= {styles.container}></View>
+             <StatusBar
+             backgroundColor = "#1e90ff"
+             barStyle = "light-content"
+             />
+             <Text >Login To My App</Text>
                 <TextInput
                     style={styles.input}
                     label='documento'
@@ -85,7 +100,7 @@ export class Login extends Component {
                         style={styles.buttons}
                         mode="contained"
                         color = '#00FFFF'
-                        onPress={() => this.autenticar()}
+                        onPress={this._login}
                     >
                         Iniciar Sesion
                     </Button>
@@ -100,9 +115,43 @@ export class Login extends Component {
                 >
                     {this.state.mensaje}
                 </Snackbar>
+                
             </KeyboardAvoidingView>
         )
     }
+
+    _login = async() => {
+        const documento = this.state.documento;
+        const password = this.state.password;
+        const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        fetch(url)
+            .then((res) => res.json()).then((json) => {
+                console.log (json)
+                if (json === true) {
+                    UserInfo.documento = documento;
+                    UserInfo.password = password;
+                    
+                console.log (UserInfo.documento);
+                console.log (UserInfo.password);
+                }
+                else {
+                    this.mostrarMensaje(json.message)
+                }
+            }
+            );
+            if (UserInfo.documento === this.state.documento && UserInfo.password === this.state.password){
+                await AsyncStorage.setItem("isLoggedIn", '1');
+                await AsyncStorage.setItem("documento", this.state.documento);
+            this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
+        
+            this.props.navigation.navigate('VerFoto', { documento: this.state.documento })
+            this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
+        
+             this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
+        
+            this.props.navigation.navigate('AltaReclamos', { documento: this.state.documento })
+            } }
+           
 }
 
 const styles = StyleSheet.create({
@@ -110,6 +159,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: "#1e90ff",
     },
     label: {
         fontSize: 50,

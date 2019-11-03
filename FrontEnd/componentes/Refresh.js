@@ -37,7 +37,7 @@ constructor(props) {
     //Service to get the data from the server to render
          
     console.log ("estoy aca " + this.state.documento)
-    return fetch('http://192.168.43.142:8080/myapp/Reclamos/Nombres?documento='+ this.state.documento)
+    return fetch('http://192.168.0.12:8080/myapp/Reclamos/Nombres?documento='+ this.state.documento)
     .then(res =>  res.json()).then((json) => {
         var j = JSON.stringify(json)
         //console.log (j)

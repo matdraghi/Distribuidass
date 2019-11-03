@@ -1,11 +1,12 @@
 import React, { Component }  from 'react'
+import {ActivityIndicator, StatusBar, AsyncStorage, View} from 'react-native';
 import {createSwitchNavigator, createAppContainer } from 'react-navigation';
 import  {createStackNavigator} from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Login from './Login'
-import AltaReclamo from './AltaReclamo'
+import AltaReclamos from './AltaReclamo'
 import ReclamosEdificio from './ReclamosEdificio'
 import Usuario from './Usuario'
 import ConsultarReclamos from './ConsultarReclamo'
@@ -40,8 +41,8 @@ handleChildLogin = (documento) => {
 
 const AltaReclamoStack = createStackNavigator({
 
-      AltaReclamo: { 
-        screen: AltaReclamo,
+      AltaReclamos: { 
+        screen: AltaReclamos,
         navigationOptions: {
             headerTitle: 'Alta Reclamo',
             headerTitleStyle: {
@@ -224,11 +225,51 @@ ElegirImagenStack.navigationOptions = {
     tabBarLabel: "Seleccionar Una Imagen",
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
+
+const AuthStack = createStackNavigator({Home: Login})
+
+class AuthLoadingScreen extends Component{
+    constructor(props){
+        super(props);
+        this._LoadData();
+    }
+
+    render (){
+        return (
+            <View>
+                <ActivityIndicator/>
+                <StatusBar barStyle= "default" />
+            </View>
+        )
+    }
+    _LoadData = async ( ) =>{
+        const isLoggedIn = await AsyncStorage.getItem("isLoggedIn")
+        console.log (isLoggedIn)
+        const Doc = await AsyncStorage.getItem("documento");
+        console.log (Doc)
+        if (isLoggedIn === '1'){
+        this.props.navigation.navigate(isLoggedIn !== '1'? 'Auth': 'App')
+        
+        this.props.navigation.navigate('VerFoto', { documento: Doc })
+        this.props.navigation.navigate('ImagePicker', { documento: Doc })
+    
+        this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
+    
+        this.props.navigation.navigate('ReclamosEdificio', { documento: Doc })
+        
+        this.props.navigation.navigate('AltaReclamos', { documento: Doc })
+        }
+        else {
+            this.props.navigation.navigate('Login')
+        }
+    }
+}
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
-        RefreshStack,
-        ReclamosEdificioStack,
+        
         CameraStack,
+        ReclamosEdificioStack,
+        AltaReclamoStack ,
         ConsultarStack,
         ElegirImagenStack,
         VerFotoStack,
@@ -258,10 +299,12 @@ const AppStackNavigator = createStackNavigator(
 
 const AppSwitchNavigator = createSwitchNavigator({
     //Registro: {screen: Registro},
+    AuthLoading: AuthLoadingScreen,
     Login: { screen: Login },
     
-    App: { screen: AppStackNavigator }
-});
+    App: { screen: AppStackNavigator },
+    Auth: AuthStack
+});     
 
 const Navigator = createAppContainer(AppSwitchNavigator)
 export default Navigator

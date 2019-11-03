@@ -24,7 +24,7 @@ export class ConsultarReclamo extends Component {
         const documento = this.state.documento;
         console.log (documento);
 
-        const url = 'http://192.168.43.142:8080/myapp/Reclamos/Consultar?documento=' + documento ;
+        const url = 'http://192.168.0.12:8080/myapp/Reclamos/Consultar?documento=' + documento ;
         fetch(url)
         .then(res =>  res.json()).then((json) => {
             console.log ("entre")
