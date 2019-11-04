@@ -4,6 +4,7 @@ import { Button, TextInput, Snackbar } from 'react-native-paper'
 import Input from './input'
 
 const UserInfo = {documento: '', password: ''}
+
 export class Login extends Component {
     /*state = {
         documento: this.props.navigation.getParam('documento'),
@@ -20,15 +21,41 @@ export class Login extends Component {
             documento: '',
             password: ''
         }
+        
+    this.state = {identificadores: []}
     }
     
+    GetData (documento)  {
+        //Service to get the data from the server to render
+             
+        console.log ("estoy aca " + this.state.documento)
+        return fetch('http://192.168.43.142:8080/myapp/Reclamos/Nombres?documento='+ this.state.documento)
+        .then(res =>  res.json()).then((json) => {
+            var j = JSON.stringify(json)
+            //console.log (j)
+            var k = JSON.parse(j)
+            //console.log (k)
+            for (var i in k) {
+                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+                
+                var entry = k[i];
+                console.log (entry); 
+                if (k.hasOwnProperty(i)) {
+                this.setState({
+              //Setting the data source for the list to render
+                    identificadores: k
+              });
+                }}
+    }    
+        )
+    }
     getUsuarioValue(){
         return this.state.documento
     }
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)
@@ -123,23 +150,27 @@ export class Login extends Component {
     _login = async() => {
         const documento = this.state.documento;
         const password = this.state.password;
-        const url = 'http://192.168.0.12:8080/myapp/Login?documento=' + documento + '&password=' + password;
+        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
-                    UserInfo.documento = documento;
-                    UserInfo.password = password;
+                   // UserInfo.documento = documento;
+                   // UserInfo.password = password;
                     
-                console.log (UserInfo.documento);
-                console.log (UserInfo.password);
+                //console.log (UserInfo.documento);
+                //console.log (UserInfo.password);
                 }
                 else {
                     this.mostrarMensaje(json.message)
                 }
             }
             );
-            if (UserInfo.documento === this.state.documento && UserInfo.password === this.state.password){
+            if (UserInfo.documento === '' && UserInfo.password=== ''){
+                UserInfo.documento = this.state.documento;
+                UserInfo.password = this.state.password;
+            if (UserInfo.documento === this.state.documento && UserInfo.password === this.state.password
+                ){
                 await AsyncStorage.setItem("isLoggedIn", '1');
                 await AsyncStorage.setItem("documento", this.state.documento);
             this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
@@ -150,7 +181,12 @@ export class Login extends Component {
              this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         
             this.props.navigation.navigate('AltaReclamos', { documento: this.state.documento })
-            } }
+            }
+            else {
+                alert ("Verifique sus credenciales!")
+            }
+        }
+        }
            
 }
 

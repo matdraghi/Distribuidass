@@ -7,6 +7,7 @@ import {ImagePicker} from 'expo-image-picker';
 import styles from './styles'
 import { withNavigationFocus } from "react-navigation";
 
+
 class CamaraPage extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -39,7 +40,7 @@ class CamaraPage extends React.Component {
       //alert (data)
       //alert (id)
       console.log (file)
-      fetch('http://192.168.0.12:8080/myapp/savefileee?file=' + file ).then((response) => response.json()).then((json) => {
+      fetch('http://192.168.43.142:8080/myapp/savefileee?file=' + file ).then((response) => response.json()).then((json) => {
         console.log ("Hola" + json)
         this.setState({
           numero : json,

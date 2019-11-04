@@ -28,7 +28,7 @@ prueba = () => {
     this.ObtenerIdentificadores(documento);
 }
 ObtenerIdentificadores(documento) {
-    const url = 'http://192.168.0.12:8080/myapp/Reclamos/ObtenerIdReclamos?documento=' +  documento;
+    const url = 'http://192.168.43.142:8080/myapp/Reclamos/ObtenerIdReclamos?documento=' +  documento;
    
 
     fetch(url)
@@ -57,7 +57,7 @@ ObtenerIdentificadores(documento) {
 BuscarFoto = () => {
     const IdReclamo = this.state.idReclamo;
     console.log (IdReclamo)
-    const url = 'http://192.168.0.12:8080/myapp/ObtenerImagen?IdReclamo=' +  IdReclamo ;
+    const url = 'http://192.168.43.142:8080/myapp/ObtenerImagen?IdReclamo=' +  IdReclamo ;
    
   
     fetch(url)

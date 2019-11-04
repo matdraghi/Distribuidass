@@ -226,13 +226,17 @@ ElegirImagenStack.navigationOptions = {
     tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
-const AuthStack = createStackNavigator({Home: Login})
 
+const AuthStack = createStackNavigator({Home: Login})
 class AuthLoadingScreen extends Component{
     constructor(props){
         super(props);
         this._LoadData();
     }
+
+
+
+
 
     render (){
         return (
@@ -242,28 +246,72 @@ class AuthLoadingScreen extends Component{
             </View>
         )
     }
+
     _LoadData = async ( ) =>{
         const isLoggedIn = await AsyncStorage.getItem("isLoggedIn")
         console.log (isLoggedIn)
         const Doc = await AsyncStorage.getItem("documento");
         console.log (Doc)
+        const nombre = await AsyncStorage.getItem("nombre");
+        console.log (nombre)
+        const ubica = await AsyncStorage.getItem("ubicacion");
+        console.log (ubica)
+        
+        const c = await AsyncStorage.getItem("codigo");
+        const descrip = await AsyncStorage.getItem("descripcion");
+        console.log (descrip)
+        const p =await AsyncStorage.getItem("piso");
+        console.log (p)
+        const identif = await AsyncStorage.getItem("identificador");
+        console.log (identif)
+            
         if (isLoggedIn === '1'){
         this.props.navigation.navigate(isLoggedIn !== '1'? 'Auth': 'App')
-        
+        if (nombre !== ''){
+            
+            
+            this.props.navigation.navigate('AltaReclamos', { documento: Doc, nombre : nombre, ubicacion: ubica, codig: c, descripcion: descrip, piso: p, identificador: identif})
+            
         this.props.navigation.navigate('VerFoto', { documento: Doc })
         this.props.navigation.navigate('ImagePicker', { documento: Doc })
-    
+        
         this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
     
-        this.props.navigation.navigate('ReclamosEdificio', { documento: Doc })
-        
-        this.props.navigation.navigate('AltaReclamos', { documento: Doc })
+        this.props.navigation.navigate('ReclamosEdificio', { documento: Doc})
         }
+        else{
+        /*
+        const ubica = await AsyncStorage.getItem("ubicacion");
+        console.log (ubica)
+        const codig =await AsyncStorage.getItem("codigo");
+        console.log (codig)
+        const descrip = await AsyncStorage.getItem("descripcion");
+        console.log (descrip)
+        const p =await AsyncStorage.getItem("piso");
+        console.log (p)
+        const identif = await AsyncStorage.getItem("identificador");
+        console.log (identif)*/
+        this.props.navigation.navigate('VerFoto', { documento: Doc })
+        this.props.navigation.navigate('ImagePicker', { documento: Doc })
+        
+        this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
+    
+        this.props.navigation.navigate('ReclamosEdificio', { documento: Doc})
+        //nombre: nomb, ubicacion:ubica, codigo: codig, descripcion:descrip, piso: p, identificador: identif
+        this.props.navigation.navigate('AltaReclamos', { documento: Doc})
+        }
+    }
         else {
             this.props.navigation.navigate('Login')
         }
     }
+    
+
+
 }
+
+
+   
 const AppTabNavigator = createMaterialBottomTabNavigator(
     {
         
@@ -301,9 +349,9 @@ const AppSwitchNavigator = createSwitchNavigator({
     //Registro: {screen: Registro},
     AuthLoading: AuthLoadingScreen,
     Login: { screen: Login },
-    
+    Auth: AuthStack,
     App: { screen: AppStackNavigator },
-    Auth: AuthStack
+    
 });     
 
 const Navigator = createAppContainer(AppSwitchNavigator)

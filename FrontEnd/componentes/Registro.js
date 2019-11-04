@@ -16,7 +16,7 @@ export class Registro extends Component {
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.0.12:8080/myapp/Registro?Documento=' + documento + '&Password=' + password;
+        const url = 'http://192.168.43.142:8080/myapp/Registro?Documento=' + documento + '&Password=' + password;
         fetch(url)
             .then((res) => res.json()).then((json) => {
                 console.log (json)

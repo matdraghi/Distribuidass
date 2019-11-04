@@ -28,7 +28,7 @@ export default class ImagePickerExample extends React.Component {
     this.ObtenerIdentificadores(documento);
 }
 ObtenerIdentificadores(documento) {
-    const url = 'http://192.168.0.12:8080/myapp/Reclamos/ObtenerIdReclamos?documento=' +  documento;
+    const url = 'http://192.168.43.142:8080/myapp/Reclamos/ObtenerIdReclamos?documento=' +  documento;
    
 
     fetch(url)
@@ -54,7 +54,7 @@ ObtenerIdentificadores(documento) {
 
 
   AsociarIdReclamo(n, id) {
-    const url = 'http://192.168.0.12:8080/myapp/Asociar?numero=' +  n + "&idReclamo=" + id;
+    const url = 'http://192.168.43.142:8080/myapp/Asociar?numero=' +  n + "&idReclamo=" + id;
    
 
     fetch(url)
@@ -76,7 +76,7 @@ onChang = () => {
   console.log ("Foto: " +this.state.image)
   const file = this.state.image
   console.log (file)
-  fetch('http://192.168.0.12:8080/myapp/savefilee?file=' + file ).then((response) => response.json()).then((json) => {
+  fetch('http://192.168.43.142:8080/myapp/savefilee?file=' + file ).then((response) => response.json()).then((json) => {
     console.log ("Hola" + json)
     this.setState({
       numero : json,
