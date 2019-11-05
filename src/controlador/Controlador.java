@@ -2,6 +2,8 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -268,6 +270,13 @@ public class Controlador {
 		int [] identif = new int [10];
 		List<Identificadores> identificadores = new ArrayList<Identificadores>();
 
+		List<Identificadores> aux = new ArrayList<Identificadores>();
+
+		List<Identificadores> a = new ArrayList<Identificadores>();
+		
+
+		List<Identificadores> ab = new ArrayList<Identificadores>();
+
 		List<Identificadores> prueba = new ArrayList<Identificadores>();
 		List<Duenio> d = DuenioDAO.getInstancia().getUnidadesPorDuenio(documento);
 		List <Inquilinos> inqui = InquilinoDAO.getInstancia().getUnidadesPorInquilino(documento);
@@ -364,6 +373,57 @@ public class Controlador {
 		}
 		}
 		
+		Identificadores identifa = new Identificadores();
+		for(int i = 0; i < identificadores.size(); i++)
+		{
+			for(int j = 0; j < identificadores.size(); j++)
+			{
+				if (i < identificadores.size() && j < identificadores.size()) {
+				if(identificadores.get(i).getNombre().contentEquals(identificadores.get(j).getNombre()) && i != j)
+				{
+					identificadores.remove(j);
+				}
+				}
+			}
+		}
+		/*for (int i = 0; i < identificadores.size(); i++)
+	    {
+	        	Identificadores identifa = new Identificadores();
+	        	String nombre1 = identificadores.get(i).getNombre();
+	        	int j = i + 1;
+	        	if (j <identificadores.size()) {
+	        	String nombre2 = identificadores.get(j).getNombre();
+	        	if (!nombre1.equalsIgnoreCase(nombre2)) {
+	        		identifa.setNombre(nombre1);
+	        		aux.add(identifa);
+	        	}	
+	        	
+	        	}
+	        }
+		
+		for (int i = 0; i < aux.size(); i++)
+	    {
+	        	Identificadores identifa = new Identificadores();
+	        	String nombre1 = identificadores.get(i).getNombre();
+	        	int j = i + 1;
+	        	if (j <identificadores.size()) {
+	        	String nombre2 = identificadores.get(j).getNombre();
+	        	if (nombre1.equalsIgnoreCase(nombre2)) {
+	        		aux.remove(j);
+	        	}
+	        	else {
+	        		identifa.setNombre(nombre1);
+	        		a.add(identifa);
+	        	}
+	        	}
+	        }
+		
+		   for (Identificadores e : a) {
+		        if (!ab.contains(e.getNombre())) {
+		            System.out.println(e.getNombre());
+		            ab.add(e);
+		        }
+		    }*/
 		return identificadores;
 	}
 	
