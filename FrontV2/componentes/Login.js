@@ -84,9 +84,11 @@ export class Login extends Component {
         this.props.navigation.navigate('VerFoto', { documento: this.state.documento })
         this.props.navigation.navigate('ImagePicker', { documento: this.state.documento })
         
-        this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
+        //this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         
         this.props.navigation.navigate('AltaReclamo', { documento: this.state.documento })
+        
+        this.props.navigation.navigate('RefreshController', { documento: this.state.documento })
         
     }
 
@@ -195,6 +197,8 @@ export class Login extends Component {
              this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
         
             this.props.navigation.navigate('AltaReclamos', { documento: this.state.documento })
+            
+        this.props.navigation.navigate('RefreshController', { documento: this.state.documento })
             }
             else {
                 alert ("Verifique sus credenciales!")

@@ -69,7 +69,7 @@ const RefreshStack = createStackNavigator({
     RefreshController: { 
       screen: RefreshController,
       navigationOptions: {
-          headerTitle: 'Soy Refresh',
+          headerTitle: 'Consultar Reclamos',
           headerTitleStyle: {
               textAlign: "center",
               flex: 1
@@ -84,7 +84,7 @@ const RefreshStack = createStackNavigator({
 })
 
 RefreshStack.navigationOptions = {
-  tabBarLabel: "Soy Refresh",
+  tabBarLabel: "Consultar Reclamos",
   tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
 }
 
@@ -271,32 +271,23 @@ class AuthLoadingScreen extends Component{
         if (nombre !== ''){
             
             
-            this.props.navigation.navigate('AltaReclamos', { documento: Doc, nombre : nombre, ubicacion: ubica, codig: c, descripcion: descrip, piso: p, identificador: identif})
+        this.props.navigation.navigate('AltaReclamos', { documento: Doc, nombre : nombre, ubicacion: ubica, codig: c, descripcion: descrip, piso: p, identificador: identif})
             
         this.props.navigation.navigate('VerFoto', { documento: Doc })
         this.props.navigation.navigate('ImagePicker', { documento: Doc })
         
-        this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
+        //this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
     
+        this.props.navigation.navigate('RefreshController', { documento: Doc })
         this.props.navigation.navigate('ReclamosEdificio', { documento: Doc})
         }
         else{
-        /*
-        const ubica = await AsyncStorage.getItem("ubicacion");
-        console.log (ubica)
-        const codig =await AsyncStorage.getItem("codigo");
-        console.log (codig)
-        const descrip = await AsyncStorage.getItem("descripcion");
-        console.log (descrip)
-        const p =await AsyncStorage.getItem("piso");
-        console.log (p)
-        const identif = await AsyncStorage.getItem("identificador");
-        console.log (identif)*/
         this.props.navigation.navigate('VerFoto', { documento: Doc })
         this.props.navigation.navigate('ImagePicker', { documento: Doc })
         
-        this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
+        this.props.navigation.navigate('RefreshController', { documento: Doc })
     
+        //this.props.navigation.navigate('ConsultarReclamos', { documento: Doc })
         this.props.navigation.navigate('ReclamosEdificio', { documento: Doc})
         //nombre: nomb, ubicacion:ubica, codigo: codig, descripcion:descrip, piso: p, identificador: identif
         this.props.navigation.navigate('AltaReclamos', { documento: Doc})
@@ -319,7 +310,8 @@ const AppTabNavigator = createMaterialBottomTabNavigator(
         CameraStack,
         ReclamosEdificioStack,
         AltaReclamoStack ,
-        ConsultarStack,
+        RefreshStack,
+        //ConsultarStack,
         ElegirImagenStack,
         VerFotoStack,
         UsuarioStack,
