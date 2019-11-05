@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert, KeyboardAvoidingView, AsyncStorage} from 'react-native'
+import { View, StyleSheet, Picker, ScrollView, Alert,Text, KeyboardAvoidingView, AsyncStorage} from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar, TouchableWithoutFeedback } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -303,10 +303,11 @@ export class AltaReclamo extends Component {
 
                 <Button 
                     mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={this.GetData}
                 >
-                    Obtener Nombres/Ubicacion
+                    
+                <Text style={{color: 'white'}}> Obtener Nombre/Ubicacion </Text>
                 </Button>
               
              <TextInput
@@ -328,10 +329,11 @@ export class AltaReclamo extends Component {
                
                  <Button 
                     mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={this.pruebaNombre}
                 >
-                    Obtener Identificadores/piso/codigo
+                    
+                <Text style={{color: 'white'}}> Obtener identificadores/pisos/codigo </Text>
                 </Button>
                 <TextInput
                     style={styles.inputs}
@@ -385,18 +387,20 @@ export class AltaReclamo extends Component {
                  </Picker>
                 <Button 
                     mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={() => this.nuevoReclamo()}
                 >
-                    Crear Nuevo Reclamo
+                    
+                <Text style={{color: 'white'}}> Crear Nuevo Reclamo </Text>
                 </Button>
 
                 <Button 
                     mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={() => this.camara()}
                 >
-                    Abrir Camara
+                    
+                <Text style={{color: 'white'}}> Abrir Camara </Text>
                 </Button>
 
                 <Snackbar
@@ -420,7 +424,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
+        backgroundColor: 'grey'
     },
     pickers: {
         height: 50,

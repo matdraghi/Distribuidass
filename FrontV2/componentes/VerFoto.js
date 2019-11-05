@@ -103,16 +103,18 @@ BuscarFoto = () => {
                     )}
         </Picker>
                 <Button mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={this.prueba}>
-                                Obtener IdReclamoss
+                        
+                <Text style={{color: 'white'}}> Obtener Id Reclamos</Text>
              </Button>
              
        
              <Button mode="contained" 
-                    color = '#d32f2f' 
+                    color = '#00CED1' 
                     onPress={this.BuscarFoto}>
-                                Ver Foto
+                        
+                <Text style={{color: 'white'}}> Ver Foto</Text>
              </Button>
              <Image 
                     resizeMode="cover"
@@ -132,7 +134,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
+        backgroundColor: 'grey'
     },
     pickers: {
         height: 50,

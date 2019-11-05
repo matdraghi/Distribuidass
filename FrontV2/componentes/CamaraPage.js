@@ -29,6 +29,7 @@ class CamaraPage extends React.Component {
        await this.camera.takePictureAsync(options).then(photo => {
           photo.exif.Orientation = 1;            
            console.log(photo.uri);
+           alert ("La foto ha sido tomado con exito! Por Favor Subirla")
            this.setState ({
              uri: photo.uri
            })
@@ -49,6 +50,7 @@ class CamaraPage extends React.Component {
       })
            
         CameraRoll.saveToCameraRoll(photo.uri, 'photo');       
+        this.props.navigation.navigate("ImagePicker")
            });     
      }
     }

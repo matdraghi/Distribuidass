@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableHighlightBase, AsyncStorage } from 'react-native'
+import { View, StyleSheet, TouchableHighlightBase,Text, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-paper'
 import 'prop-types';
 
@@ -11,10 +11,11 @@ export class Usuario extends Component {
                 <Button
                     style={styles.buttons}
                     mode="contained"
-                    color = '#d32f2f'
+                    color = '#00CED1'
                     onPress={this._logout}
                 >
-                    Cerrar Sesión
+                    
+                <Text style={{color: 'white'}}> Cerrar Sesion </Text>
                 </Button>
             </View>
         )
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'grey'
     },
     buttons: {
         width: '50%',

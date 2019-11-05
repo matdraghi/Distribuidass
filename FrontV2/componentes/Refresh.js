@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     marginTop: 10,
-    backgroundColor: 'white',
+    backgroundColor: 'grey',
   },
   rowViewContainer: {
     fontSize: 20,

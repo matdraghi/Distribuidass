@@ -14,23 +14,25 @@ export  class Welcome extends Component{
         return (
             <View style={styles.container}>
                 
-            <Image style={ styles.bgImage } source={require('../assets/Link.jpg') } />
+            <Image style={ styles.bgImage } source={require('../assets/Logo2.jpeg') } />
              
                 <Button
                     style={styles.buttons}
                     mode="contained"
-                    color = '#d32f2f'
+                    color = '#00CED1'
                     onPress={this.Registro}
                 >
-                    Registrarse
+                    
+                <Text style={{color: 'white'}}> Registrarse </Text>
                 </Button>
                 <Button
                     style={styles.buttons}
                     mode="contained"
-                    color = '#d32f2f'
+                    color = '#00CED1'
                     onPress={this.Login}
                 >
-                    Iniciar Sesion
+                    
+                <Text style={{color: 'white'}}> Iniciar Sesion </Text>
                 </Button>
             
             </View>
@@ -44,6 +46,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        
+        backgroundColor: 'grey'
     },
     buttons: {
         width: '45%',

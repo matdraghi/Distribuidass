@@ -18,8 +18,8 @@ import Welcome from './Welcome'
 
 import { ScreenOrientation } from 'expo';
 import Registro from './Registro';
-const backgroundColor = '#d32f2f'
-const headerTextColor = '#ffffff';
+const backgroundColor = '#42a5f5'
+const headerTextColor = '#F8F8FF';
 
 
 

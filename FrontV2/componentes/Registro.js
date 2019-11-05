@@ -40,7 +40,7 @@ export class Registro extends Component {
         return ( <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
              <View style= {styles.container}>
                  
-            <Image style={ styles.bgImage } source={require('../assets/Link.jpg') } />
+            <Image style={ styles.bgImage } source={require('../assets/Logo2.jpeg') } />
              
                 <TextInput
                     style={styles.input}
@@ -67,20 +67,22 @@ export class Registro extends Component {
                     <Button
                         style={styles.buttons}
                         mode="contained"
-                        color = '#d32f2f'
+                        color = '#00CED1'
                         onPress={() => this.autenticar()}
                     >
-                        Registrarse
+                        
+                <Text style={{color: 'white'}}> Registrarse </Text>
                     </Button>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <Button
                         style={styles.buttons}
                         mode="contained"
-                        color = '#d32f2f'
+                        color = '#00CED1'
                         onPress={this.Welcome}
                     >
-                        Volver A Inicio
+                        
+                <Text style={{color: 'white'}}> Volver A Inicio </Text>
                     </Button>
                 </View>
                 </View>
@@ -121,7 +123,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#1e90ff",
+        
+        backgroundColor: 'grey'
     },
       backgroundImage: {
         flex: 1,

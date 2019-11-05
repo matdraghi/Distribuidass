@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert, KeyboardAvoidingView } from 'react-native'
+import { View, StyleSheet, Picker, ScrollView,Text, Alert, KeyboardAvoidingView } from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -17,8 +17,37 @@ export class DetallesReclamos extends Component {
         piso: '',
         nombre: '',
         codig: '',
+        hola: [],
     } 
 
+    
+    GetData = () => {
+        //Service to get the data from the server to render
+             
+        console.log ("estoy aca " + this.state.documento)
+        return fetch('http://192.168.43.142:8080/myapp/Reclamos/Nombres?documento='+ this.state.documento)
+        .then(res =>  res.json()).then((json) => {
+            var j = JSON.stringify(json)
+            //console.log (j)
+            var k = JSON.parse(j)
+            //console.log (k)
+            for (var i in k) {
+                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
+                
+                var entry = k[i];
+                console.log (entry); 
+                if (k.hasOwnProperty(i)) {
+                this.setState({
+              //Setting the data source for the list to render
+                    hola: k
+              });
+                }}
+        this.setState({
+            refreshing: false,
+        });
+    }    
+        )
+    }
     pruebaNombre= () => {
         const nombre = this.state.nombre;
         this.ObtenerIdentificadoress(nombre);
@@ -177,15 +206,10 @@ export class DetallesReclamos extends Component {
                 onValueChange={(itemValue, itemIndex) =>
                     this.setState({ nombre: itemValue })
                 }>
-                <Picker.Item label="SLS Puerto Madero" value="SLS Puerto Madero" />
-                <Picker.Item label="The Link Towers" value="The Link Towers" />
-                <Picker.Item label="The Fire Place" value="The Fire Place" />
-                <Picker.Item label="Alvear Tower" value="Alvear Tower" />
-                <Picker.Item label="Dique Dos" value="Dique Dos" />
-                <Picker.Item label="Libertador Plaza" value="Libertador Plaza" />
-                <Picker.Item label="Chateau Libertador" value="Chateau Libertador" />
-                <Picker.Item label="The Tower" value="The Tower" />  
-                <Picker.Item label="Lizard Plaza" value="Lizard Plaza" />
+                    
+                    {this.state.hola.map(hola =>
+                    <Picker.Item label={hola.nombre} value={hola.nombre} key={hola.nombre} />
+                    )}
                 </Picker>
                 <TextInput
                 style={styles.inputs}
@@ -199,24 +223,18 @@ export class DetallesReclamos extends Component {
                 onValueChange={(itemValue, itemIndex) =>
                     this.setState({ ubicacion: itemValue })
                 }>
-                <Picker.Item label="Mogliani 425" value="Mogliani 425" />
-                <Picker.Item label="Arrayanes 1230" value="Arrayanes 1230" />
-                <Picker.Item label="Bombares 50" value="Bombares 50" />
-                <Picker.Item label="Alvear 100" value="Alvear 100" />
-                <Picker.Item label="Maquinista Savio 990" value="Maquinista Savio 990" />
-                <Picker.Item label="Libertador 5600" value="Libertador 5600" />
-                <Picker.Item label="Libertador 5400" value="Libertador 5400" />
-                <Picker.Item label="Parana 300" value="Parana 300" />  
-                <Picker.Item label="Av. Lizard 1000" value="Av. Lizard 1000" />
+                     {this.state.hola.map(hola =>
+                    <Picker.Item label={hola.ubicacion} value={hola.ubicacion} key={hola.ubicacion} />
+                )}
              </Picker>
-
              <Button 
-                mode="contained" 
-                color = '#d32f2f' 
-                onPress={this.pruebaNombre}
-            >
-                Obtener Piso/Codigo
-            </Button>
+                    mode="contained" 
+                    color = '#00CED1' 
+                    onPress={this.GetData}
+                >
+                    <Text style={{color: 'white'}}> Obtener Nombres/Ubicacion</Text>
+                </Button>
+            
              <TextInput
                 style={styles.inputs}
                 label='codigo'
@@ -225,7 +243,15 @@ export class DetallesReclamos extends Component {
               
                 value={this.state.codig && String (this.state.codig)}
              />
-              
+                 <TextInput
+                style={styles.inputs}
+                label='descripcion'
+                underlineColor = '#d32f2f'
+                selectionColor = '#d32f2f'
+                value={this.state.descripcion}
+                onChangeText={descripcion => this.setState({descripcion })}
+                keyboardType='default'
+            />
           
             <TextInput
                 style={styles.inputs}
@@ -243,21 +269,22 @@ export class DetallesReclamos extends Component {
                     <Picker.Item label={pisos.piso} value={pisos.piso} key={pisos.piso} />
                 )}
             </Picker>
-              <TextInput
-                style={styles.inputs}
-                label='descripcion'
-                underlineColor = '#d32f2f'
-                selectionColor = '#d32f2f'
-                value={this.state.descripcion}
-                onChangeText={descripcion => this.setState({descripcion })}
-                keyboardType='default'
-            />
             <Button 
                 mode="contained" 
-                color = '#d32f2f' 
+                color = '#00CED1' 
+                onPress={this.pruebaNombre}
+            >
+                
+                <Text style={{color: 'white'}}> Obtener Piso/Codigo</Text>
+            </Button>
+           
+            <Button 
+                mode="contained" 
+                color = '#00CED1' 
                 onPress={() => this.cargarReclamo()}
             >
-                Crear Nuevo Reclamo
+                
+                <Text style={{color: 'white'}}> Crear Reclamo Edificio</Text>
             </Button>
             <Snackbar
                 visible={this.state.mostrarMensaje}
@@ -279,7 +306,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        
+        backgroundColor: 'grey'
     },
     pickers: {
         height: 50,

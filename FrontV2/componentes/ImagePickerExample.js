@@ -129,14 +129,14 @@ handleUploadImage = () => {
         <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
                title = "Obtener IdReclamos"
                mode="contained" 
-               color = '#d32f2f' 
+               color = '#00CED1' 
                onPress = {this.prueba}
         />
 
     <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
                title = "Subir Imagen!"
                mode="contained" 
-               color = '#d32f2f' 
+               color = '#00CED1' 
                onPress = {this.onChang}
                
         />
@@ -144,7 +144,7 @@ handleUploadImage = () => {
         <Button
           title="Pick an image from camera roll"
           mode="contained" 
-          color = '#d32f2f' 
+          color = '#00CED1' 
           onPress={this._pickImage}
         />
         {image &&
@@ -189,7 +189,9 @@ const styles = StyleSheet.create({
   container: {
       flex: 1,
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      
+      backgroundColor: 'grey'
   },
   pickers: {
       height: 50,
