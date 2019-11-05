@@ -14,18 +14,22 @@ export class Login extends Component {
         mostrarMensaje: ''
     }*/
 
-    constructor(props){
+    /*constructor(props){
         super (props);
         this.state = 
         {
-            documento: '',
+            documento: this.props.navigation.getParam('documento'),
             password: ''
         }
-        
-    this.state = {identificadores: []}
+    }*/
+
+    state = 
+    {
+        documento: this.props.navigation.getParam('documento'),
+        password: ''
     }
     
-    GetData (documento)  {
+   /* GetData (documento)  {
         //Service to get the data from the server to render
              
         console.log ("estoy aca " + this.state.documento)
@@ -48,7 +52,7 @@ export class Login extends Component {
                 }}
     }    
         )
-    }
+    }*/
     getUsuarioValue(){
         return this.state.documento
     }
@@ -165,8 +169,8 @@ export class Login extends Component {
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
-                   // UserInfo.documento = documento;
-                   // UserInfo.password = password;
+                    UserInfo.documento = '';
+                    UserInfo.password = '';
                     
                 //console.log (UserInfo.documento);
                 //console.log (UserInfo.password);
