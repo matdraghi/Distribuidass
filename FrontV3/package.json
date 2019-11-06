@@ -15,6 +15,7 @@
     "expo-image-picker": "^7.0.0",
     "expo-multiple-imagepicker": "^1.0.6",
     "expo-permissions": "^7.0.0",
+    "ionicons": "^4.6.3",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
     "react-dom": "16.8.3",

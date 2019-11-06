@@ -4,7 +4,6 @@ import {createSwitchNavigator, createAppContainer } from 'react-navigation';
 import  {createStackNavigator} from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import Icon from 'react-native-vector-icons/Ionicons';
-
 import Login from './Login'
 import AltaReclamos from './AltaReclamo'
 import ReclamosEdificio from './ReclamosEdificio'
@@ -18,10 +17,11 @@ import Welcome from './Welcome'
 import ModalEx from './Modal'
 import { ScreenOrientation } from 'expo';
 import Registro from './Registro';
-const backgroundColor = '#42a5f5'
+const backgroundColor = '#ADD8E6'
 const headerTextColor = '#F8F8FF';
 
-
+//87CEFA
+//42a5f5
 
 
 ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.ALL);
@@ -60,7 +60,7 @@ const AltaReclamoStack = createStackNavigator({
 
 AltaReclamoStack.navigationOptions = {
     tabBarLabel: "Reclamos",
-    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+    tabBarIcon: ( <Icon name="md-create" size={20} /> )
 }
 
 const RefreshStack = createStackNavigator({
@@ -84,7 +84,7 @@ const RefreshStack = createStackNavigator({
 
 RefreshStack.navigationOptions = {
   tabBarLabel: "Consultar Reclamos",
-  tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+  tabBarIcon: ( <Icon name="md-book" size={20} /> )
 }
 
 const VerFotoStack = createStackNavigator({
@@ -108,7 +108,7 @@ const VerFotoStack = createStackNavigator({
 
 VerFotoStack.navigationOptions = {
   tabBarLabel: "Fotografia",
-  tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+  tabBarIcon: ( <Icon name="md-image" size={20} /> )
 }
 
 const ReclamosEdificioStack = createStackNavigator({
@@ -130,7 +130,7 @@ const ReclamosEdificioStack = createStackNavigator({
 
 ReclamosEdificioStack.navigationOptions = {
     tabBarLabel: "Reclamos Edificio",
-    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+    tabBarIcon: ( <Icon name="md-create" size={20} /> )
 }
 const UsuarioStack = createStackNavigator({
     Usuario: {
@@ -223,7 +223,7 @@ const ElegirImagenStack =  createStackNavigator({
 
 ElegirImagenStack.navigationOptions = {
     tabBarLabel: "Seleccionar Una Imagen",
-    tabBarIcon: ( <Icon name="md-nutrition" size={20} /> )
+    tabBarIcon: ( <Icon name="md-cloud-upload" size={20} /> )
 }
 
 

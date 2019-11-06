@@ -1,5 +1,5 @@
 import  React, { Component } from 'react';
-import { Button, Image, View, StyleSheet, Picker, ScrollView, KeyboardAvoidingView } from 'react-native';
+import { Button, Image, View, StyleSheet, Picker, ScrollView, KeyboardAvoidingView, Text, TouchableOpacity} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { TextInput, ActivityIndicator, Snackbar, TouchableWithoutFeedback } from 'react-native-paper'
 import Constants from 'expo-constants';
@@ -126,27 +126,30 @@ handleUploadImage = () => {
             <Picker.Item label={identificadores.idRe} value={identificadores.idRe} key={identificadores.idRe} />
                     )}
         </Picker>
-        <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
-               title = "Obtener IdReclamos"
-               mode="contained" 
-               color = '#00CED1' 
-               onPress = {this.prueba}
-        />
+        <TouchableOpacity onPress={() => {
+          this.prueba();
+        }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}>Obtener Id Reclamoss</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          this.onChang();
+        }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}>Subir Imagen</Text>
+          </View>
+        </TouchableOpacity>
 
-    <Button variant="secondary" style={{display: 'flex', justifyContent: 'Left'}} className="right" type="reset" 
-               title = "Subir Imagen!"
-               mode="contained" 
-               color = '#00CED1' 
-               onPress = {this.onChang}
-               
-        />
 
-        <Button
-          title="Pick an image from camera roll"
-          mode="contained" 
-          color = '#00CED1' 
-          onPress={this._pickImage}
-        />
+
+        <TouchableOpacity onPress={() => {
+          this._pickImage();
+        }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}>Elegir Imagen</Text>
+          </View>
+        </TouchableOpacity>
         {image &&
           <Image source={{ uri: image }} style={{ width: 400, height: 400 }} />}
         </ScrollView>
@@ -188,9 +191,6 @@ handleUploadImage = () => {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      
       backgroundColor: 'grey'
   },
   pickers: {
@@ -201,6 +201,17 @@ const styles = StyleSheet.create({
       width: '90%',
       height: 50,
       marginBottom: 5
+  },
+  button: {
+    margin: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 5,
+    backgroundColor: "#ADD8E6",
+  },
+  text: {
+    color: '#fff',
+    fontSize: 15
   }
 })
 

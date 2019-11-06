@@ -24,7 +24,8 @@ export class AltaReclamo extends Component {
             descripcion: this.props.navigation.getParam('descripcion'),
             identificadores: [],
             hola: [],
-            showAlert: false 
+            showAlert: false,
+            IDreclamo: '',
 
         }
 
@@ -117,30 +118,15 @@ export class AltaReclamo extends Component {
             .then(res =>  res.json()).then((json) => {
                 console.log (json)
                 if (json == true) {
-                    alert ("es inquilino y esta alquilando esa unidad / O es duenio de la unidad")
+                    
                                 
                     this.QueIdReclamo(documento, nombre, descripcion, piso)
-                    //this.handleSuccessfulReclamo();
-                    this.props.navigation.navigate('ModalEx')
+                    this.UstedEs();
                    
                 } 
                  else if (json == false || json == null) {
-                    
-                    Alert.alert(
-                        'Usted no se encuentra Autorizado dado que no es el duenio del identificador ingresado',
-                        'Por Favor Dirijase a la siguiente ventana',
-                        [
-                          {text: 'Ask me later', onPress: () =>  console.log ("IdReclamo..."+ json )},
-                          {
-                            text: 'Cancel',
-                            onPress: () => console.log('Cancel Pressed'),
-                            style: 'cancel',
-                          },
-                          {text: 'OK', onPress: () => console.log('OK Pressed')},
-                        ],
-                        {cancelable: false},
-                      );
-                        this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
+                        this.NoAutorizado()             
+                       //this.props.navigation.navigate('ReclamosEdificio', { documento: this.state.documento })
             }
 
             AltaInfo.nombre = nombre;
@@ -200,6 +186,17 @@ export class AltaReclamo extends Component {
         this.props.navigation.navigate('ConsultarReclamos', { documento: this.state.documento })
     }
 
+    MostarId = () => {
+        this.mostrarMensaje("Su numero de Reclamo es : " + this.state.IDreclamo)
+    }
+
+    UstedEs = () => {
+        this.mostrarMensaje("Usted es inquilino o duenio de una unidad" + this.state.documento)
+    }
+
+    NoAutorizado = () => {
+        this.mostrarMensaje("Usted NO se encuentra autorizado a realizar dicha accion ")
+    }
     mostrarMensaje = (mensaje) => {
         this.setState({
             mensaje: mensaje,
@@ -247,8 +244,10 @@ export class AltaReclamo extends Component {
 
         fetch(url)
         .then((response) => response.json()).then((json) => {
-          alert ("IdReclamo..."+ json );
-             
+          //alert ("IdReclamo..."+ json );
+          this.setState({
+            IDreclamo: json,
+          });
             }
            
         )
@@ -411,7 +410,6 @@ export class AltaReclamo extends Component {
             <Text style={{color: 'white'}} style={styles.text}> Crear Alta Reclamo</Text>
           </View>
         </TouchableOpacity>
- 
         <AwesomeAlert
           show={showAlert}
           showProgress={false}
@@ -431,7 +429,15 @@ export class AltaReclamo extends Component {
             this.hideAlert();
           }}
         />
-
+    
+      
+    <TouchableOpacity onPress={() => {
+          this.MostarId();
+        }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}> IdReclamo Generado?</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => {
           this.camara();
         }}>

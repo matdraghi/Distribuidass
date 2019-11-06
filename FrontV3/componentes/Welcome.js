@@ -20,7 +20,7 @@ export  class Welcome extends Component{
                      this.Registro();
                 }}>
                 <View style={styles.button}>
-            <Text style={{color: 'white'}} style={styles.text}> Registro </Text>
+            <Text style={{color: 'white'}} style={styles.text}> Registrarse </Text>
              </View>
              </TouchableOpacity>
                 <TouchableOpacity onPress={() => {

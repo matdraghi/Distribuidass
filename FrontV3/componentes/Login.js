@@ -225,8 +225,10 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     input: {
-        height: 50, //comment this out and TextInput wont work (some cases the grey background wont be there)
-        width: 250,
+        
+      width: 250,
+      height: 50,
+      marginBottom: 5,
         background: 'grey'
     },
     buttons: {
