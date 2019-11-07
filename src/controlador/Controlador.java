@@ -540,21 +540,20 @@ public class Controlador {
 		return resultado;
 	}
 	
-	public String ObtenerImag (int IdReclamo) throws ImagenException {
-		Imagen i = ImagenDAO.getInstancia().findByID(IdReclamo);
-		if (i != null) {
-			System.out.println("PATH: " + i.getPath());
+	public List<Imagen> ObtenerImag (int IdReclamo) throws ImagenException {
+		List<Imagen> resultado = new ArrayList<Imagen>();
+		resultado  = ImagenDAO.getInstancia().findByID(IdReclamo);
+		for (Imagen p: resultado) {
+			System.out.println("PATH: " + p.getPath());
 
-			System.out.println("File: " + i.getFile());
+			System.out.println("File: " + p.getFile());
 			
 
-			System.out.println("Tipo: " + i.getTipo());
+			System.out.println("Tipo: " + p.getTipo());
 			
 		}
 		
-		String File = i.getPath() + i.getFile();
-		System.out.println (File);
-		return File;
+		return resultado;
 	}
 	
 	public List<Identificadores> pisos (int codigo, String documento) throws PersonaException, EdificioException, UnidadException {

@@ -41,20 +41,16 @@ public class ImagenDAO {
 			return resultado;
 		}
 
-		public Imagen findByID(int IdReclamo) throws ImagenException {
-			Imagen resultado = null;
+		public List<Imagen> findByID(int IdReclamo) throws ImagenException {
+			List<Imagen> resultado = new ArrayList<Imagen>();
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session s = sf.getCurrentSession();
 			s.beginTransaction();
-			ImagenesEntity i = (ImagenesEntity) s.createQuery("FROM ImagenesEntity where IdReclamo = ?").setInteger(0, IdReclamo).uniqueResult();
+			List<ImagenesEntity> r =   s.createQuery("from ImagenesEntity where IdReclamo= ?").setInteger(0, IdReclamo).list();
+			for(ImagenesEntity p : r)
+				resultado.add(toNegocio(p));
 			s.getTransaction().commit();
-			if(i != null) {
-				resultado = toNegocio(i);
-				return resultado;
-			}
-			else
-				throw new ImagenException("No existe un reclamo con el documento ingresado y detallado a continuacion:" + IdReclamo);
-				
+			return resultado;
 		}
 		
 		public Imagen findByNumero(int numero) throws ImagenException {
