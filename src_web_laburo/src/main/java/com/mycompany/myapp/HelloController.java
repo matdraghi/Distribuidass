@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletContext;  
 import javax.servlet.http.HttpServletRequest;  
@@ -116,7 +117,6 @@ public class HelloController {
     		response = new ResponseEntity<String>(mapper.toJson(C), HttpStatus.CREATED);
     		return response;
 }
-    
     @RequestMapping(value="/savefilee",method=RequestMethod.GET)  
     public ResponseEntity<String> upload(@RequestParam (value="file", required = true) String file, HttpSession session) throws ReclamoException, ImagenException{  
     	
@@ -193,6 +193,90 @@ public class HelloController {
             return response;  
         }  
     
+    /*
+    @RequestMapping(value="/savefilee",method=RequestMethod.GET)  
+    public ResponseEntity<String> upload(@RequestParam (value="file", required = true) String file, HttpSession session) throws ReclamoException, ImagenException{  
+    	
+	    	ResponseEntity<String> response = null;
+			JsonMapper mapper = new JsonMapper();
+			String C = file;
+			System.out.println("File: " + C);
+			System.out.println (C.length() - 40);
+			String filee;
+			
+			filee = C.substring(C.length()-40);
+			System.out.println(filee);
+			String path = C.substring(0, C.length() - 52) + "Camera/";
+			String tipo = C.substring(C.length() - 4); 
+			System.out.println ("Tipo: " + tipo);
+			System.out.println ("Path: " + path);
+			System.out.println("file " + filee);
+			
+
+            //System.out.println("IdRe: " +IdReclamo);
+            //System.out.println("PATH: " +path);
+            //System.out.println("TIPO: " +filetype); // Me devuelve que tipo de imagen tengo
+            /*
+            try {
+				ReclamosDAO.getInstancia().findByIDReclamo(IdReclamo);
+			} catch (ReclamoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (PersonaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}/PONER EL CIERRE DEL COMENTARIO ACA!!
+
+            System.out.println("Direccion en la Pc" + path+" "+filee + " "); 
+            int J = Controlador.getInstancia().CargarImagen(path, tipo, filee);
+           
+            System.out.println (mapper.toJson(J));
+            response = new ResponseEntity<String>(mapper.toJson(J), HttpStatus.CREATED) ;
+            return response;  
+        }  
+    
+    @RequestMapping(value="/savefileee",method=RequestMethod.GET)  
+    public ResponseEntity<String> uploadd(@RequestParam (value="file", required = true) String file, HttpSession session) throws ReclamoException, ImagenException{  
+    	
+	    	ResponseEntity<String> response = null;
+			JsonMapper mapper = new JsonMapper();
+			String C = file;
+			System.out.println(C);
+			System.out.println (C.length() - 40);
+			String filee;
+			filee = C.substring(C.length()-40);
+			System.out.println (filee);
+			String path = C.substring(0, C.length() - 40);
+			System.out.println(path);
+			String tipo = C.substring(C.length() - 4); 
+			System.out.println ("Tipo: " + tipo);
+			System.out.println ("Path: " + path);
+			System.out.println("file " + filee);
+			
+
+            //System.out.println("IdRe: " +IdReclamo);
+            //System.out.println("PATH: " +path);
+            //System.out.println("TIPO: " +filetype); // Me devuelve que tipo de imagen tengo
+            /*
+            try {
+				ReclamosDAO.getInstancia().findByIDReclamo(IdReclamo);
+			} catch (ReclamoException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (PersonaException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}/ PONER EL CIERRE DEL COMENTARIO ACA!!
+
+            System.out.println("Direccion en la Pc" + path+" "+filee + " "); 
+            int J = Controlador.getInstancia().CargarImagen(path, tipo, filee);
+           
+            System.out.println (mapper.toJson(J));
+            response = new ResponseEntity<String>(mapper.toJson(J), HttpStatus.CREATED) ;
+            return response;  
+        }  
+        */
+    
     
     @RequestMapping(value="/ObtenerImagen",method=RequestMethod.GET)  
     public ResponseEntity<String> upload(@RequestParam (value="IdReclamo", required = true) int IdReclamo, HttpSession session) throws ReclamoException, ImagenException{  
@@ -202,7 +286,7 @@ public class HelloController {
 			int C = IdReclamo;
 			System.out.println (C);
 			
-			String archivo = Controlador.getInstancia().ObtenerImag(IdReclamo);
+			List<Imagen> archivo = Controlador.getInstancia().ObtenerImag(IdReclamo);
 
             System.out.println (mapper.toJson(archivo));
             response = new ResponseEntity<String>(mapper.toJson(archivo), HttpStatus.CREATED) ;
