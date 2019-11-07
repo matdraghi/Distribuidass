@@ -14,7 +14,8 @@ export class VerFoto extends Component {
         idReclamo: "",
         mostrarMensaje: false,
         imagen : null,
-        uri: ''
+        uri: '',
+        Imagenes: []
     }
 
 
@@ -64,11 +65,11 @@ BuscarFoto = () => {
     .then((response) => response.json()).then((json) => {
     
     
-      alert ("im " + json)
+      //alert ("im " + json)
       this.setState({
-          imagen : json,
+          Imagenes : json,
       })
-      console.log (imagen)
+      console.log (Imagenes)
         }
        
     )
@@ -118,11 +119,13 @@ BuscarFoto = () => {
             <Text style={{color: 'white'}} style={styles.text}> Ver Foto </Text>
              </View>
              </TouchableOpacity>
+             {this.state.Imagenes.map(Imagenes =>
              <Image 
                     resizeMode="cover"
                     style={{height: 300, width: 300}}
-                    source={{uri: this.state.imagen}}
+                    source={{uri: Imagenes.path + Imagenes.file}}
                 />
+             )}
                  </ScrollView>
         </KeyboardAvoidingView>
            

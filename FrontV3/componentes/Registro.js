@@ -21,11 +21,11 @@ export class Registro extends Component {
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
-                    alert ("Usuario con Documento : " + this.state.documento + " Ha sido creado con exito");
+                    alert ("Usuario con Documento: " + this.state.documento + " Ha sido creado con exito");
                     this.props.navigation.navigate('Login', { documento: this.state.documento })
                 }
                 else if (json === false){
-                    alert ("Usuario ya existe como registrado en la BD!!!!");
+                    alert ("Ya existe  un usuario como registrado con el documento: " + this.state.documento);
                     this.props.navigation.navigate('Login', { documento: this.state.documento })
                 }
             }
@@ -44,7 +44,7 @@ export class Registro extends Component {
              
                 <TextInput
                     style={styles.input}
-                    label='documento'
+                    label='Tipo + Nro Documento'
                     underlineColor = '#d32f2f'
                     selectionColor = '#d32f2f'
                     value={this.state.documento}

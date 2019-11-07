@@ -19,6 +19,11 @@ export class ImagePickerExample extends Component {
   };
 
       
+  camara = () => {
+    this.props.navigation.navigate('Camara', {receivedValue: this.receivedValue});
+    
+    console.log (this.state.uri)
+}
   prueba = () => {
     
     const documento = this.state.documento;
@@ -148,6 +153,13 @@ handleUploadImage = () => {
         }}>
           <View style={styles.button}>
             <Text style={{color: 'white'}} style={styles.text}>Elegir Imagen</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {
+          this.camara();
+        }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}>Abrir Camara</Text>
           </View>
         </TouchableOpacity>
         {image &&

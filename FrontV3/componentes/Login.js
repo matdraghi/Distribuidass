@@ -53,6 +53,8 @@ export class Login extends Component {
     }    
         )
     }*/
+
+    
     getUsuarioValue(){
         return this.state.documento
     }
@@ -107,7 +109,7 @@ export class Login extends Component {
             <Image style={ styles.bgImage } source={require('../assets/Logo2.jpeg') } />
                 <TextInput
                     style={styles.input}
-                    label='documento'
+                    label='Tipo + Nro Documento'
                     underlineColor = '#d32f2f'
                     selectionColor = '#d32f2f'
                     value={this.state.documento}
