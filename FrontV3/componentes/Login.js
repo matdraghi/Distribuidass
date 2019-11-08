@@ -27,32 +27,7 @@ export class Login extends Component {
     {
         documento: this.props.navigation.getParam('documento'),
         password: ''
-    }
-    
-   /* GetData (documento)  {
-        //Service to get the data from the server to render
-             
-        console.log ("estoy aca " + this.state.documento)
-        return fetch('http://192.168.43.142:8080/myapp/Reclamos/Nombres?documento='+ this.state.documento)
-        .then(res =>  res.json()).then((json) => {
-            var j = JSON.stringify(json)
-            //console.log (j)
-            var k = JSON.parse(j)
-            //console.log (k)
-            for (var i in k) {
-                // obj.hasOwnProperty() is used to filter out properties from the object's prototype chain
-                
-                var entry = k[i];
-                console.log (entry); 
-                if (k.hasOwnProperty(i)) {
-                this.setState({
-              //Setting the data source for the list to render
-                    identificadores: k
-              });
-                }}
-    }    
-        )
-    }*/
+    }   
 
     
     getUsuarioValue(){

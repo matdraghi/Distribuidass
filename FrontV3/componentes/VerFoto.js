@@ -107,7 +107,7 @@ BuscarFoto = () => {
                      this.prueba();
                 }}>
                 <View style={styles.button}>
-            <Text style={{color: 'white'}} style={styles.text}> Obtener IdReclamoss </Text>
+            <Text style={{color: 'white'}} style={styles.text}> Obtener ID Reclamos </Text>
              </View>
              </TouchableOpacity>
              
@@ -116,13 +116,13 @@ BuscarFoto = () => {
                      this.BuscarFoto();
                 }}>
                 <View style={styles.button}>
-            <Text style={{color: 'white'}} style={styles.text}> Ver Foto </Text>
+            <Text style={{color: 'white'}} style={styles.text}> Ver Foto/s </Text>
              </View>
              </TouchableOpacity>
              {this.state.Imagenes.map(Imagenes =>
              <Image 
                     resizeMode="cover"
-                    style={{height: 300, width: 300}}
+                    style={{height: 300, width: 300, margin: 10}}
                     source={{uri: Imagenes.path + Imagenes.file}}
                 />
              )}

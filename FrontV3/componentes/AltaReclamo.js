@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Picker, ScrollView, Alert,Text, KeyboardAvoidingView, AsyncStorage, Modal, TouchableOpacity} from 'react-native'
+import { RefreshControl, View, StyleSheet, Picker, ScrollView, Alert,Text, KeyboardAvoidingView, AsyncStorage, Modal, TouchableOpacity} from 'react-native'
 import { TextInput, Button, ActivityIndicator, Snackbar, TouchableWithoutFeedback } from 'react-native-paper'
 import { trackPromise } from "react-promise-tracker";
 import SmallLoading from './SmallLoading'
@@ -26,6 +26,7 @@ export class AltaReclamo extends Component {
             hola: [],
             showAlert: false,
             IDreclamo: '',
+            refreshing: false,
 
         }
 
@@ -58,6 +59,20 @@ export class AltaReclamo extends Component {
             this.setState({
               showAlert: false
             });
+          };
+
+          onRefresh = () => {
+            this.setState({ refreshing: true,
+                            nombre: '',
+                            ubicacion: '',
+                            descripcion: '',
+                             identificador: '',
+                             piso: '',
+                            codig: '' });
+            // In actual case set refreshing to false when whatever is being refreshed is done!
+            setTimeout(() => {
+              this.setState({ refreshing: false });
+            }, 2000);
           };
     receivedValue = (uri) => {
         this.setState({uri})
@@ -285,7 +300,16 @@ export class AltaReclamo extends Component {
     }
     
     
+    LimpiarInfo = async () =>{
+        await AsyncStorage.removeItem("nombre")
+        await AsyncStorage.removeItem("ubicacion")     
+        await AsyncStorage.removeItem("descripcion")
+        await AsyncStorage.removeItem("piso")
+        await AsyncStorage.removeItem("identificador")
+        await AsyncStorage.removeItem("codigo")
 
+        this.mostrarMensaje("Los Datos Han sido Borrados, hacer Refresh de la pagina! ")
+    }
   
     render() {
         const {showAlert} = this.state;
@@ -293,7 +317,13 @@ export class AltaReclamo extends Component {
             <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
                 <View style={{ alignItems: 'center', flexDirection: 'row' }}>
                 </View>
-                <ScrollView>
+                 <ScrollView
+                refreshControl={
+                <RefreshControl
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.onRefresh}
+                />
+                }>
                 <TextInput
                 style={styles.inputs}
                 label='documento'
@@ -446,6 +476,14 @@ export class AltaReclamo extends Component {
           </View>
         </TouchableOpacity>
 
+        
+        <TouchableOpacity onPress={() => {
+                        this.LimpiarInfo();
+                    }}>
+          <View style={styles.button}>
+            <Text style={{color: 'white'}} style={styles.text}>Limpiar Informacion</Text>
+          </View>
+             </TouchableOpacity>
 
                 <Snackbar
                     visible={this.state.mostrarMensaje}

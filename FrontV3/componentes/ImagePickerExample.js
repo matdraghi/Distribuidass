@@ -65,7 +65,7 @@ ObtenerIdentificadores(documento) {
     fetch(url)
     .then((response) => response.json()).then((json) => {
       
-        alert ("Asociando IdReclamo")
+        //alert ("Asociando IdReclamo")
         
         }
     )
@@ -88,9 +88,9 @@ onChang = () => {
     });
         
 
-    alert ("numero"+ this.state.numero);
+    //alert ("numero"+ this.state.numero);
     var n = this.state.numero;
-    alert ("!" + n)
+    //alert ("!" + n)
     this.state.uri = json;
     this.AsociarIdReclamo(n, id)
     //alert (this.state.uri)
@@ -102,7 +102,7 @@ onChang = () => {
 
  
 handleUploadImage = () => {
-  alert("Tu archivo ha sido subido con exito!");
+  alert("Tu foto ha sido subida con exito!");
   
 }
   render() {
@@ -135,7 +135,7 @@ handleUploadImage = () => {
           this.prueba();
         }}>
           <View style={styles.button}>
-            <Text style={{color: 'white'}} style={styles.text}>Obtener Id Reclamoss</Text>
+            <Text style={{color: 'white'}} style={styles.text}>Obtener ID Reclamos</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {
