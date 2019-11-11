@@ -66,10 +66,9 @@ export class AltaReclamo extends Component {
                             nombre: '',
                             ubicacion: '',
                             descripcion: '',
-                             identificador: '',
-                             piso: '',
+                            identificador: '',
+                            piso: '',
                             codig: '' });
-            // In actual case set refreshing to false when whatever is being refreshed is done!
             setTimeout(() => {
               this.setState({ refreshing: false });
             }, 2000);
@@ -481,9 +480,9 @@ export class AltaReclamo extends Component {
                         this.LimpiarInfo();
                     }}>
           <View style={styles.button}>
-            <Text style={{color: 'white'}} style={styles.text}>Limpiar Informacion</Text>
+            <Text style={{color: 'white'}} style={styles.text}>Limpiar Informacion?</Text>
           </View>
-             </TouchableOpacity>
+        </TouchableOpacity>
 
                 <Snackbar
                     visible={this.state.mostrarMensaje}

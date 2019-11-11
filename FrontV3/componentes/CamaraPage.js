@@ -7,8 +7,6 @@ import {ImagePicker} from 'expo-image-picker';
 import styles from './styles'
 import { withNavigationFocus } from "react-navigation";
 
-import { showMessage, hideMessage } from "react-native-flash-message";
-
 
 class CamaraPage extends React.Component {
   state = {
