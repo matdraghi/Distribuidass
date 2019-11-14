@@ -104,8 +104,7 @@ const styles = StyleSheet.create({
         
       width: 250,
       height: 50,
-      marginBottom: 5,
-        background: 'grey'
+      marginBottom: 5
     },
     buttons: {
         width: '45%',

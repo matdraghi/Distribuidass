@@ -36,8 +36,11 @@ export class Login extends Component {
     autenticar = () => {
         const documento = this.state.documento
         const password = this.state.password
-        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
-        fetch(url)
+        const url = 'http://192.168.43.142:8080/myapp/Login';
+        fetch(url, {  
+            method: 'post',
+            body: documento, password
+    })
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
@@ -137,8 +140,10 @@ export class Login extends Component {
     _login = async() => {
         const documento = this.state.documento;
         const password = this.state.password;
-        const url = 'http://192.168.43.142:8080/myapp/Login?documento=' + documento + '&password=' + password;
-        fetch(url)
+        const url = 'http://192.168.43.142:8080/myapp/Login';
+        fetch(url, {  method: 'post',
+        body: documento, password
+    })
             .then((res) => res.json()).then((json) => {
                 console.log (json)
                 if (json === true) {
@@ -206,7 +211,6 @@ const styles = StyleSheet.create({
       width: 250,
       height: 50,
       marginBottom: 5,
-        background: 'grey'
     },
     buttons: {
         width: '45%',
